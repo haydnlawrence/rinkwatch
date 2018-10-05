@@ -82,7 +82,7 @@
 </div>
 
 <script>
-
+  console.log("***START OF PROGRAM***")
   //********************************************************************
 
   var clientID = 'Stt0Oob148w8o486';
@@ -114,7 +114,7 @@
       username = response.user.username;
       firstname = response.user.firstName
       email = response.user.email
-      authPane.innerHTML = '<label>Hello ' + firstname + ' </label>';
+      authPane.innerHTML = '<label>Hello ' + firstname + '.</label>';
       console.log(response.user);
       console.log('token: ' + token);
     });
@@ -152,6 +152,9 @@
   var rinks_layer = L.esri.featureLayer({
     url: rinks_url,
     onEachFeature: function(feature, layer){
+
+console.log(feature);
+
       L.esri.query({
         url: readings_url,
       }).where("Creator='" + feature.properties.Creator + "'").orderBy("CreationDate", "ASC").run(function(error, featureCollection){
@@ -181,15 +184,28 @@
           }); // END $.each
         } // END if(featureCollection)
 
-        var popupContent = L.Util.template(
-            'Rink: {rink_name} <br />' + 
-            'Description: {rink_desc} <br />' + 
-            'Creator: {Creator} <br />' + 
-            'Last update: ' + skateable + ' on ' + reading_date + ' <br />' + 
-            '<img src="' + rinks_url + '/{ObjectId}/attachments/{ObjectId}" style="width:200px;"> <br />' +
-            'Readings: ' + readings
-        , feature.properties);
-        layer.bindPopup(popupContent);
+        if(feature.properties.Creation = username){ // This is the user's rink
+          var popupContent = L.Util.template(
+              'Rink: {rink_name} <br />' + 
+              'Description: {rink_desc} <br />' + 
+              'Creator: {Creator} <br />' + 
+              'Last update: ' + skateable + ' on ' + reading_date + ' <br />' + 
+              '<img src="' + rinks_url + '/{ObjectId}/attachments/{ObjectId}" style="width:200px;"> <br />' +
+              'Readings: ' + readings
+          , feature.properties);
+          layer.bindPopup(popupContent);
+          map.setView([feature.properties.lat, feature.properties.lon], 15);
+        } else {
+          var popupContent = L.Util.template(
+              'Rink: {rink_name} <br />' + 
+              'Description: {rink_desc} <br />' + 
+              'Creator: {Creator} <br />' + 
+              'Last update: ' + skateable + ' on ' + reading_date + ' <br />' + 
+              '<img src="' + rinks_url + '/{ObjectId}/attachments/{ObjectId}" style="width:200px;"> <br />' +
+              'Readings: ' + readings
+          , feature.properties);
+          layer.bindPopup(popupContent);
+        }
       }); // END query.where.orderBy.run
     }, // END onEachFeature
 
