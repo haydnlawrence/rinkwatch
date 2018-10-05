@@ -3,10 +3,6 @@
 <head></head>
 <body>
   <script>
-
-  console.log(window.location.hash)
-  console.log(window.opener.parent)
-
   var match;
   if(window.location.hash && (match=window.location.hash.match(/#access_token=([^&]+)/))) {
     if(window.opener && window.opener.parent) {
