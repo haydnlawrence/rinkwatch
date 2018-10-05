@@ -109,7 +109,8 @@
     L.esri.get('https://www.arcgis.com/sharing/rest/portals/self', {
       token: token
     }, function(error, response){
-      authPane.innerHTML = '<label>Hi '+response.user.username+' your token is <input value="'+token+'"></label>';
+      console.log('username: ' + response.user.username);
+      console.log('token' + token);
     });
   };
 
@@ -153,9 +154,7 @@
         if(featureCollection){
           feature_count = featureCollection.features.length; // get the number of records
           $.each(featureCollection.features, function(i, v) { // loop around each reading for this user
-            
-            console.log(featureCollection.features);
-            
+
             counter++; // this is used to determine when we have the last record (i.e. the most recent one)
             reading_date = new Date(v.properties.CreationDate);
             readings.push(parseInt(v.properties.reading_conditions.substr(6,1))); // put all data for the chart in the popup box
@@ -175,8 +174,6 @@
             } // END if(counter >= feature_count)
           }); // END $.each
         } // END if(featureCollection)
-
-        console.log(readings)
 
         var popupContent = L.Util.template(
             'Rink: {rink_name} <br />' + 
