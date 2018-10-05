@@ -94,7 +94,7 @@
   var authPane = document.getElementById('auth');
   var signInButton = document.getElementById('sign-in');
 
-  var token, username, firstname, email;
+  var token, username = '', firstname = '', email = '';
   
   // this function will open a window and start the oauth process
   function oauth(callback) {
@@ -184,6 +184,8 @@ console.log(feature);
           }); // END $.each
         } // END if(featureCollection)
 
+        console.log("-->" + feature.properties.Creator)
+        console.log("-->" + feature.geometry)
         if(feature.properties.Creator == username){ // This is the user's rink
           var popupContent = L.Util.template(
               'Rink: {rink_name} <br />' + 
