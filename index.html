@@ -94,6 +94,9 @@
   var authPane = document.getElementById('auth');
   var signInButton = document.getElementById('sign-in');
 
+  var token;
+  var username;
+
   // this function will open a window and start the oauth process
   function oauth(callback) {
     if(accessToken){
@@ -109,8 +112,10 @@
     L.esri.get('https://www.arcgis.com/sharing/rest/portals/self', {
       token: token
     }, function(error, response){
-      console.log('username: ' + response.user.username);
-      console.log('token' + token);
+      username = response.user.username;
+      authPane.innerHTML = '<label>Hello ' + username + ' </label>';
+      console.log(response.user);
+      console.log('token: ' + token);
     });
   };
 
