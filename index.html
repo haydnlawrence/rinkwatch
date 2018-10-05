@@ -18,25 +18,217 @@
     integrity="sha512-YZ6b5bXRVwipfqul5krehD9qlbJzc6KOGXYsDjU9HHXW2gK57xmWl2gU6nAegiErAqFXhygKIsWPKbjLPXVb2g=="
     crossorigin=""></script>
 
+    <script src="http://www.chartjs.org/dist/2.7.2/Chart.js"></script>
+
+    <script
+    src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
+    crossorigin="anonymous"></script>
 
   <style>
     body { margin:0; padding:0; }
     #map { position: absolute; top:0; bottom:0; right:0; left:0; }
+
+    #basemaps-wrapper {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 10000;
+      background: white;
+      padding: 10px;
+    }
+    #basemaps {
+      margin-bottom: 5px;
+    }
+
+    #auth {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 1000;
+    background: white;
+    padding: 1em;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.65);
+    border-radius: 4px;
+  }
+
+  #auth input {
+    display: inline-block;
+    border: 1px solid #999;
+    font-size: 14px;
+    border-radius: 4px;
+    height: 28px;
+    line-height: 28px;
+  }
   </style>
 </head>
 <body>
 
 <div id="map"></div>
 
+<div id="basemaps-wrapper" class="leaflet-bar">
+
+<a href="#" id="sign-in">Sign In</a>
+
+  <select name="basemaps" id="basemaps">
+    <option value="Topographic">Topographic<options>
+    <option value="Streets">Streets</option>
+    <option value="NationalGeographic">National Geographic<options>
+    <option value="Oceans">Oceans<options>
+    <option value="Gray">Gray<options>
+    <option value="DarkGray">Dark Gray<options>
+    <option value="Imagery">Imagery<options>
+    <option value="ShadedRelief">Shaded Relief<options>
+  </select>
+</div>
+
 <script>
-  var map = L.map('map').setView([43.4508, -80.4888], 13);
 
-  L.esri.basemapLayer('Streets').addTo(map);
+  //********************************************************************
 
-  // a Leaflet marker is used by default to symbolize point features.
-  L.esri.featureLayer({
-    url: 'https://services1.arcgis.com/OAsihu89uae6w8NX/arcgis/rest/services/survey123_47bbdd102ad44affb7a5835f9fb4085e/FeatureServer'
+  var clientID = 'Stt0Oob148w8o486';
+  var accessToken;
+  var callbacks = [];
+  var protocol = window.location.protocol;
+  var callbackPage = 'urn:ietf:wg:oauth:2.0:oob';
+
+  var authPane = document.getElementById('auth');
+  var signInButton = document.getElementById('sign-in');
+
+  // this function will open a window and start the oauth process
+  function oauth(callback) {
+    if(accessToken){
+      callback(accessToken);
+    } else {
+      callbacks.push(callback);
+      window.open('https://www.arcgis.com/sharing/rest/oauth2/authorize?client_id=' + clientID + '&redirect_uri=' + callbackPage + '&response_type=code');
+    }
+  }
+
+  // this function will be called when the oauth process is complete
+  window.oauthCallback = function(token) {
+    L.esri.get('https://www.arcgis.com/sharing/rest/portals/self', {
+      token: token
+    }, function(error, response){
+      authPane.innerHTML = '<label>Hi '+response.user.username+' your token is <input value="'+token+'"></label>';
+    });
+  };
+
+  signInButton.addEventListener('click', function(e){
+    oauth();
+    e.preventDefault();
+  });
+
+  //********************************************************************
+
+
+  var rinks_url = 'https://services1.arcgis.com/OAsihu89uae6w8NX/arcgis/rest/services/survey123_47bbdd102ad44affb7a5835f9fb4085e/FeatureServer/0';
+  var readings_url = 'https://services1.arcgis.com/OAsihu89uae6w8NX/arcgis/rest/services/survey123_7c2f405456dc409db2bab56bd2059e26/FeatureServer/0';
+
+  var map = L.map('map').setView([43.4508, -80.4888], 12);
+
+  var now = new Date();
+  var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+  var icon_notskateable = L.icon({
+    iconUrl: 'images/icon_rink_notskateable.png',
+    iconSize: [50,50]
+  });
+  var icon_skateable = L.icon({
+    iconUrl: 'images/icon_rink_skateable.png',
+    iconSize: [50,50]
+  });
+  var icon_rink_marker = L.icon({
+    iconUrl: 'images/icon_rink_marker.png',
+    iconSize: [50,50]
+  });
+
+  var rinks_layer = L.esri.featureLayer({
+    url: rinks_url,
+    onEachFeature: function(feature, layer){
+      L.esri.query({
+        url: readings_url,
+      }).where("Creator='" + feature.properties.Creator + "'").orderBy("CreationDate", "ASC").run(function(error, featureCollection){
+        
+        var skateable, reading_date, counter = 0, readings = [];
+        if(featureCollection){
+          feature_count = featureCollection.features.length; // get the number of records
+          $.each(featureCollection.features, function(i, v) { // loop around each reading for this user
+            
+            console.log(featureCollection.features);
+            
+            counter++; // this is used to determine when we have the last record (i.e. the most recent one)
+            reading_date = new Date(v.properties.CreationDate);
+            readings.push(parseInt(v.properties.reading_conditions.substr(6,1))); // put all data for the chart in the popup box
+
+            if(counter >= feature_count){ // this will activate for the last record in the list of readings ordered by date ASC
+              if(v.properties.reading_skateable == "choice0"){  
+                skateable = 'Not Skateable';
+                if(today < reading_date){ // if it's a reading from today, change the marker
+                  layer.setIcon(icon_notskateable);
+                } // if
+              }else if(v.properties.reading_skateable == "choice1"){
+                skateable = 'Skateable';
+                if(today < reading_date){
+                  layer.setIcon(icon_skateable);
+                } // if
+              } // else if
+            } // END if(counter >= feature_count)
+          }); // END $.each
+        } // END if(featureCollection)
+
+        console.log(readings)
+
+        var popupContent = L.Util.template(
+            'Rink: {rink_name} <br />' + 
+            'Description: {rink_desc} <br />' + 
+            'Creator: {Creator} <br />' + 
+            'Last update: ' + skateable + ' on ' + reading_date + ' <br />' + 
+            '<img src="' + rinks_url + '/{ObjectId}/attachments/{ObjectId}" style="width:200px;"> <br />' +
+            'Readings: ' + readings
+        , feature.properties);
+        layer.bindPopup(popupContent);
+      }); // END query.where.orderBy.run
+    }, // END onEachFeature
+
+    pointToLayer: function(geojson, latlng){
+      return L.marker(latlng, {
+        icon: icon_rink_marker
+      });
+    }, // End pointToLayer
   }).addTo(map);
+
+
+
+
+  // BASEMAPS
+  var layer = L.esri.basemapLayer('Streets').addTo(map);
+  var layerLabels;
+
+  function setBasemap(basemap) {
+    if (layer) {
+      map.removeLayer(layer);
+    }
+    layer = L.esri.basemapLayer(basemap);
+    map.addLayer(layer);
+    if (layerLabels) {
+      map.removeLayer(layerLabels);
+    }
+
+    if (basemap === 'ShadedRelief' || basemap === 'Oceans' || basemap === 'Gray' || basemap === 'DarkGray' || basemap === 'Imagery' || basemap === 'Terrain') {
+
+      layerLabels = L.esri.basemapLayer(basemap + 'Labels');
+      map.addLayer(layerLabels);
+    }
+  }
+
+  var basemaps = document.getElementById('basemaps');
+
+  basemaps.addEventListener('change', function(){
+    setBasemap(basemaps.value);
+  });
+  // BASEMAPS
+
 </script>
 
 </body>
