@@ -94,9 +94,8 @@
   var authPane = document.getElementById('auth');
   var signInButton = document.getElementById('sign-in');
 
-  var token;
-  var username;
-
+  var token, username, firstname, email;
+  
   // this function will open a window and start the oauth process
   function oauth(callback) {
     if(accessToken){
@@ -113,7 +112,9 @@
       token: token
     }, function(error, response){
       username = response.user.username;
-      authPane.innerHTML = '<label>Hello ' + username + ' </label>';
+      firstname = response.user.firstName
+      email = response.user.email
+      authPane.innerHTML = '<label>Hello ' + firstname + ' </label>';
       console.log(response.user);
       console.log('token: ' + token);
     });
