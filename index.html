@@ -170,6 +170,8 @@
             reading_date = new Date(v.properties.CreationDate);
             readings.push(parseInt(v.properties.reading_conditions.substr(6,1))); // put all data for the chart in the popup box
 
+            layer.Creator = v.properties.Creator;
+
             if(counter >= feature_count){ // this will activate for the last record in the list of readings ordered by date ASC
               if(v.properties.reading_skateable == "choice0"){  
                 skateable = 'Not Skateable';
@@ -185,8 +187,7 @@
             } // END if(counter >= feature_count)
           }); // END $.each
         } // END if(featureCollection)
-        layer.id = 4;
-        console.log(layer);
+
         if(feature.properties.Creator == username){ // This is the user's rink
           var popupContent = L.Util.template(
               'Rink: {rink_name} <br />' + 
@@ -208,6 +209,7 @@
           , feature.properties);
           layer.bindPopup(popupContent);
         }
+console.log(layer);
       }); // END query.where.orderBy.run
     }, // END onEachFeature
 
