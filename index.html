@@ -194,6 +194,7 @@ console.log(feature);
               'Readings: ' + readings
           , feature.properties);
           layer.bindPopup(popupContent);
+          console.log("Hello")
           map.setView([feature.geometry.coordinates[0], feature.feature.geometry.coordinates[1]], 15);
         } else {
           var popupContent = L.Util.template(
