@@ -106,6 +106,7 @@
   }
 
   // this function will be called when the oauth process is complete
+  /*
   window.oauthCallback = function(token) {
     L.esri.get('https://www.arcgis.com/sharing/rest/portals/self', {
       token: token
@@ -113,6 +114,7 @@
       authPane.innerHTML = '<label>Hi '+response.user.username+' your token is <input value="'+token+'"></label>';
     });
   };
+  */
 
   signInButton.addEventListener('click', function(e){
     oauth();
