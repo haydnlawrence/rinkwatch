@@ -90,7 +90,8 @@
   var clientID = 'Stt0Oob148w8o486';
   var accessToken;
   var callbacks = [];
-  var callbackPage = 'https://haydnlawrence.github.io/rinkwatch/';
+  var protocol = window.location.protocol;
+  var callbackPage = protocol + '//haydnlawrence.github.io/rinkwatch/';
 
   var authPane = document.getElementById('auth');
   var signInButton = document.getElementById('sign-in');
@@ -106,7 +107,6 @@
   }
 
   // this function will be called when the oauth process is complete
-  /*
   window.oauthCallback = function(token) {
     L.esri.get('https://www.arcgis.com/sharing/rest/portals/self', {
       token: token
@@ -114,8 +114,7 @@
       authPane.innerHTML = '<label>Hi '+response.user.username+' your token is <input value="'+token+'"></label>';
     });
   };
-  */
-
+  
   signInButton.addEventListener('click', function(e){
     oauth();
     e.preventDefault();
