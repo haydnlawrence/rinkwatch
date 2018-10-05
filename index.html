@@ -184,7 +184,7 @@ console.log(feature);
           }); // END $.each
         } // END if(featureCollection)
 
-        if(feature.properties.Creation == username){ // This is the user's rink
+        if(feature.properties.Creator == username){ // This is the user's rink
           var popupContent = L.Util.template(
               'Rink: {rink_name} <br />' + 
               'Description: {rink_desc} <br />' + 
