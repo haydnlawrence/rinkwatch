@@ -82,7 +82,7 @@
 </div>
 
 <script>
-  console.log("***1START OF PROGRAM***")
+  console.log("***START OF PROGRAM***")
   //********************************************************************
 
   var clientID = 'Stt0Oob148w8o486';
@@ -129,7 +129,7 @@
 
   var markersObject = [];
   var rinks_url = 'https://services1.arcgis.com/OAsihu89uae6w8NX/arcgis/rest/services/survey123_47bbdd102ad44affb7a5835f9fb4085e/FeatureServer/0';
-  var readings_url = 'https://services1.arcgis.com/OAsihu89uae6w8NX/arcgis/rest/services/survey123_7c2f405456dc409db2bab56bd2059e26/FeatureServer/0';
+  var readings_url = 'https://services1.arcgis.com/OAsihu89uae6w8NX/arcgis/rest/services/survey123_c3d35e73bb6e47fbb0b6d17f687a954e/FeatureServer/0';
 
   var map = L.map('map').setView([43.4508, -80.4888], 12);
 
@@ -168,17 +168,17 @@
 
             counter++; // this is used to determine when we have the last record (i.e. the most recent one)
             reading_date = new Date(v.properties.CreationDate);
-            readings.push(parseInt(v.properties.reading_conditions.substr(6,1))); // put all data for the chart in the popup box
+            readings.push(parseInt(v.properties.reading_conditions)); // put all data for the chart in the popup box
 
             layer.Creator = v.properties.Creator;
 
             if(counter >= feature_count){ // this will activate for the last record in the list of readings ordered by date ASC
-              if(v.properties.reading_skateable == "choice0"){  
+              if(v.properties.reading_skateable == "0"){  
                 skateable = 'Not Skateable';
                 if(today < reading_date){ // if it's a reading from today, change the marker
                   layer.setIcon(icon_notskateable);
                 } // if
-              }else if(v.properties.reading_skateable == "choice1"){
+              }else if(v.properties.reading_skateable == "1"){
                 skateable = 'Skateable';
                 if(today < reading_date){
                   layer.setIcon(icon_skateable);
