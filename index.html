@@ -119,7 +119,7 @@
     username = getCookie('username');
     firstname = getCookie('firstName');
     email = getCookie('email');
-    authPane.innerHTML = '<label>Hello ' + firstname + '.</label>';
+    authPane.innerHTML = '<label>Hello ' + firstname + '.</label>' + '<a href="#" id="sign-in">Sign In</a>';
   }else{
     authPane.innerHTML = '<a href="#" id="sign-in">Sign In</a>';
   }
@@ -132,7 +132,9 @@
       username = response.user.username;
       firstname = response.user.firstName;
       email = response.user.email;
-      document.cookie = "token=" + token + ";username=" + username + ";firstname=" + firstname + ";email=" + email + ";secure";
+      var expire = new Date();
+      expire.setTime(today.getTime() + 3600000*24*14); //two weeks same as ArcGIS Online token expiry
+      document.cookie = "token=" + token + ";username=" + username + ";firstname=" + firstname + ";email=" + email  + ";expires="+expire.toGMTString() + ";secure";
       authPane.innerHTML = '<label>Hello ' + firstname + '.</label>';
     });
   };
