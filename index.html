@@ -116,8 +116,8 @@
       email = response.user.email
       document.cookie = "token = " + token + ";secure";
       authPane.innerHTML = '<label>Hello ' + firstname + '.</label>';
-    var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
-    console.log(match[0])
+    
+    console.log(document.cookie)
     });
   };
 
