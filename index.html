@@ -106,18 +106,31 @@
     }
   }
 
+  function getCookie(name)
+  {
+    var re = new RegExp(name + "=([^;]+)");
+    var value = re.exec(document.cookie);
+    return (value != null) ? unescape(value[1]) : null;
+  }
+
+  token = getCookie('token');
+  if(token){
+    username = getCookie('username');
+    firstname = getCookie('firstName');
+    email = getCookie('email');
+    authPane.innerHTML = '<label>Hello ' + firstname + '.</label>';
+  }
+
   // this function will be called when the oauth process is complete
   window.oauthCallback = function(token) {
     L.esri.get('https://www.arcgis.com/sharing/rest/portals/self', {
       token: token
     }, function(error, response){
       username = response.user.username;
-      firstname = response.user.firstName
-      email = response.user.email
-      document.cookie = "token = " + token + ";secure";
+      firstname = response.user.firstName;
+      email = response.user.email;
+      document.cookie = "token=" + token + ";username=" + username + ";firstname=" + firstname + ";email=" + email + ";secure";
       authPane.innerHTML = '<label>Hello ' + firstname + '.</label>';
-    
-    console.log(document.cookie)
     });
   };
 
