@@ -114,11 +114,14 @@
   }
 
   token = getCookie('token');
-  if(token){
+  if(token!=null){
+    console.log("Getting token...");
     username = getCookie('username');
     firstname = getCookie('firstName');
     email = getCookie('email');
     authPane.innerHTML = '<label>Hello ' + firstname + '.</label>';
+  }else{
+    authPane.innerHTML = '<a href="#" id="sign-in">Sign In</a>';
   }
 
   // this function will be called when the oauth process is complete
