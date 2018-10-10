@@ -106,6 +106,12 @@
     }
   }
 
+  window.getCookie = function(name) {
+    var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+    console.log(match[1])
+    if (match) return match[1];
+  }
+
   // this function will be called when the oauth process is complete
   window.oauthCallback = function(token) {
     L.esri.get('https://www.arcgis.com/sharing/rest/portals/self', {
@@ -114,9 +120,8 @@
       username = response.user.username;
       firstname = response.user.firstName
       email = response.user.email
+      document.cookie = "token = " + token + ";secure";
       authPane.innerHTML = '<label>Hello ' + firstname + '.</label>';
-      console.log(response.user);
-      console.log('token: ' + token);
     });
   };
 
@@ -209,7 +214,6 @@
           , feature.properties);
           layer.bindPopup(popupContent);
         }
-console.log(layer);
       }); // END query.where.orderBy.run
     }, // END onEachFeature
 
