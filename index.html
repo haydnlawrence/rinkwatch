@@ -119,7 +119,7 @@
     username = getCookie('username');
     firstname = getCookie('firstName');
     email = getCookie('email');
-    authPane.innerHTML = '<label>Hello ' + firstname + '.</label>' + '<a href="#" id="sign-in">Sign In</a>';
+    authPane.innerHTML = '<label>Hello ' + firstname + '.</label><br />' + '<a href="https://www.arcgis.com/sharing/oauth2/signout" id="sign-out">Sign out</a>';
   }else{
     authPane.innerHTML = '<a href="#" id="sign-in">Sign In</a>';
   }
