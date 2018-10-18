@@ -83,7 +83,7 @@ var rinks_layer = L.esri.featureLayer({
           , feature.properties);
           layer.bindPopup(popupContent);
           map.panTo(coords);
-          map.setZoom(20);
+          map.setZoom(10);
           //****************Query last reading set icon based on red or blue.  Add all data to dictionary. Set zoom.
           //layer.setIcon(icon_owner);
         } else {
