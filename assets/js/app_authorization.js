@@ -67,13 +67,20 @@ console.log("*********");
     });
   };
 
+  function delete_cookie( name ) {
+    document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+  }
+
   $("#sign-in").click(function() {
     oauth();
   });
 
   $("#sign-in").click(function() {
     window.open('https://www.arcgis.com/sharing/oauth2/signout', '_blank');
-    document.cookie = null;
+    delete_cookie("token");
+    delete_cookie("firstname");
+    delete_cookie("lastname");
+    delete_cookie("email");
   });
 
   
