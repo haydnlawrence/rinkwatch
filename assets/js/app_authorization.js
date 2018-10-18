@@ -76,7 +76,7 @@ console.log("*********");
   });
 
   $("#sign-out").click(function() {
-    window.open('https://www.arcgis.com/sharing/oauth2/signout', '_blank');
+    window.open('https://www.arcgis.com/sharing/oauth2/signout', '_blank', 'height=400,width=400,menubar=no,location=no,resizable=no,scrollbars=no,status=yes');
     delete_cookie("token");
     delete_cookie("firstname");
     delete_cookie("lastname");
