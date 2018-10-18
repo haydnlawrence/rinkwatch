@@ -47,7 +47,7 @@ var rinks_layer = L.esri.featureLayer({
             readings.push(parseInt(v.properties.reading_conditions)); // put all data for the chart in the popup box
 
             //layer.Creator = v.properties.Creator;
-            markersObject[v.properties.Creator] = {new L.marker(v.geometry.latlng).addTo(map), v.properties.Creator)};
+            markersObject[v.properties.Creator] = {new L.marker(v.geometry.latlng).addTo(map), v.properties.Creator};
 
             console.log(v);
             console.log(markers[Object]);
