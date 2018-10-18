@@ -207,8 +207,8 @@ function updateAttribution(e) {
     }
   });
 }
-map.on("layeradd", updateAttribution);
-map.on("layerremove", updateAttribution);
+//map.on("layeradd", updateAttribution);
+//map.on("layerremove", updateAttribution);
 
 var attributionControl = L.control({
   position: "bottomright"
