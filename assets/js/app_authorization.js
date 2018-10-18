@@ -12,7 +12,6 @@ console.log("*********");
 
   var authMenu = document.getElementById('auth');
   var welcome_message = document.getElementById('welcome_message');
-  welcome_message
   var expire = new Date();
   expire.setTime(new Date() + 3600000*24*14); //two weeks same as ArcGIS Online token expiry
 
