@@ -270,7 +270,7 @@ var baseLayers = {
 
   var groupedOverlays = {
   "Rinks": {
-    "<img src='http://haydnlawrence.github.io/rinkwatch/images/icon_rink_notskateable.png' width='24' height='28'>&nbsp;Skateable": rinks_layer
+    "<img src='http://haydnlawrence.github.io/rinkwatch/assets/img/icon_rink_notskateable.png' width='24' height='28'>&nbsp;Skateable": rinks_layer
     //"<img src='assets/img/museum.png' width='24' height='28'>&nbsp;Museums": museumLayer
   }//,
   //"Reference": {
