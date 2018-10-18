@@ -53,7 +53,7 @@ console.log("*********");
     firstname = get_cookie('firstname');
     email = get_cookie('email');
     authMenu.innerHTML = '<a href="#" id="sign-out"><i class="fa fa-list white"></i>&nbsp;&nbsp;Sign out</a>';   
-    enterRinkDataMenu.innerHTML = '<i class="fa fa-globe white"></i>&nbsp;&nbsp;Enter Rink Data</a>';
+    enterRinkDataMenu.innerHTML = '<a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" id="enter_rink_data"><i class="fa fa-globe white"></i>&nbsp;&nbsp;Enter Rink Data</a>';
     welcomeMessageMenu.innerHTML = '<p style="color:#9d9d9d;">Hi ' + firstname + '.</p>'; 
 
     console.log("*** username: " + username + "</br>firstname: " + firstname + "<br />email" + email);
@@ -94,7 +94,7 @@ console.log("*********");
       set_cookie("email",email);
 
       authMenu.innerHTML = '<a href="#" id="sign-out"><i class="fa fa-list white"></i>&nbsp;&nbsp;Sign out</a>';
-      enterRinkDataMenu.innerHTML = '<i class="fa fa-globe white"></i>&nbsp;&nbsp;Enter Rink Data</a>';
+      enterRinkDataMenu.innerHTML = '<a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" id="enter_rink_data"><i class="fa fa-globe white"></i>&nbsp;&nbsp;Enter Rink Data</a>';
       welcomeMessageMenu.innerHTML = '<p style="color:#9d9d9d;">Hi ' + firstname + '.</p>'; 
 
   $("#sign-out").click(function() {
