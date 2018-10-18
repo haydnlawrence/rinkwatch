@@ -14,15 +14,7 @@ console.log("*********");
 
   var token, username = '', firstname = '', email = '';
   
-  // this function will open a window and start the oauth process
-  function oauth(callback) {
-    if(accessToken){
-      callback(accessToken);
-    } else {
-      callbacks.push(callback);
-      window.open('https://www.arcgis.com/sharing/oauth2/authorize?client_id='+clientID+'&response_type=token&expiration=20160&redirect_uri=' + window.encodeURIComponent(callbackPage), '_blank', 'height=600,width=600,menubar=no,location=yes,resizable=yes,scrollbars=yes,status=yes');
-    }
-  }
+
 
   function getCookie(name)
   {
@@ -38,7 +30,7 @@ console.log("*********");
     username = getCookie('username');
     firstname = getCookie('firstName');
     email = getCookie('email');
-    authMenu.innerHTML = 'Hello ' + firstname + '.<br /><a href="#" id="sign-out"><i class="fa fa-list white"></i>&nbsp;&nbsp;Sign out</a>';
+    authMenu.innerHTML = '<a href="#" id="sign-out"><i class="fa fa-list white"></i>&nbsp;&nbsp;Sign out ' + firstname + '.</a>';
     console.log("---------");
     console.log("username: " + username + "</br>firstname: " + firstname + "<br />email" + email);
     console.log("---------");
@@ -47,6 +39,33 @@ console.log("*********");
       authMenu.innerHTML = '<a href="#" id="sign-in"><i class="fa fa-list white"></i>&nbsp;&nbsp;Sign In</a>';
     }
   }
+
+  function delete_cookie( name ) {
+    document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+  }
+
+  // this function will open a window and start the oauth process
+  function oauth(callback) {
+    if(accessToken){
+      callback(accessToken);
+    } else {
+      callbacks.push(callback);
+      window.open('https://www.arcgis.com/sharing/oauth2/authorize?client_id='+clientID+'&response_type=token&expiration=20160&redirect_uri=' + window.encodeURIComponent(callbackPage), '_blank', 'height=600,width=600,menubar=no,location=yes,resizable=yes,scrollbars=yes,status=yes');
+    }
+  }  
+
+  $("#sign-in").click(function() {
+    oauth();
+  });
+
+  $("#sign-out").click(function() {
+    window.open('https://www.arcgis.com/sharing/oauth2/signout', '_blank', 'height=400,width=400,menubar=no,location=no,resizable=no,scrollbars=no,status=yes');
+    delete_cookie("token");
+    delete_cookie("firstname");
+    delete_cookie("lastname");
+    delete_cookie("email");
+    window.reload();
+  });
 
   // this function will be called when the oauth process is complete
   window.oauthCallback = function(token) {
@@ -68,23 +87,4 @@ console.log("*********");
       console.log("username: " + username + "</br>firstname: " + firstname + "<br />email" + email);
       console.log("---------");
     });
-  };
-
-  function delete_cookie( name ) {
-    document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-  }
-
-  $("#sign-in").click(function() {
-    oauth();
-  });
-
-  $("#sign-out").click(function() {
-    window.open('https://www.arcgis.com/sharing/oauth2/signout', '_blank', 'height=400,width=400,menubar=no,location=no,resizable=no,scrollbars=no,status=yes');
-    delete_cookie("token");
-    delete_cookie("firstname");
-    delete_cookie("lastname");
-    delete_cookie("email");
-    window.reload();
-  });
-
-  
+  };  
