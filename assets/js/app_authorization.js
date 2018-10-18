@@ -11,6 +11,8 @@ console.log("*********");
   var callbackPage = protocol + '//haydnlawrence.github.io/rinkwatch/callback.html';
 
   var authMenu = document.getElementById('auth');
+  var welcome_message = document.getElementById('welcome_message');
+  welcome_message
   var expire = new Date();
   expire.setTime(new Date() + 3600000*24*14); //two weeks same as ArcGIS Online token expiry
 
@@ -49,12 +51,14 @@ console.log("*********");
     username = get_cookie('username');
     firstname = get_cookie('firstname');
     email = get_cookie('email');
-    authMenu.innerHTML = '<a href="#" id="sign-out"><i class="fa fa-list white"></i>&nbsp;&nbsp;Sign out</a>';    console.log("---------");
-    
+    authMenu.innerHTML = '<a href="#" id="sign-out"><i class="fa fa-list white"></i>&nbsp;&nbsp;Sign out</a>';   
+    welcome_message.innerHTML = 'Hi ' + firstname + '.'; 
+
     console.log("*** username: " + username + "</br>firstname: " + firstname + "<br />email" + email);
   }else{
     if(authMenu!=null) {
       authMenu.innerHTML = '<a href="#" id="sign-in"><i class="fa fa-list white"></i>&nbsp;&nbsp;Sign In</a>';
+      welcome_message.innerHTML = ''; 
     }
   }
 
@@ -87,6 +91,7 @@ console.log("*********");
       set_cookie("email",email);
 
       authMenu.innerHTML = '<a href="#" id="sign-out"><i class="fa fa-list white"></i>&nbsp;&nbsp;Sign out</a>';
+      welcome_message.innerHTML = 'Hi ' + firstname + '.'; 
 
       console.log("*** username: " + username + "</br>firstname: " + firstname + "<br />email" + email);
     });
