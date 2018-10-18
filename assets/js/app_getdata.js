@@ -45,7 +45,7 @@ var rinks_layer = L.esri.featureLayer({
             counter++; // this is used to determine when we have the last record (i.e. the most recent one)
             reading_date = new Date(v.properties.CreationDate);
             readings.push(parseInt(v.properties.reading_conditions)); // put all data for the chart in the popup box
-
+            coords = new L.LatLng(v.geometry.coordinates[0], v.geometry.coordinates[1]);
 
             console.log(v);
             //layer.Creator = v.properties.Creator;
@@ -82,6 +82,8 @@ var rinks_layer = L.esri.featureLayer({
               'Readings: ' + readings
           , feature.properties);
           layer.bindPopup(popupContent);
+          map.panTo(coords);
+          //****************Query last reading set icon based on red or blue.  Add all data to dictionary. Set zoom.
           //layer.setIcon(icon_owner);
         } else {
           var popupContent = L.Util.template(
