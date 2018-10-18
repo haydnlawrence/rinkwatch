@@ -32,6 +32,7 @@ console.log("*********");
   }
 
   token = getCookie('token');
+  console.log("token: " + token);
   if(token!=null){
     console.log("Getting token...");
     username = getCookie('username');
