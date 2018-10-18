@@ -89,7 +89,7 @@ function syncSidebar() {
   $("#feature-list tbody").empty();
   /* Loop through rinks layer and add only features which are in the map bounds */
     if (map.hasLayer(rinks_layer)) {
-        var Q = L.esri.query({url: rinks_url}); //change to readings_url once it is working 
+        var Q = L.esri.query({url: readings_url}); //change to readings_url once it is working 
         Q.within(map.getBounds());
         Q.run(function(error, featureCollection){
           //alert(featureCollection);
