@@ -11,7 +11,9 @@ console.log("*********");
   var callbackPage = protocol + '//haydnlawrence.github.io/rinkwatch/callback.html';
 
   var authMenu = document.getElementById('auth');
-  var welcome_message = document.getElementById('welcome_message');
+  var enterRinkDataMenu = document.getElementById('enter_rink_data');
+  var welcomeMessageMenu = document.getElementById('welcome_message');
+
   var expire = new Date();
   expire.setTime(new Date() + 3600000*24*14); //two weeks same as ArcGIS Online token expiry
 
@@ -51,13 +53,15 @@ console.log("*********");
     firstname = get_cookie('firstname');
     email = get_cookie('email');
     authMenu.innerHTML = '<a href="#" id="sign-out"><i class="fa fa-list white"></i>&nbsp;&nbsp;Sign out</a>';   
-    welcome_message.innerHTML = '<p style="color:#9d9d9d;">Hi ' + firstname + '.</p>'; 
+    enterRinkDataMenu.innerHTML = '<i class="fa fa-globe white"></i>&nbsp;&nbsp;Enter Rink Data</a>';
+    welcomeMessageMenu.innerHTML = '<p style="color:#9d9d9d;">Hi ' + firstname + '.</p>'; 
 
     console.log("*** username: " + username + "</br>firstname: " + firstname + "<br />email" + email);
   }else{
     if(authMenu!=null) {
       authMenu.innerHTML = '<a href="#" id="sign-in"><i class="fa fa-list white"></i>&nbsp;&nbsp;Sign In</a>';
-      welcome_message.innerHTML = ''; 
+      enterRinkDataMenu.innerHTML = '';
+      welcomeMessageMenu.innerHTML = ''; 
     }
   }
 
@@ -90,7 +94,8 @@ console.log("*********");
       set_cookie("email",email);
 
       authMenu.innerHTML = '<a href="#" id="sign-out"><i class="fa fa-list white"></i>&nbsp;&nbsp;Sign out</a>';
-      welcome_message.innerHTML = '<p style="color:#9d9d9d;">Hi ' + firstname + '.</p>'; 
+      enterRinkDataMenu.innerHTML = '<i class="fa fa-globe white"></i>&nbsp;&nbsp;Enter Rink Data</a>';
+      welcomeMessageMenu.innerHTML = '<p style="color:#9d9d9d;">Hi ' + firstname + '.</p>'; 
 
   $("#sign-out").click(function() {
     window.open('https://www.arcgis.com/sharing/oauth2/signout', '_blank', 'height=400,width=400,menubar=no,location=no,resizable=no,scrollbars=no,status=yes');
