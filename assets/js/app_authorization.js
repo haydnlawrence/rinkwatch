@@ -7,8 +7,8 @@ console.log("*********");
 
   var accessToken;
   var callbacks = [];
-  //var protocol = window.location.protocol;
-  var callbackPage = '../../callback.html';
+  var protocol = window.location.protocol;
+  var callbackPage = protocol + '//haydnlawrence.github.io/rinkwatch/callback.html';
 
   var authMenu = document.getElementById('auth');
   var expire = new Date();
@@ -68,7 +68,7 @@ console.log("*********");
     delete_cookie("firstname");
     delete_cookie("lastname");
     delete_cookie("email");
-    window.reload();
+    window.location.reload(false);
   });
 
   // this function will be called when the oauth process is complete
