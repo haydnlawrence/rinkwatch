@@ -54,7 +54,7 @@ var rinks_layer = L.esri.featureLayer({
             //v.geometry.coordinates[0]
             markersObject[v.properties.Creator] = [v.properties.Creator, v.geometry.coordinates[0]];
 
-            console.log(markersObject[v.properties.Creator]);
+            console.log("-->" + markersObject[v.properties.Creator]);
 
             if(counter >= feature_count){ // this will activate for the last record in the list of readings ordered by date ASC
               if(v.properties.reading_skateable == "0"){  
