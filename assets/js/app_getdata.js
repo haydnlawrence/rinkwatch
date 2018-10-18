@@ -47,7 +47,7 @@ var rinks_layer = L.esri.featureLayer({
             readings.push(parseInt(v.properties.reading_conditions)); // put all data for the chart in the popup box
             coords = new L.LatLng(v.geometry.coordinates[0], v.geometry.coordinates[1]);
 
-            console.log(v);
+            console.log("HELLO");
             //layer.Creator = v.properties.Creator;
 
 
@@ -83,7 +83,7 @@ var rinks_layer = L.esri.featureLayer({
           , feature.properties);
           layer.bindPopup(popupContent);
           map.panTo(coords);
-          map.setZoom(10);
+          map.setZoom(16);
           //****************Query last reading set icon based on red or blue.  Add all data to dictionary. Set zoom.
           //layer.setIcon(icon_owner);
         } else {
