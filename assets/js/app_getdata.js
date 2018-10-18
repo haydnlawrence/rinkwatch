@@ -47,18 +47,19 @@ var rinks_layer = L.esri.featureLayer({
             readings.push(parseInt(v.properties.reading_conditions)); // put all data for the chart in the popup box
 
             layer.Creator = v.properties.Creator;
+            //markersObject[v.properties.Creator] = L.marker()
             console.log(v);
 
             if(counter >= feature_count){ // this will activate for the last record in the list of readings ordered by date ASC
               if(v.properties.reading_skateable == "0"){  
                 skateable = 'Not Skateable';
                 if(today < reading_date){ // if it's a reading from today, change the marker
-                  layer.setIcon(icon_notskateable);
+                  //layer.setIcon(icon_notskateable);
                 } // if
               }else if(v.properties.reading_skateable == "1"){
                 skateable = 'Skateable';
                 if(today < reading_date){
-                  layer.setIcon(icon_skateable);
+                  //layer.setIcon(icon_skateable);
                 } // if
               } // else if
             } // END if(counter >= feature_count)
@@ -75,7 +76,7 @@ var rinks_layer = L.esri.featureLayer({
               'Readings: ' + readings
           , feature.properties);
           layer.bindPopup(popupContent);
-          layer.setIcon(icon_owner);
+          //layer.setIcon(icon_owner);
         } else {
           var popupContent = L.Util.template(
               'Rink: {rink_name} <br />' + 

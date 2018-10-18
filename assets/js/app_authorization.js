@@ -45,9 +45,7 @@ console.log("*********");
   } 
 
   token = get_cookie('token');
-  console.log("token: " + token);
   if(token!=null){
-    console.log("Getting token...");
 
     username = get_cookie('username');
     firstname = get_cookie('firstname');
@@ -56,7 +54,6 @@ console.log("*********");
     enterRinkDataMenu.innerHTML = '<i class="fa fa-globe white"></i>&nbsp;&nbsp;Enter Rink Data';
     welcomeMessageMenu.innerHTML = 'Welcome ' + firstname + '.'; 
 
-    console.log("*** username: " + username + "</br>firstname: " + firstname + "<br />email" + email);
   }else{
     if(authMenu!=null) {
       authMenu.innerHTML = '<a href="#" id="sign-in"><i class="fa fa-list white"></i>&nbsp;&nbsp;Sign In</a>';
@@ -97,17 +94,14 @@ console.log("*********");
       enterRinkDataMenu.innerHTML = '<i class="fa fa-globe white"></i>&nbsp;&nbsp;Enter Rink Data';
       welcomeMessageMenu.innerHTML = 'Welcome ' + firstname + '.'; 
 
-  $("#sign-out").click(function() {
-    window.open('https://www.arcgis.com/sharing/oauth2/signout', '_blank', 'height=400,width=400,menubar=no,location=no,resizable=no,scrollbars=no,status=yes');
-    delete_cookie("token");
-    delete_cookie("firstname");
-    delete_cookie("lastname");
-    delete_cookie("email");
-    window.location.reload(false);
-  });
-
-      console.log("*** username: " + username + "</br>firstname: " + firstname + "<br />email" + email);
-
+      $("#sign-out").click(function() {
+        window.open('https://www.arcgis.com/sharing/oauth2/signout', '_blank', 'height=400,width=400,menubar=no,location=no,resizable=no,scrollbars=no,status=yes');
+        delete_cookie("token");
+        delete_cookie("firstname");
+        delete_cookie("lastname");
+        delete_cookie("email");
+        window.location.reload(false);
+      });
 
     });
   };  
