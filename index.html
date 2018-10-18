@@ -1,9 +1,220 @@
-<html>
-<head>
-  <meta charset=utf-8 />
-  <title>Simple FeatureLayer</title>
-  <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#000000">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>RinkWatch</title>
+    <link rel="stylesheet" href="assets/css/app.css">
+    <link rel="stylesheet" href="assets/css/jquery.jscrollpane.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.css" />
+    <link rel="stylesheet" href="assets/css/Leaflet.ResizableControl.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/MarkerCluster.css">
+    <link rel="stylesheet" href="https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/MarkerCluster.Default.css">
+    <link rel="stylesheet" href="https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.43.0/L.Control.Locate.css">
+    <link rel="stylesheet" href="assets/leaflet-groupedlayercontrol/leaflet.groupedlayercontrol.css">
+    <link rel="apple-touch-icon" sizes="76x76" href="assets/img/favicon-76.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="assets/img/favicon-120.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="assets/img/favicon-152.png">
+    <link rel="icon" sizes="196x196" href="assets/img/favicon-196.png">
+    <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico">
+  </head>
 
+  <body>
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <div class="navbar-icon-container">
+            <a href="#" class="navbar-icon pull-right visible-xs" id="nav-btn"><i class="fa fa-bars fa-lg white"></i></a>
+            <a href="#" class="navbar-icon pull-right visible-xs" id="sidebar-toggle-btn"><i class="fa fa-search fa-lg white"></i></a>
+          </div>
+          <a class="navbar-brand" href="#">RinkWatch</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <form class="navbar-form navbar-right" role="search">
+            <div class="form-group has-feedback">
+                <input id="searchbox" type="text" placeholder="Search" class="form-control">
+                <span id="searchicon" class="fa fa-search form-control-feedback"></span>
+            </div>
+          </form>
+          <ul class="nav navbar-nav">
+            <li><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" id="about-btn"><i class="fa fa-question-circle white"></i>&nbsp;&nbsp;About</a></li>
+            <li><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" id="full-extent-btn"><i class="fa fa-globe white"></i>&nbsp;&nbsp;Enter Rink Data</a></li>
+
+            <li class="dropdown">
+              <a id="toolsDrop" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-globe white"></i>&nbsp;&nbsp;Explore Data <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" id="epi-btn-1"><i class="fa fa-tree"></i>&nbsp;&nbsp;Trends</a></li>
+                <li><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" id="epi-btn-2"><i class="fa fa-tree"></i>&nbsp;&nbsp;Heatmap</a></li>
+                <li><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" id="epi-btn-3"><i class="fa fa-tree"></i>&nbsp;&nbsp;Forecast</a></li>
+              </ul>
+            </li>
+
+            
+           
+            <li id="auth"><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" id="sign-in"><i class="fa fa-list white"></i></a></li>
+          </ul>
+        </div><!--/.navbar-collapse -->
+      </div>
+    </div>
+
+    <div id="container">
+      <div id="sidebar">
+        <div class="sidebar-wrapper">
+          <div class="panel panel-default" id="features">
+            <div class="panel-heading">
+              <h3 class="panel-title">Recent Readings
+              <button type="button" class="btn btn-xs btn-default pull-right" id="sidebar-hide-btn"><i class="fa fa-chevron-left"></i></button></h3>
+            </div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-xs-8 col-md-8">
+                  <input type="text" class="form-control search" placeholder="Filter" />
+                </div>
+                <div class="col-xs-4 col-md-4">
+                  <button type="button" class="btn btn-primary pull-right sort" data-sort="feature-name" id="sort-btn"><i class="fa fa-sort"></i>&nbsp;&nbsp;Sort</button>
+                </div>
+              </div>
+            </div>
+            <div class="sidebar-table">
+              <table class="table table-hover" id="feature-list">
+                <thead class="hidden">
+                  <tr>
+                    <th>Icon</th>
+                  <tr>
+                  <tr>
+                    <th>Name</th>
+                  <tr>
+                  <tr>
+                    <th>Chevron</th>
+                  <tr>
+                </thead>
+                <tbody class="list"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="map"></div>
+    </div>
+    <!--<div id="loading">
+      <div class="loading-indicator">
+        <div class="progress progress-striped active">
+          <div class="progress-bar progress-bar-info progress-bar-full"></div>
+        </div>
+      </div>
+    </div>-->
+
+    <div class="modal fade" id="aboutModal" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button class="close" type="button" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">about rinkwatch</h4>
+          </div>
+          <div class="modal-body">
+            <ul class="nav nav-tabs nav-justified" id="aboutTabs">
+              <li class="active"><a href="#about" data-toggle="tab"><i class="fa fa-question-circle"></i>&nbsp;About the project</a></li>
+              <!-- <li><a href="#contact" data-toggle="tab"><i class="fa fa-envelope"></i>&nbsp;Contact us</a></li>-->
+              <li><a href="#disclaimer" data-toggle="tab"><i class="fa fa-exclamation-circle"></i>&nbsp;Disclaimer</a></li>
+              
+            </ul>
+            <div class="tab-content" id="aboutTabsContent">
+              <div class="tab-pane fade active in" id="about">
+                <p>RinkWatch map is a web mapping application... . </p>
+                
+                <p></p>
+
+                <p>The leaflet template is based on bootleaf; a simple, responsive template for building web mapping applications with <a href="http://getbootstrap.com/">Bootstrap</a>, <a href="http://leafletjs.com">Leaflet</a>, and <a href="http://twitter.github.io/typeahead.js/">typeahead.js</a> developed by <a href="http://bmcbride.github.io/bootleaf/">Bryan McBride </a> </p>
+
+      
+
+                  
+              </div>
+              <div id="disclaimer" class="tab-pane fade text-danger">
+                <p>The data provided on this site is for information only.</p>
+                <p>blah blah</p>
+              </div>
+              
+              
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <div class="modal fade" id="legendModal" tabindex="-1" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Map Legend</h4>
+          </div>
+          <div class="modal-body">
+            <p>Map Legend goes here...</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    
+
+    <div class="modal fade" id="featureModal" tabindex="-1" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button class="close" type="button" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title text-primary" id="feature-title"></h4>
+          </div>
+          <div class="modal-body" id="feature-info"></div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <!-- <div class="modal fade" id="attributionModal" tabindex="-1" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button class="close" type="button" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">
+              Developed by <a href='http://bryanmcbride.com'>bryanmcbride.com</a>
+            </h4>
+          </div>
+          <div class="modal-body">
+            <div id="attribution"></div>
+          </div>
+        </div>< /.modal-content -->
+      <!--</div> /.modal-dialog -->
+    <!--</div><!-- /.modal -->
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.12/jquery.mousewheel.js"></script>
+    <script src="assets/js/jquery.jscrollpane.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.10.5/typeahead.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.3/handlebars.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.1.1/list.min.js"></script>
+    
     <!-- Load Leaflet from CDN -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"
     integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
@@ -17,259 +228,17 @@
     integrity="sha512-YZ6b5bXRVwipfqul5krehD9qlbJzc6KOGXYsDjU9HHXW2gK57xmWl2gU6nAegiErAqFXhygKIsWPKbjLPXVb2g=="
     crossorigin=""></script>
 
-    <script
-    src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-    integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
-    crossorigin="anonymous"></script>
+    <script src="https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/leaflet.markercluster.js"></script>
+    <script src="https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.43.0/L.Control.Locate.min.js"></script>
+    <script src="assets/leaflet-groupedlayercontrol/leaflet.groupedlayercontrol.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OverlappingMarkerSpiderfier-Leaflet/0.2.6/oms.min.js"></script>
+   
+    <script src="assets/js/Leaflet.ResizableControl.js"></script>
+    <script src="assets/js/app_authorization.js"></script>
+    <script src="assets/js/app_getdata.js"></script>
+    <script src="assets/js/app.js"></script>
 
-  <style>
-    body { margin:0; padding:0; }
-    #map { position: absolute; top:0; bottom:0; right:0; left:0; }
+    
 
-    #basemaps-wrapper {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      z-index: 10000;
-      background: white;
-      padding: 10px;
-    }
-
-    #basemaps {
-      margin-bottom: 5px;
-    }
-
-    #auth {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      z-index: 10000;
-      background: white;
-      padding: 1em;
-      box-shadow: 0 1px 5px rgba(0,0,0,0.65);
-      border-radius: 4px;
-    }
-
-    #auth input {
-      display: inline-block;
-      border: 1px solid #999;
-      font-size: 14px;
-      border-radius: 4px;
-      height: 28px;
-      line-height: 28px;
-    }
-  </style>
-</head>
-<body>
-
-<div id="map"></div>
-
-<div id="auth">
-  <a href="#" id="sign-in">Sign In</a>
-</div>
-
-<div id="basemaps-wrapper" class="leaflet-bar">
-  <select name="basemaps" id="basemaps">
-    <option value="Topographic">Topographic<options>
-    <option value="Streets">Streets</option>
-    <option value="NationalGeographic">National Geographic<options>
-    <option value="Oceans">Oceans<options>
-    <option value="Gray">Gray<options>
-    <option value="DarkGray">Dark Gray<options>
-    <option value="Imagery">Imagery<options>
-    <option value="ShadedRelief">Shaded Relief<options>
-  </select>
-</div>
-
-<script>
-  console.log("***START OF PROGRAM***")
-  //********************************************************************
-
-  var clientID = 'sPZnxpFgGypJrX1Y';
-  var accessToken;
-  var callbacks = [];
-  var protocol = window.location.protocol;
-  var callbackPage = protocol + '//haydnlawrence.github.io/rinkwatch/callback.html';
-
-  var authPane = document.getElementById('auth');
-  var signInButton = document.getElementById('sign-in');
-
-  var token, username = '', firstname = '', email = '';
-  
-  // this function will open a window and start the oauth process
-  function oauth(callback) {
-    if(accessToken){
-      callback(accessToken);
-    } else {
-      callbacks.push(callback);
-      window.open('https://www.arcgis.com/sharing/oauth2/authorize?client_id='+clientID+'&response_type=token&expiration=20160&redirect_uri=' + window.encodeURIComponent(callbackPage), '_blank', 'height=600,width=600,menubar=no,location=yes,resizable=yes,scrollbars=yes,status=yes');
-    }
-  }
-
-  function getCookie(name)
-  {
-    var re = new RegExp(name + "=([^;]+)");
-    var value = re.exec(document.cookie);
-    return (value != null) ? unescape(value[1]) : null;
-  }
-
-  token = getCookie('token');
-  if(token!=null){
-    console.log("Getting token...");
-    username = getCookie('username');
-    firstname = getCookie('firstName');
-    email = getCookie('email');
-    authPane.innerHTML = '<label>Hello ' + firstname + '.</label><br />' + '<a href="https://www.arcgis.com/sharing/oauth2/signout" id="sign-out">Sign out</a>';
-  }else{
-    authPane.innerHTML = '<a href="#" id="sign-in">Sign In</a>';
-  }
-
-  // this function will be called when the oauth process is complete
-  window.oauthCallback = function(token) {
-    L.esri.get('https://www.arcgis.com/sharing/rest/portals/self', {
-      token: token
-    }, function(error, response){
-      username = response.user.username;
-      firstname = response.user.firstName;
-      email = response.user.email;
-      var expire = new Date();
-      expire.setTime(today.getTime() + 3600000*24*14); //two weeks same as ArcGIS Online token expiry
-      document.cookie = "token=" + token + ";username=" + username + ";firstname=" + firstname + ";email=" + email  + ";expires="+expire.toGMTString() + ";secure";
-      authPane.innerHTML = '<label>Hello ' + firstname + '.</label>';
-    });
-  };
-
-  signInButton.addEventListener('click', function(e){
-    oauth();
-    e.preventDefault();
-  });
-
-  //********************************************************************
-
-  var markersObject = [];
-  var rinks_url = 'https://services1.arcgis.com/OAsihu89uae6w8NX/arcgis/rest/services/survey123_47bbdd102ad44affb7a5835f9fb4085e/FeatureServer/0';
-  var readings_url = 'https://services1.arcgis.com/OAsihu89uae6w8NX/arcgis/rest/services/survey123_c3d35e73bb6e47fbb0b6d17f687a954e/FeatureServer/0';
-
-  var map = L.map('map').setView([43.4508, -80.4888], 12);
-
-  var now = new Date();
-  var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-
-  var icon_notskateable = L.icon({
-    iconUrl: 'images/icon_rink_notskateable.png',
-    iconSize: [50,50]
-  });
-  var icon_skateable = L.icon({
-    iconUrl: 'images/icon_rink_skateable.png',
-    iconSize: [50,50]
-  });
-  var icon_rink_marker = L.icon({
-    iconUrl: 'images/icon_rink_marker.png',
-    iconSize: [50,50]
-  });
-  var icon_owner = L.icon({
-    iconUrl: 'images/icon_rink_owner.png',
-    iconSize: [50,50]
-  });  
-
-  var rinks_layer = L.esri.featureLayer({
-    url: rinks_url,
-    onEachFeature: function(feature, layer){
-
-      L.esri.query({
-        url: readings_url,
-      }).where("Creator='" + feature.properties.Creator + "'").orderBy("CreationDate", "ASC").run(function(error, featureCollection){
-        
-        var skateable, reading_date, counter = 0, readings = [];
-        if(featureCollection){
-          feature_count = featureCollection.features.length; // get the number of records
-          $.each(featureCollection.features, function(i, v) { // loop around each reading for this user
-
-            counter++; // this is used to determine when we have the last record (i.e. the most recent one)
-            reading_date = new Date(v.properties.CreationDate);
-            readings.push(parseInt(v.properties.reading_conditions)); // put all data for the chart in the popup box
-
-            layer.Creator = v.properties.Creator;
-
-            if(counter >= feature_count){ // this will activate for the last record in the list of readings ordered by date ASC
-              if(v.properties.reading_skateable == "0"){  
-                skateable = 'Not Skateable';
-                if(today < reading_date){ // if it's a reading from today, change the marker
-                  layer.setIcon(icon_notskateable);
-                } // if
-              }else if(v.properties.reading_skateable == "1"){
-                skateable = 'Skateable';
-                if(today < reading_date){
-                  layer.setIcon(icon_skateable);
-                } // if
-              } // else if
-            } // END if(counter >= feature_count)
-          }); // END $.each
-        } // END if(featureCollection)
-
-        if(feature.properties.Creator == username){ // This is the user's rink
-          var popupContent = L.Util.template(
-              'Rink: {rink_name} <br />' + 
-              'Description: {rink_desc} <br />' + 
-              'Creator: {Creator} <br />' + 
-              'Last update: ' + skateable + ' on ' + reading_date + ' <br />' + 
-              '<img src="' + rinks_url + '/{ObjectId}/attachments/{ObjectId}" style="width:200px;"> <br />' +
-              'Readings: ' + readings
-          , feature.properties);
-          layer.bindPopup(popupContent);
-        } else {
-          var popupContent = L.Util.template(
-              'Rink: {rink_name} <br />' + 
-              'Description: {rink_desc} <br />' + 
-              'Creator: {Creator} <br />' + 
-              'Last update: ' + skateable + ' on ' + reading_date + ' <br />' + 
-              '<img src="' + rinks_url + '/{ObjectId}/attachments/{ObjectId}" style="width:200px;"> <br />' +
-              'Readings: ' + readings
-          , feature.properties);
-          layer.bindPopup(popupContent);
-        }
-      }); // END query.where.orderBy.run
-    }, // END onEachFeature
-
-    pointToLayer: function(geojson, latlng){
-      return L.marker(latlng, {
-        icon: icon_rink_marker
-      });
-    }, // End pointToLayer
-  }).addTo(map);
-
-
-
-
-  // BASEMAPS
-  var layer = L.esri.basemapLayer('Streets').addTo(map);
-  var layerLabels;
-
-  function setBasemap(basemap) {
-    if (layer) {
-      map.removeLayer(layer);
-    }
-    layer = L.esri.basemapLayer(basemap);
-    map.addLayer(layer);
-    if (layerLabels) {
-      map.removeLayer(layerLabels);
-    }
-
-    if (basemap === 'ShadedRelief' || basemap === 'Oceans' || basemap === 'Gray' || basemap === 'DarkGray' || basemap === 'Imagery' || basemap === 'Terrain') {
-
-      layerLabels = L.esri.basemapLayer(basemap + 'Labels');
-      map.addLayer(layerLabels);
-    }
-  }
-
-  var basemaps = document.getElementById('basemaps');
-
-  basemaps.addEventListener('change', function(){
-    setBasemap(basemaps.value);
-  });
-  // BASEMAPS
-
-</script>
-
-</body>
+  </body>
 </html>
