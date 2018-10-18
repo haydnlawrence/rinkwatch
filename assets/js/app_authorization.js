@@ -58,7 +58,10 @@ console.log("*********");
       email = response.user.email;
       var expire = new Date();
       expire.setTime(today.getTime() + 3600000*24*14); //two weeks same as ArcGIS Online token expiry
-      document.cookie = "token=" + token + ";username=" + username + ";firstname=" + firstname + ";email=" + email  + ";expires="+expire.toGMTString() + ";secure";
+      document.cookie = "token=" + token + ";expires="+expire.toGMTString() + ";secure";
+      document.cookie = "username=" + username + ";expires="+expire.toGMTString() + ";secure";
+      document.cookie = "firstname=" + firstname + ";expires="+expire.toGMTString() + ";secure";
+      document.cookie = "email=" + email  + ";expires="+expire.toGMTString() + ";secure";
       authMenu.innerHTML = 'Hello ' + firstname + '.<br />' + '<a href="#" id="sign-out"><i class="fa fa-list white"></i>&nbsp;&nbsp;Sign out</a>';
 
       console.log("---------");
