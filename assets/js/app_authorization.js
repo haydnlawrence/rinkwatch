@@ -46,8 +46,8 @@ console.log("*********");
   if(token!=null){
     console.log("Getting token...");
 
-    username = getCookie('username');
-    firstname = getCookie('firstname');
+    username = get_cookie('username');
+    firstname = get_cookie('firstname');
     email = get_cookie('email');
     authMenu.innerHTML = '<a href="#" id="sign-out"><i class="fa fa-list white"></i>&nbsp;&nbsp;Sign out</a>';    console.log("---------");
     
