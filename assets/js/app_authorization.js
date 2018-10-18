@@ -11,37 +11,41 @@ console.log("*********");
   var callbackPage = protocol + '//haydnlawrence.github.io/rinkwatch/callback.html';
 
   var authMenu = document.getElementById('auth');
+  var expire = new Date();
+  expire.setTime(today.getTime() + 3600000*24*14); //two weeks same as ArcGIS Online token expiry
 
   var token, username = '', firstname = '', email = '';
   
-
-
-  function getCookie(name)
-  {
-    var re = new RegExp(name + "=([^;]+)");
-    var value = re.exec(document.cookie);
-    return (value != null) ? unescape(value[1]) : null;
-  }
-
   token = getCookie('token');
   console.log("token: " + token);
   if(token!=null){
     console.log("Getting token...");
+
     username = getCookie('username');
-    firstname = getCookie('firstName');
+    firstname = getCookie('firstname');
     email = getCookie('email');
-    authMenu.innerHTML = '<a href="#" id="sign-out"><i class="fa fa-list white"></i>&nbsp;&nbsp;Sign out ' + firstname + '.</a>';
-    console.log("---------");
-    console.log("username: " + username + "</br>firstname: " + firstname + "<br />email" + email);
-    console.log("---------");
+    authMenu.innerHTML = '<a href="#" id="sign-out"><i class="fa fa-list white"></i>&nbsp;&nbsp;Hi ' + firstname + '<br />Sign out</a>';    console.log("---------");
+    
+    console.log("*** username: " + username + "</br>firstname: " + firstname + "<br />email" + email);
   }else{
     if(authMenu!=null) {
       authMenu.innerHTML = '<a href="#" id="sign-in"><i class="fa fa-list white"></i>&nbsp;&nbsp;Sign In</a>';
     }
   }
 
-  function delete_cookie( name ) {
+  function getCookie(name)
+  {
+    var re = new RegExp(name + "=([^;]+)");
+    var value = re.exec(document.cookie);
+    return (value != null) ? unescape(value[1]) : null;
+  }  
+
+  function delete_cookie(name) {
     document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+  }
+
+  function set_cookie(key, value) {
+    document.cookie = key + '=' + value + ";expires="+expire.toGMTString() + ";secure";
   }
 
   // this function will open a window and start the oauth process
@@ -72,19 +76,18 @@ console.log("*********");
     L.esri.get('https://www.arcgis.com/sharing/rest/portals/self', {
       token: token
     }, function(error, response){
+
       username = response.user.username;
       firstname = response.user.firstName;
       email = response.user.email;
-      var expire = new Date();
-      expire.setTime(today.getTime() + 3600000*24*14); //two weeks same as ArcGIS Online token expiry
-      document.cookie = "token=" + token + ";expires="+expire.toGMTString() + ";secure";
-      document.cookie = "username=" + username + ";expires="+expire.toGMTString() + ";secure";
-      document.cookie = "firstname=" + firstname + ";expires="+expire.toGMTString() + ";secure";
-      document.cookie = "email=" + email  + ";expires="+expire.toGMTString() + ";secure";
-      authMenu.innerHTML = '<a href="#" id="sign-out"><i class="fa fa-list white"></i>&nbsp;&nbsp;Sign out ' + firstname + '.</a>';
 
-      console.log("---------");
-      console.log("username: " + username + "</br>firstname: " + firstname + "<br />email" + email);
-      console.log("---------");
+      set_cookie("token",token);
+      set_cookie("username",username);      
+      set_cookie("firstname",firstname);
+      set_cookie("email",email);
+
+      authMenu.innerHTML = '<a href="#" id="sign-out"><i class="fa fa-list white"></i>&nbsp;&nbsp;Hi ' + firstname + '<br />Sign out</a>';
+
+      console.log("*** username: " + username + "</br>firstname: " + firstname + "<br />email" + email);
     });
   };  
