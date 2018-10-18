@@ -52,7 +52,7 @@ console.log("*********");
     firstname = get_cookie('firstname');
     email = get_cookie('email');
     authMenu.innerHTML = '<a href="#" id="sign-out"><i class="fa fa-list white"></i>&nbsp;&nbsp;Sign out</a>';   
-    welcome_message.innerHTML = '<a href="#" data-toggle="collapse" data-target=".navbar-collapse.in"><i class="fa fa-list white"></i>Hi ' + firstname + '.</a>';  
+    welcome_message.innerHTML = 'Hi ' + firstname + '.</a>'; 
 
     console.log("*** username: " + username + "</br>firstname: " + firstname + "<br />email" + email);
   }else{
@@ -73,7 +73,6 @@ console.log("*********");
     delete_cookie("lastname");
     delete_cookie("email");
     window.location.reload(true);
-    authMenu.innerHTML = '<a href="#" id="sign-in"><i class="fa fa-list white"></i>&nbsp;&nbsp;Sign In</a>';
   });
 
   // this function will be called when the oauth process is complete
@@ -92,7 +91,7 @@ console.log("*********");
       set_cookie("email",email);
 
       authMenu.innerHTML = '<a href="#" id="sign-out"><i class="fa fa-list white"></i>&nbsp;&nbsp;Sign out</a>';
-      welcome_message.innerHTML = '<a href="#" data-toggle="collapse" data-target=".navbar-collapse.in"><i class="fa fa-list white"></i>Hi ' + firstname + '.</a>'; 
+      welcome_message.innerHTML = 'Hi ' + firstname + '.</a>'; 
 
       console.log("*** username: " + username + "</br>firstname: " + firstname + "<br />email" + email);
     });
