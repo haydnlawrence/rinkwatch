@@ -7,8 +7,8 @@ console.log("*********");
 
   var accessToken;
   var callbacks = [];
-  var protocol = window.location.protocol;
-  var callbackPage = protocol + '//haydnlawrence.github.io/rinkwatch/callback.html';
+  //var protocol = window.location.protocol;
+  var callbackPage = '../../callback.html';
 
   var authMenu = document.getElementById('auth');
   var expire = new Date();
@@ -16,24 +16,7 @@ console.log("*********");
 
   var token, username = '', firstname = '', email = '';
   
-  token = getCookie('token');
-  console.log("token: " + token);
-  if(token!=null){
-    console.log("Getting token...");
-
-    username = getCookie('username');
-    firstname = getCookie('firstname');
-    email = getCookie('email');
-    authMenu.innerHTML = '<a href="#" id="sign-out"><i class="fa fa-list white"></i>&nbsp;&nbsp;Hi ' + firstname + '<br />Sign out</a>';    console.log("---------");
-    
-    console.log("*** username: " + username + "</br>firstname: " + firstname + "<br />email" + email);
-  }else{
-    if(authMenu!=null) {
-      authMenu.innerHTML = '<a href="#" id="sign-in"><i class="fa fa-list white"></i>&nbsp;&nbsp;Sign In</a>';
-    }
-  }
-
-  function getCookie(name)
+  function get_cookie(name)
   {
     var re = new RegExp(name + "=([^;]+)");
     var value = re.exec(document.cookie);
@@ -56,7 +39,24 @@ console.log("*********");
       callbacks.push(callback);
       window.open('https://www.arcgis.com/sharing/oauth2/authorize?client_id='+clientID+'&response_type=token&expiration=20160&redirect_uri=' + window.encodeURIComponent(callbackPage), '_blank', 'height=600,width=600,menubar=no,location=yes,resizable=yes,scrollbars=yes,status=yes');
     }
-  }  
+  } 
+
+  token = get_cookie('token');
+  console.log("token: " + token);
+  if(token!=null){
+    console.log("Getting token...");
+
+    username = getCookie('username');
+    firstname = getCookie('firstname');
+    email = get_cookie('email');
+    authMenu.innerHTML = '<a href="#" id="sign-out"><i class="fa fa-list white"></i>&nbsp;&nbsp;Sign out</a>';    console.log("---------");
+    
+    console.log("*** username: " + username + "</br>firstname: " + firstname + "<br />email" + email);
+  }else{
+    if(authMenu!=null) {
+      authMenu.innerHTML = '<a href="#" id="sign-in"><i class="fa fa-list white"></i>&nbsp;&nbsp;Sign In</a>';
+    }
+  }
 
   $("#sign-in").click(function() {
     oauth();
@@ -86,7 +86,7 @@ console.log("*********");
       set_cookie("firstname",firstname);
       set_cookie("email",email);
 
-      authMenu.innerHTML = '<a href="#" id="sign-out"><i class="fa fa-list white"></i>&nbsp;&nbsp;Hi ' + firstname + '<br />Sign out</a>';
+      authMenu.innerHTML = '<a href="#" id="sign-out"><i class="fa fa-list white"></i>&nbsp;&nbsp;Sign out</a>';
 
       console.log("*** username: " + username + "</br>firstname: " + firstname + "<br />email" + email);
     });
