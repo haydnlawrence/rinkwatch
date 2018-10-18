@@ -74,6 +74,7 @@ var rinks_layer = L.esri.featureLayer({
               'Readings: ' + readings
           , feature.properties);
           layer.bindPopup(popupContent);
+          layer.setIcon(icon_owner);
         } else {
           var popupContent = L.Util.template(
               'Rink: {rink_name} <br />' + 
