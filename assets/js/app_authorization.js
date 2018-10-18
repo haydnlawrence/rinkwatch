@@ -72,7 +72,7 @@ console.log("*********");
     delete_cookie("firstname");
     delete_cookie("lastname");
     delete_cookie("email");
-    window.location.reload(true);
+    window.location.reload(false);
   });
 
   // this function will be called when the oauth process is complete
@@ -93,6 +93,17 @@ console.log("*********");
       authMenu.innerHTML = '<a href="#" id="sign-out"><i class="fa fa-list white"></i>&nbsp;&nbsp;Sign out</a>';
       welcome_message.innerHTML = 'Hi ' + firstname + '.</a>'; 
 
+  $("#sign-out").click(function() {
+    window.open('https://www.arcgis.com/sharing/oauth2/signout', '_blank', 'height=400,width=400,menubar=no,location=no,resizable=no,scrollbars=no,status=yes');
+    delete_cookie("token");
+    delete_cookie("firstname");
+    delete_cookie("lastname");
+    delete_cookie("email");
+    window.location.reload(false);
+  });
+
       console.log("*** username: " + username + "</br>firstname: " + firstname + "<br />email" + email);
+
+
     });
   };  
