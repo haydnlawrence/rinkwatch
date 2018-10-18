@@ -81,7 +81,7 @@ console.log("*********");
       document.cookie = "username=" + username + ";expires="+expire.toGMTString() + ";secure";
       document.cookie = "firstname=" + firstname + ";expires="+expire.toGMTString() + ";secure";
       document.cookie = "email=" + email  + ";expires="+expire.toGMTString() + ";secure";
-      authMenu.innerHTML = 'Hello ' + firstname + '.<br />' + '<a href="#" id="sign-out"><i class="fa fa-list white"></i>&nbsp;&nbsp;Sign out</a>';
+      authMenu.innerHTML = '<a href="#" id="sign-out"><i class="fa fa-list white"></i>&nbsp;&nbsp;Sign out ' + firstname + '.</a>';
 
       console.log("---------");
       console.log("username: " + username + "</br>firstname: " + firstname + "<br />email" + email);
