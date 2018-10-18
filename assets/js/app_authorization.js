@@ -52,7 +52,7 @@ console.log("*********");
     firstname = get_cookie('firstname');
     email = get_cookie('email');
     authMenu.innerHTML = '<a href="#" id="sign-out"><i class="fa fa-list white"></i>&nbsp;&nbsp;Sign out</a>';   
-    welcome_message.innerHTML = 'Hi ' + firstname + '.</a>'; 
+    welcome_message.innerHTML = 'Welcome ' + firstname + '.</a>'; 
 
     console.log("*** username: " + username + "</br>firstname: " + firstname + "<br />email" + email);
   }else{
@@ -91,7 +91,7 @@ console.log("*********");
       set_cookie("email",email);
 
       authMenu.innerHTML = '<a href="#" id="sign-out"><i class="fa fa-list white"></i>&nbsp;&nbsp;Sign out</a>';
-      welcome_message.innerHTML = 'Hi ' + firstname + '.</a>'; 
+      welcome_message.innerHTML = 'Welcome ' + firstname + '.</a>'; 
 
   $("#sign-out").click(function() {
     window.open('https://www.arcgis.com/sharing/oauth2/signout', '_blank', 'height=400,width=400,menubar=no,location=no,resizable=no,scrollbars=no,status=yes');
