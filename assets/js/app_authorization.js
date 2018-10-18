@@ -68,7 +68,7 @@ console.log("*********");
     delete_cookie("firstname");
     delete_cookie("lastname");
     delete_cookie("email");
-    window.location.reload(false);
+    window.location.reload(true);
   });
 
   // this function will be called when the oauth process is complete
