@@ -58,13 +58,14 @@ var rinks_layer = L.esri.featureLayer({
                 skateable = 'Not Skateable';
                 if(today < reading_date){ // if it's a reading from today, change the marker
                   markersObject[v.properties.Creator] = [new L.marker([v.geometry.coordinates[0],v.geometry.coordinates[1]], {icon:icon_skateable}).addTo(map)];
-
+                  console.log(markersObject)
                   //layer.setIcon(icon_notskateable);
                 } // if
               }else if(v.properties.reading_skateable == "1"){
                 skateable = 'Skateable';
                 if(today < reading_date){
                   markersObject[v.properties.Creator] = [new L.marker([v.geometry.coordinates[0],v.geometry.coordinates[1]], {icon:icon_notskateable}).addTo(map)];
+                  console.log(markersObject)
                 } // if
               } // else if
             } // END if(counter >= feature_count)
