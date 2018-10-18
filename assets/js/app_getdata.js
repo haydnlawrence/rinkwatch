@@ -47,6 +47,7 @@ var rinks_layer = L.esri.featureLayer({
             readings.push(parseInt(v.properties.reading_conditions)); // put all data for the chart in the popup box
 
             layer.Creator = v.properties.Creator;
+            console.log(v);
 
             if(counter >= feature_count){ // this will activate for the last record in the list of readings ordered by date ASC
               if(v.properties.reading_skateable == "0"){  
