@@ -13,11 +13,11 @@ var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 var daysago_7 = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 7);
 
 var icon_notskateable = L.icon({
-    iconUrl: '../img/icon_rink_notskateable.png',
+    iconUrl: 'assets/img/icon_rink_notskateable.png',
     iconSize: [50,50]
 });
 var icon_skateable = L.icon({
-    iconUrl: '../img/icon_rink_skateable.png',
+    iconUrl: 'assets/img/icon_rink_skateable.png',
     iconSize: [50,50]
 });
 var icon_rink_marker = L.icon({
@@ -25,7 +25,7 @@ var icon_rink_marker = L.icon({
     iconSize: [50,50]
 });
 var icon_owner = L.icon({
-    iconUrl: '../img/icon_rink_owner.png',
+    iconUrl: 'assets/img/icon_rink_owner.png',
     iconSize: [50,50]
 }); 
 
