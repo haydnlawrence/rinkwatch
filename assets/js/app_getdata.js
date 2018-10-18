@@ -49,6 +49,9 @@ var rinks_layer = L.esri.featureLayer({
 
             console.log(v);
             //layer.Creator = v.properties.Creator;
+
+
+            
             markersObject[v.properties.Creator] = [v.properties.Creator];
 
             console.log(markers[Object]);
