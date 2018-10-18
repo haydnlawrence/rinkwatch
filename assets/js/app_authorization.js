@@ -84,6 +84,7 @@ console.log("*********");
     delete_cookie("firstname");
     delete_cookie("lastname");
     delete_cookie("email");
+    window.reload();
   });
 
   
