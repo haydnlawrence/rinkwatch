@@ -12,7 +12,7 @@ console.log("*********");
 
   var authMenu = document.getElementById('auth');
   var expire = new Date();
-  expire.setTime(today.getTime() + 3600000*24*14); //two weeks same as ArcGIS Online token expiry
+  expire.setTime(new Date() + 3600000*24*14); //two weeks same as ArcGIS Online token expiry
 
   var token, username = '', firstname = '', email = '';
   
