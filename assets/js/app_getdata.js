@@ -21,7 +21,7 @@ var icon_skateable = L.icon({
     iconSize: [50,50]
 });
 var icon_rink_marker = L.icon({
-    iconUrl: '../img/icon_rink_marker.png',
+    iconUrl: 'assets/img/icon_rink_marker.png',
     iconSize: [50,50]
 });
 var icon_owner = L.icon({
