@@ -38,7 +38,7 @@ console.log("*********");
     username = getCookie('username');
     firstname = getCookie('firstName');
     email = getCookie('email');
-    authMenu.innerHTML = 'Hello ' + firstname + '.<br /><a href="https://www.arcgis.com/sharing/oauth2/signout?redirect_uri=' + window.encodeURIComponent(callbackPage) + ' id="sign-out"><i class="fa fa-list white"></i>&nbsp;&nbsp;Sign out</a>';
+    authMenu.innerHTML = 'Hello ' + firstname + '.<br /><a href="https://www.arcgis.com/sharing/oauth2/signout?client_id='+clientID+'&redirect_uri=' + window.encodeURIComponent(callbackPage) + ' id="sign-out"><i class="fa fa-list white"></i>&nbsp;&nbsp;Sign out</a>';
     console.log("---------");
     console.log("username: " + username + "</br>firstname: " + firstname + "<br />email" + email);
     console.log("---------");
