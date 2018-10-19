@@ -63,7 +63,7 @@ var temp_layer = L.esri.featureLayer({
   }, // END onEachFeature
 });
 
-console.log("CHECK27");
+console.log("CHECK28");
 
 
 
