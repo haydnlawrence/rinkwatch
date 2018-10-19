@@ -120,7 +120,7 @@ var rinksLayer = L.esri.featureLayer({
 
       // Put all the information into the array for use by the app
       rinksReadings[rink_name_data] = [reading_date, reading_skateable, reading_conditions, reading_objectid, coords, rink_objectid];
-
+      console.log(rinksReadings[rink_name_data]);
     }); // END query.where.orderBy.run
   }, // END onEachFeature
 
