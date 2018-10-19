@@ -88,7 +88,7 @@ var rinks_layer = L.esri.featureLayer({
         layer.setIcon(icon_owner);
         var zoom = 10;
         map.setView(coords, zoom);
-        new L.marker(coords).bindPopup(popupContent).addTo(rinksLayer);
+        L.marker(coords).bindPopup(popupContent).addTo(rinksLayer);
       } else {
         var popupContent = L.Util.template(
             'Creator: {Creator} <br />' + 
@@ -102,14 +102,14 @@ var rinks_layer = L.esri.featureLayer({
         if(reading_date[0] > days_ago){
           if(reading_skateable[0]==0){
             layer.setIcon(icon_notskateable);
-            new L.marker(coords).bindPopup(popupContent).addTo(nonskateableLayer);
+            L.marker(coords).bindPopup(popupContent).addTo(nonskateableLayer);
           }else{
             layer.setIcon(icon_skateable);
-            new L.marker(coords).bindPopup(popupContent).addTo(skateableLayer);
+            L.marker(coords).bindPopup(popupContent).addTo(skateableLayer);
           }
         }else{
           layer.setIcon(icon_rink_marker);
-          new L.marker(coords).bindPopup(popupContent).addTo(rinksLayer);
+          L.marker(coords).bindPopup(popupContent).addTo(rinksLayer);
         }
       }
 
@@ -127,5 +127,5 @@ nonskateableLayer.addTo(map);
 skateableLayer.addTo(map);
 rinksLayer.addTo(map);
 
-console.log("CHECK7");
+console.log("CHECK8");
 
