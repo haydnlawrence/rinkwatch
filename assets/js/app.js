@@ -161,18 +161,6 @@ var markerClusters = new L.MarkerClusterGroup({
 */
 
 
-map = L.map("map", {
-  zoom: 4,
-  center: [45.767523,-87.978516],
-  //layers: [usgsImagery, rinks_layer, markerClusters, highlight],
-  layers: [usgsImagery, rinksLayer, notskateableLayer, skateableLayer, highlight],
-  zoomControl: false,
-  attributionControl: false
-});
-
-rinksLayer.addTo(map);
-skateableLayer.addTo(map);
-notskateableLayer.addTo(map);
 
 
 /* Layer control listeners that allow for a single markerClusters layer */

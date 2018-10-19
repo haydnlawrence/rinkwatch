@@ -14,10 +14,18 @@ var rinksReadings = {};
 var rinks_url = 'https://services1.arcgis.com/OAsihu89uae6w8NX/arcgis/rest/services/survey123_47bbdd102ad44affb7a5835f9fb4085e/FeatureServer/0';
 var readings_url = 'https://services1.arcgis.com/OAsihu89uae6w8NX/arcgis/rest/services/survey123_c3d35e73bb6e47fbb0b6d17f687a954e/FeatureServer/0';
 
-var map;
-var rinksLayer = new L.LayerGroup();
-var skateableLayer = new L.LayerGroup();
-var notskateableLayer = new L.LayerGroup();
+var rinksLayer = new L.featureGroup();
+var skateableLayer = new L.featureGroup();
+var notskateableLayer = new L.featureGroup();
+
+var map = L.map("map", {
+  zoom: 4,
+  center: [45.767523,-87.978516],
+  //layers: [usgsImagery, rinks_layer, markerClusters, highlight],
+  layers: [usgsImagery, rinksLayer, notskateableLayer, skateableLayer, highlight],
+  zoomControl: false,
+  attributionControl: false
+});
 
 var now = new Date();
 var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
