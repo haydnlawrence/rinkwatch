@@ -10,7 +10,7 @@ var map, featureList;
 
 var now = new Date();
 var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-var daysago_7 = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 7);
+var days_ago = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 7);
 
 var icon_notskateable = L.icon({
     iconUrl: 'assets/img/icon_rink_notskateable.png',
@@ -80,11 +80,20 @@ var rinks_layer = L.esri.featureLayer({
               '<img src="' + rinks_url + '/{ObjectId}/attachments/{ObjectId}" style="width:200px;"> <br />'
           , feature.properties);
           layer.bindPopup(popupContent);
-          layer.setIcon(icon_skateable);
+console.log("date: " + reading_date[0] + " && days_ago: " + days_ago + " && true/false: " + (reading_date[0]>days_ago));          
+          if(reading_date[0] > days_ago){
+            if(reading_skateable[0]==0){
+              layer.setIcon(icon_skateable);
+            }else{
+              layer.setIcon(icon_notskateable);
+            }
+          }else{
+            layer.setIcon(icon_rink_marker);
+          }
         }
         rinksReadings[rink_name_data] = [reading_date, reading_skateable, reading_conditions, coords];
 
-console.log("hello4")
+console.log("hello5")
  
       }); // END query.where.orderBy.run
     }, // END onEachFeature
