@@ -34,7 +34,8 @@ var rinks_layer = L.esri.featureLayer({
     onEachFeature: function(feature, layer){
       var coords = new L.LatLng(feature.geometry.coordinates[0], feature.geometry.coordinates[1]);
       var rink_name_data = feature.properties.rink_name;
-console.log("coords: " + coords + " & rink_name: " + rink_name_data);
+
+      var reading_date = {}, reading_skateable = {}, reading_conditions = {};
 
       L.esri.query({
         url: readings_url,
@@ -46,12 +47,11 @@ console.log("coords: " + coords + " & rink_name: " + rink_name_data);
           $.each(featureCollection.features, function(i, v) { // loop around each reading for this user
 
             //counter++; // this is used to determine when we have the last record (i.e. the most recent one)
-            var reading_date = new Date(v.properties.CreationDate);
-            var reading_skateable = v.properties.reading_skateable;
-            var reading_condition = v.properties.reading_condition;
+            reading_date.push(new Date(v.properties.CreationDate));
+            reading_skateable.push(v.properties.reading_skateable);
+            reading_conditions.push(v.properties.reading_conditions);
 
-            rinksReadings[rink_name_data] = [reading_date, reading_skateable, reading_condition];
-            
+           
             //readings.push(parseInt(v.properties.reading_conditions)); // put all data for the chart in the popup box
 
             
@@ -74,14 +74,24 @@ console.log("coords: " + coords + " & rink_name: " + rink_name_data);
           }); // END $.each
         } // END if(featureCollection)
 
+        rinksReadings[rink_name_data] = [reading_date, reading_skateable, reading_conditions];
+
+console.log(rinksReadings);
+        
+        last_reading_reading_date = rinksReadings[rink_name_data][0][0];
+        if(rinksReadings[rink_name_data][1][0]==0){
+          last_reading_skateable = 'Not Skateable';
+        }else{
+          last_reading_skateable = 'Skateable';
+        }
+
         if(feature.properties.Creator == username){ // This is the user's rink
           var popupContent = L.Util.template(
               'Creator: {Creator} <br />' + 
               'Rink: {rink_name} <br />' + 
               'Description: {rink_desc} <br />' + 
-              'Last update: ' + skateable + ' on ' + reading_date + ' <br />' + 
-              '<img src="' + rinks_url + '/{ObjectId}/attachments/{ObjectId}" style="width:200px;"> <br />' +
-              'Readings: ' + readings
+              'Last update: ' + last_reading_skateable + ' on ' + last_reading_reading_date + ' <br />' + 
+              '<img src="' + rinks_url + '/{ObjectId}/attachments/{ObjectId}" style="width:200px;"> <br />'
           , feature.properties);
           layer.bindPopup(popupContent);
           map.panTo(coords);
@@ -92,9 +102,8 @@ console.log("coords: " + coords + " & rink_name: " + rink_name_data);
               'Creator: {Creator} <br />' + 
               'Rink: {rink_name} <br />' + 
               'Description: {rink_desc} <br />' + 
-              'Last update: ' + skateable + ' on ' + reading_date + ' <br />' + 
-              '<img src="' + rinks_url + '/{ObjectId}/attachments/{ObjectId}" style="width:200px;"> <br />' +
-              'Readings: ' + readings
+              'Last update: ' + last_reading_skateable + ' on ' + last_reading_reading_date + ' <br />' + 
+              '<img src="' + rinks_url + '/{ObjectId}/attachments/{ObjectId}" style="width:200px;"> <br />'
           , feature.properties);
           layer.bindPopup(popupContent);
         }
