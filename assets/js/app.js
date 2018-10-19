@@ -173,16 +173,16 @@ map = L.map("map", {
 
 /* Layer control listeners that allow for a single markerClusters layer */
 map.on("overlayadd", function(e) {
-  if (e.layer === rinks_layer) {
-    markerClusters.addLayer(rinks_layer);
+  if (e.layer === rinksLayer) {
+    markerClusters.addLayer(rinksLayer);
     syncSidebar();
   }
   
 });
 
 map.on("overlayremove", function(e) {
-  if (e.layer === rinks_layer) {
-    markerClusters.removeLayer(rinks_layer);
+  if (e.layer === rinksLayer) {
+    markerClusters.removeLayer(rinksLayer);
     syncSidebar();
   }
   
