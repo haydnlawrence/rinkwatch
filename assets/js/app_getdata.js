@@ -47,15 +47,15 @@ var rinks_layer = L.esri.featureLayer({
           //feature_count = featureCollection.features.length; // get the number of records
           $.each(featureCollection.features, function(i, v) { // loop around each reading for this user
 
-            reading_date.push(new Date(v.properties.CreationDate));
-            reading_skateable.push(v.properties.reading_skateable);
-            reading_conditions.push(v.properties.reading_conditions);
+            reading_date.push(new Date(v.properties.CreationDate)); // [0]
+            reading_skateable.push(v.properties.reading_skateable); // [1]
+            reading_conditions.push(v.properties.reading_conditions); // [2]
 
           }); // END $.each
         } // END if(featureCollection)
 
-        last_reading_reading_date = rinksReadings[rink_name_data][0][0];
-        if(rinksReadings[rink_name_data][1][0]==0){
+        last_reading_reading_date = reading_date[0];
+        if(reading_skateable[0]==0){
           last_reading_skateable = 'Not Skateable';
         }else{
           last_reading_skateable = 'Skateable';
@@ -82,7 +82,7 @@ var rinks_layer = L.esri.featureLayer({
         }
         rinksReadings[rink_name_data] = [reading_date, reading_skateable, reading_conditions, new L.marker(coords,{icon: icon_rink_marker}).addTo(map).bindPopup(popupContent)];
 
-console.log("toto")
+console.log("hello")
  
       }); // END query.where.orderBy.run
     }, // END onEachFeature
