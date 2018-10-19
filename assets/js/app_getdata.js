@@ -139,7 +139,7 @@ var rinksLayer = L.esri.featureLayer({
   // }, // End pointToLayer
 });
 
-console.log("CHECK23");
+console.log("CHECK24");
 
 
 
