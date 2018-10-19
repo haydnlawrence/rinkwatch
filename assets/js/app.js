@@ -292,7 +292,7 @@ var groupedOverlays = {
   //}
 };
 
-map.addLayer(nonskateableLayer);
+map.addLayer(notskateableLayer);
 map.addLayer(skateableLayer);
 map.addLayer(rinksLayer);
 
