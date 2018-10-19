@@ -13,9 +13,9 @@ var rinks_url = 'https://services1.arcgis.com/OAsihu89uae6w8NX/arcgis/rest/servi
 var readings_url = 'https://services1.arcgis.com/OAsihu89uae6w8NX/arcgis/rest/services/survey123_c3d35e73bb6e47fbb0b6d17f687a954e/FeatureServer/0';
 
 var map;
-var rinksLayer = new L.LayerGroup();
-var skateableLayer = new L.LayerGroup();
-var notskateableLayer = new L.LayerGroup();
+var rinksLayer = L.LayerGroup();
+var skateableLayer = L.LayerGroup();
+var notskateableLayer = L.LayerGroup();
 
 var now = new Date();
 var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
@@ -97,8 +97,7 @@ var rinks_layer = L.esri.featureLayer({
             'Last update: ' + last_reading_skateable + ' on ' + last_reading_reading_date + ' <br />' + 
             '<img src="' + rinks_url + '/{ObjectId}/attachments/{ObjectId}" style="width:200px;"> <br />'
         , feature.properties);
-        
-
+ 
         // This sets the icon if there is a reading within the last 7 days and if it is skateable or not skateable
         if(reading_date[0] > days_ago){
           if(reading_skateable[0]==0){
