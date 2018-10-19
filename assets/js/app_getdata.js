@@ -24,42 +24,44 @@ console.log("hello0")
 L.esri.query({
   url: rinks_url,
 }).run(function(error, feature_rinks){
-  //onEachFeature: function(feature, layer){
-console.log(feature_rinks);
-  var rink_creator = feature_rinks.properties.Creator;
-console.log("hello1")
-  // create temporary arrays for each reading for this particular user
-  var reading_date = []; // [0]
-  var reading_skateable = []; // [1]
-  var reading_conditions = []; // [2]
-  var reading_objectid = []; // [3]
 
-  var coords = [feature_rinks.geometry.coordinates[1], feature_rinks.geometry.coordinates[0]]; // [4]
-  var rink_objectid = feature_rinks.properties.ObjectId; // [5]
-  var rink_name = feature_rinks.properties.rink_name; // [6]
-  var rink_desc = feature_rinks.properties.rink_desc; // [7]
-  var rink_creator = feature_rinks.properties.Creator; // [8]
+  $.each(feature_rinks.features, function(x, rink) { 
 
-  // Query getting all readings for current user sorted by most recent date
-  L.esri.query({
-    url: readings_url,
-  }).where("Creator='" + feature_rinks.properties.Creator + "'").orderBy("CreationDate", "DESC").run(function(error, feature_readings){
+    var rink_creator = rink.properties.Creator;
+
+    // create temporary arrays for each reading for this particular user
+    var reading_date = []; // [0]
+    var reading_skateable = []; // [1]
+    var reading_conditions = []; // [2]
+    var reading_objectid = []; // [3]
+
+    var coords = [rink.geometry.coordinates[1], rink.geometry.coordinates[0]]; // [4]
+    var rink_objectid = rink.properties.ObjectId; // [5]
+    var rink_name = rink.properties.rink_name; // [6]
+    var rink_desc = rink.properties.rink_desc; // [7]
+    var rink_creator = rink.properties.Creator; // [8]
+
+    // Query getting all readings for current user sorted by most recent date
+    L.esri.query({
+      url: readings_url,
+    }).where("Creator='" + rink.properties.Creator + "'").orderBy("CreationDate", "DESC").run(function(error, feature_readings){
 console.log("Hello2");
-    if(featureCollection){
-      // loop around each reading for this user
-      $.each(feature_readings.features, function(i, v) { 
+      if(featureCollection){
+        // loop around each reading for this user
+        $.each(feature_readings.features, function(i, reading) { 
 
-        // Put all of the readings data into three different arrays later to go into rinksReadings global array
-        reading_date.push(new Date(v.properties.CreationDate)); // [0]
-        reading_skateable.push(v.properties.reading_skateable); // [1]
-        reading_conditions.push(v.properties.reading_conditions); // [2]
-        reading_objectid.push(v.properties.ObjectId); // [3]
+          // Put all of the readings data into three different arrays later to go into rinksReadings global array
+          reading_date.push(new Date(reading.properties.CreationDate)); // [0]
+          reading_skateable.push(reading.properties.reading_skateable); // [1]
+          reading_conditions.push(reading.properties.reading_conditions); // [2]
+          reading_objectid.push(reading.properties.ObjectId); // [3]
 
-      }); // END $.each
-    } // END if(featureCollection)
+        }); // END $.each
+      } // END if(featureCollection)
 
-    // Put all the information into the array for use by the app
-    rinksReadings[rink_creator] = [reading_date, reading_skateable, reading_conditions, reading_objectid, coords, rink_objectid, rink_name, rink_desc, rink_creator];
+      // Put all the information into the array for use by the app
+      rinksReadings[rink_creator] = [reading_date, reading_skateable, reading_conditions, reading_objectid, coords, rink_objectid, rink_name, rink_desc, rink_creator];
+
 console.log("rink_creator: " + rink_creator);
 console.log(rinksReadings[rink_creator]);
   }); // END query.where.orderBy.run
