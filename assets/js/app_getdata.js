@@ -88,11 +88,11 @@ console.log("hello1")
       }); // END query.where.orderBy.run
     }, // END onEachFeature
 
-   // pointToLayer: function(geojson, latlng){
-   //   return L.marker(latlng, {
-   //     icon: icon_rink_marker
-   //   });
-   // }, // End pointToLayer
+   pointToLayer: function(geojson, latlng){
+     return L.marker(latlng, {
+       icon: icon_rink_marker
+     });
+   }, // End pointToLayer
   });
  
  //var rinks = rinks_layer;
