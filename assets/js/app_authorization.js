@@ -44,6 +44,7 @@ console.log("*********");
     }
   } 
 
+  // check if there is a previously set cookie and if it's valid
   token = get_cookie('token');
   if(token!=null){
 
