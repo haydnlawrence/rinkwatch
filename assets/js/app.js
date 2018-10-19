@@ -298,7 +298,7 @@ var groupedOverlays = {
 
 //info.addTo(map); 
 
-var layerControl = L.control.layers(baseLayers, groupedOverlays, {
+var layerControl = L.control.groupedLayers(baseLayers, groupedOverlays, {
   collapsed: isCollapsed
 }).addTo(map);
 
