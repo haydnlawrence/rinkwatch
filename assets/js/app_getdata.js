@@ -18,9 +18,6 @@ var map;
 var rinksLayer = new L.LayerGroup();
 var skateableLayer = new L.LayerGroup();
 var notskateableLayer = new L.LayerGroup();
-rinksLayer.addTo(map);
-skateableLayer.addTo(map);
-notskateableLayer.addTo(map);
 
 var now = new Date();
 var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());

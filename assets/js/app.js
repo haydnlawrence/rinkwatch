@@ -170,6 +170,10 @@ map = L.map("map", {
   attributionControl: false
 });
 
+rinksLayer.addTo(map);
+skateableLayer.addTo(map);
+notskateableLayer.addTo(map);
+
 
 /* Layer control listeners that allow for a single markerClusters layer */
 map.on("overlayadd", function(e) {
