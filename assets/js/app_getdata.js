@@ -123,7 +123,8 @@ var rinks_layer = L.esri.featureLayer({
  // }, // End pointToLayer
 });
 
-console.log("CHECK11");
+console.log("CHECK12");
+console.log(rinksLayer);
 
 
 

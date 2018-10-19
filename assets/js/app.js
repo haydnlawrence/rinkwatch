@@ -203,7 +203,7 @@ map = L.map("map", {
 
 /* Filter sidebar feature list to only show features in current map bounds */
 map.on("moveend", function (e) {
-  syncSidebar();
+  //syncSidebar();
 });
 
 /* Clear feature highlight when map is clicked */
@@ -291,11 +291,6 @@ var groupedOverlays = {
   //  "Pacific Northwest": boroughs
   //}
 };
-
-map.addLayer(notskateableLayer);
-map.addLayer(skateableLayer);
-map.addLayer(rinksLayer);
-
 
 
 //info.addTo(map); 
