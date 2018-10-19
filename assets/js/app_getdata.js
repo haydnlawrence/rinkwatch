@@ -86,6 +86,7 @@ var rinks_layer = L.esri.featureLayer({
           layer.bindPopup(popupContent);
           layer.setIcon(icon_owner);
           var zoom = 10;
+console.log("coords: " + coords)          ;
           map.setView(coords, zoom);
         } else {
           var popupContent = L.Util.template(
