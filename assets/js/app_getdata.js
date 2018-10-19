@@ -38,12 +38,13 @@ var rinks_layer = L.esri.featureLayer({
       var reading_date = [];
       var reading_skateable = [];
       var reading_conditions = [];
-console.log("hello");
+
+console.log("goodbye");
+
       L.esri.query({
         url: readings_url,
       }).where("Creator='" + feature.properties.Creator + "'").orderBy("CreationDate", "DESC").run(function(error, featureCollection){
         
-        var skateable, reading_date, counter = 0, readings = [];
         if(featureCollection){
           feature_count = featureCollection.features.length; // get the number of records
           $.each(featureCollection.features, function(i, v) { // loop around each reading for this user
