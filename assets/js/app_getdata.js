@@ -43,86 +43,87 @@ var icon_owner = L.icon({
 }); 
 
 var rinks_layer = L.esri.featureLayer({
-    url: rinks_url,
-    onEachFeature: function(feature, layer){
-      var coords = [feature.geometry.coordinates[1], feature.geometry.coordinates[0]];
-      var rink_name_data = feature.properties.rink_name;
+  url: rinks_url,
+  onEachFeature: function(feature, layer){
+    var coords = [feature.geometry.coordinates[1], feature.geometry.coordinates[0]];
+    var rink_name_data = feature.properties.rink_name;
 
-      // create temporary arrays for each reading for this particular user
-      var reading_date = [];
-      var reading_skateable = [];
-      var reading_conditions = [];
+    // create temporary arrays for each reading for this particular user
+    var reading_date = [];
+    var reading_skateable = [];
+    var reading_conditions = [];
 
-      // Query getting all readings for current user sorted by most recent date
-      L.esri.query({
-        url: readings_url,
-      }).where("Creator='" + feature.properties.Creator + "'").orderBy("CreationDate", "DESC").run(function(error, featureCollection){
-        
-        if(featureCollection){
-          // loop around each reading for this user
-          $.each(featureCollection.features, function(i, v) { 
+    // Query getting all readings for current user sorted by most recent date
+    L.esri.query({
+      url: readings_url,
+    }).where("Creator='" + feature.properties.Creator + "'").orderBy("CreationDate", "DESC").run(function(error, featureCollection){
+      
+      if(featureCollection){
+        // loop around each reading for this user
+        $.each(featureCollection.features, function(i, v) { 
 
-            // Put all of the readings data into three different arrays later to go into rinksReadings global array
-            reading_date.push(new Date(v.properties.CreationDate)); // [0]
-            reading_skateable.push(v.properties.reading_skateable); // [1]
-            reading_conditions.push(v.properties.reading_conditions); // [2]
+          // Put all of the readings data into three different arrays later to go into rinksReadings global array
+          reading_date.push(new Date(v.properties.CreationDate)); // [0]
+          reading_skateable.push(v.properties.reading_skateable); // [1]
+          reading_conditions.push(v.properties.reading_conditions); // [2]
 
-          }); // END $.each
-        } // END if(featureCollection)
+        }); // END $.each
+      } // END if(featureCollection)
 
-        // This is just setting human language for the information in the pop up box below
-        last_reading_reading_date = reading_date[0];
-        if(reading_skateable[0]==0){
-          last_reading_skateable = 'Not Skateable';
-        }else{
-          last_reading_skateable = 'Skateable';
-        }
+      // This is just setting human language for the information in the pop up box below
+      last_reading_reading_date = reading_date[0];
+      if(reading_skateable[0]==0){
+        last_reading_skateable = 'Not Skateable';
+      }else{
+        last_reading_skateable = 'Skateable';
+      }
 
-        // Check to see if it is the user's rink - if so, use special marker icon and possibly specialized pop up box info
-        if(feature.properties.Creator == username){ // This is the user's rink
-          var popupContent = L.Util.template(
-              'Creator: {Creator} <br />' + 
-              'Rink: {rink_name} <br />' + 
-              'Description: {rink_desc} <br />' + 
-              'Last update: ' + last_reading_skateable + ' on ' + last_reading_reading_date + ' <br />' + 
-              '<img src="' + rinks_url + '/{ObjectId}/attachments/{ObjectId}" style="width:200px;"> <br />'
-          , feature.properties);
-          layer.bindPopup(popupContent);
-          layer.setIcon(icon_owner);
-          var zoom = 10;
-          map.setView(coords, zoom);
-          rinksLayer.addLayer(layer);
-        } else {
-          var popupContent = L.Util.template(
-              'Creator: {Creator} <br />' + 
-              'Rink: {rink_name} <br />' + 
-              'Description: {rink_desc} <br />' + 
-              'Last update: ' + last_reading_skateable + ' on ' + last_reading_reading_date + ' <br />' + 
-              '<img src="' + rinks_url + '/{ObjectId}/attachments/{ObjectId}" style="width:200px;"> <br />'
-          , feature.properties);
-          layer.bindPopup(popupContent);
+      // Check to see if it is the user's rink - if so, use special marker icon and possibly specialized pop up box info
+      if(feature.properties.Creator == username){ // This is the user's rink
+        var popupContent = L.Util.template(
+            'Creator: {Creator} <br />' + 
+            'Rink: {rink_name} <br />' + 
+            'Description: {rink_desc} <br />' + 
+            'Last update: ' + last_reading_skateable + ' on ' + last_reading_reading_date + ' <br />' + 
+            '<img src="' + rinks_url + '/{ObjectId}/attachments/{ObjectId}" style="width:200px;"> <br />'
+        , feature.properties);
+        layer.bindPopup(popupContent);
+        layer.setIcon(icon_owner);
+        var zoom = 10;
+        map.setView(coords, zoom);
+        rinksLayer.addLayer(layer);
+      } else {
+        var popupContent = L.Util.template(
+            'Creator: {Creator} <br />' + 
+            'Rink: {rink_name} <br />' + 
+            'Description: {rink_desc} <br />' + 
+            'Last update: ' + last_reading_skateable + ' on ' + last_reading_reading_date + ' <br />' + 
+            '<img src="' + rinks_url + '/{ObjectId}/attachments/{ObjectId}" style="width:200px;"> <br />'
+        , feature.properties);
+        layer.bindPopup(popupContent);
 
-          // This sets the icon if there is a reading within the last 7 days and if it is skateable or not skateable
-          if(reading_date[0] > days_ago){
-            if(reading_skateable[0]==0){
-              layer.setIcon(icon_notskateable);
-              nonskateableLayer.addLayer(layer);
-            }else{
-              layer.setIcon(icon_skateable);
-              skateableLayer.addLayer(layer);
-            }
+        // This sets the icon if there is a reading within the last 7 days and if it is skateable or not skateable
+        if(reading_date[0] > days_ago){
+          if(reading_skateable[0]==0){
+            layer.setIcon(icon_notskateable);
+            nonskateableLayer.addLayer(layer);
           }else{
-            layer.setIcon(icon_rink_marker);
-            rinksLayer.addLayer(layer);
+            layer.setIcon(icon_skateable);
+            skateableLayer.addLayer(layer);
           }
+        }else{
+          layer.setIcon(icon_rink_marker);
+          rinksLayer.addLayer(layer);
         }
+      }
 
-        // Put all the information into the array for use by the app
-        rinksReadings[rink_name_data] = [reading_date, reading_skateable, reading_conditions, coords];
+      // Put all the information into the array for use by the app
+      rinksReadings[rink_name_data] = [reading_date, reading_skateable, reading_conditions, coords];
 
-      }); // END query.where.orderBy.run
-    }, // END onEachFeature
+    }); // END query.where.orderBy.run
+  }, // END onEachFeature
 
-   // pointToLayer: function(geojson, latlng){
-   // }, // End pointToLayer
-  });
+ // pointToLayer: function(geojson, latlng){
+ // }, // End pointToLayer
+});
+
