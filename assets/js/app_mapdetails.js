@@ -1,5 +1,5 @@
      
-console.log("CHECK25");
+
 
 var rinksLayer = new L.featureGroup();
 var skateableLayer = new L.featureGroup();
