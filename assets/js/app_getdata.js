@@ -54,6 +54,10 @@ var markerClusters = new L.MarkerClusterGroup({
 });
 */
 
+var rinksLayer = new L.featureGroup();
+var skateableLayer = new L.featureGroup();
+var notskateableLayer = new L.featureGroup();
+
 var map = L.map("map", {
   zoom: 4,
   center: [45.767523,-87.978516],
@@ -63,9 +67,7 @@ var map = L.map("map", {
   attributionControl: false
 });
 
-var rinksLayer = new L.featureGroup();
-var skateableLayer = new L.featureGroup();
-var notskateableLayer = new L.featureGroup();
+
 
 var now = new Date();
 var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
