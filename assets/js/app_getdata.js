@@ -35,7 +35,7 @@ var rinks_layer = L.esri.featureLayer({
       var coords = new L.LatLng(feature.geometry.coordinates[0], feature.geometry.coordinates[1]);
       var rink_name_data = feature.properties.rink_name;
 
-      var reading_date = {}, reading_skateable = {}, reading_conditions = {};
+      var reading_date = [], reading_skateable = [], reading_conditions = [];
 
       L.esri.query({
         url: readings_url,
