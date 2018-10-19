@@ -69,7 +69,8 @@ var rinks_layer = L.esri.featureLayer({
               'Last update: ' + last_reading_skateable + ' on ' + last_reading_reading_date + ' <br />' + 
               '<img src="' + rinks_url + '/{ObjectId}/attachments/{ObjectId}" style="width:200px;"> <br />'
           , feature.properties);
-          //layer.bindPopup(popupContent);
+          layer.bindPopup(popupContent);
+          layer.setIcon(icon_owner);
         } else {
           var popupContent = L.Util.template(
               'Creator: {Creator} <br />' + 
@@ -78,11 +79,11 @@ var rinks_layer = L.esri.featureLayer({
               'Last update: ' + last_reading_skateable + ' on ' + last_reading_reading_date + ' <br />' + 
               '<img src="' + rinks_url + '/{ObjectId}/attachments/{ObjectId}" style="width:200px;"> <br />'
           , feature.properties);
-          //layer.bindPopup(popupContent);
+          layer.bindPopup(popupContent);
         }
-        rinksReadings[rink_name_data] = [reading_date, reading_skateable, reading_conditions, new L.marker(coords,{icon: icon_rink_marker}).addTo(map).bindPopup(popupContent)];
+        rinksReadings[rink_name_data] = [reading_date, reading_skateable, reading_conditions, coords];
 
-console.log("hello")
+console.log("hello1")
  
       }); // END query.where.orderBy.run
     }, // END onEachFeature
