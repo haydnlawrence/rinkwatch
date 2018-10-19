@@ -7,7 +7,7 @@ console.log("*********");
 // rinkReadings[username][0] is an array of the reading dates
 // rinkReadings[username][1] is an array of the reading data (0 or 1)
 // rinkReadings[username][2] is an array of the reading conditions (0 to 4)
-// rinkReadings[username][3] is the rink coordinates which is an L.LatLng object
+// rinkReadings[username][3] is the rink coordinates [lat, lng]
 //*****************************************************************************
 var rinksReadings = {};
 
@@ -41,7 +41,7 @@ var icon_owner = L.icon({
 var rinks_layer = L.esri.featureLayer({
     url: rinks_url,
     onEachFeature: function(feature, layer){
-      var coords = new L.LatLng(feature.geometry.coordinates[0], feature.geometry.coordinates[1]);
+      var coords = [feature.geometry.coordinates[0], feature.geometry.coordinates[1]];
       var rink_name_data = feature.properties.rink_name;
 
       // create temporary arrays for each reading for this particular user
