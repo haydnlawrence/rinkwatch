@@ -88,7 +88,7 @@ var rinks_layer = L.esri.featureLayer({
         layer.setIcon(icon_owner);
         var zoom = 10;
         map.setView(coords, zoom);
-        layer.addLayer(rinksLayer);
+        layer.addTo(rinksLayer);
       } else {
         var popupContent = L.Util.template(
             'Creator: {Creator} <br />' + 
@@ -106,11 +106,11 @@ var rinks_layer = L.esri.featureLayer({
             layer.addTo(nonskateableLayer);
           }else{
             layer.setIcon(icon_skateable);
-            layer.addLayer(skateableLayer);
+            layer.addTo(skateableLayer);
           }
         }else{
           layer.setIcon(icon_rink_marker);
-          layer.addLayer(rinksLayer);
+          layer.addTo(rinksLayer);
         }
       }
 
@@ -124,5 +124,5 @@ var rinks_layer = L.esri.featureLayer({
  // }, // End pointToLayer
 });
 
-console.log("CHECK1");
+console.log("CHECK3");
 
