@@ -1,4 +1,97 @@
 
+
+console.log("***START OF PROGRAM***")
+  //********************************************************************
+
+  var clientID = 'sPZnxpFgGypJrX1Y';
+  var accessToken;
+  var callbacks = [];
+  var protocol = window.location.protocol;
+  var callbackPage = protocol + '//haydnlawrence.github.io/rinkwatch/callback.html';
+
+  var authPane = document.getElementById('auth');
+  var signInButton = document.getElementById('sign-in');
+
+  var token, username = '', firstname = '', email = '';
+  
+  // this function will open a window and start the oauth process
+  function oauth(callback) {
+    if(accessToken){
+      callback(accessToken);
+    } else {
+      callbacks.push(callback);
+      window.open('https://www.arcgis.com/sharing/oauth2/authorize?client_id='+clientID+'&response_type=token&expiration=20160&redirect_uri=' + window.encodeURIComponent(callbackPage), '_blank', 'height=600,width=600,menubar=no,location=yes,resizable=yes,scrollbars=yes,status=yes');
+    }
+  }
+
+  function getCookie(name)
+  {
+    var re = new RegExp(name + "=([^;]+)");
+    var value = re.exec(document.cookie);
+    return (value != null) ? unescape(value[1]) : null;
+  }
+
+  token = getCookie('token');
+  if(token!=null){
+    console.log("Getting token...");
+    username = getCookie('username');
+    firstname = getCookie('firstName');
+    email = getCookie('email');
+    authPane.innerHTML = '<label>Hello ' + firstname + '.</label><br />' + '<a href="https://www.arcgis.com/sharing/oauth2/signout" id="sign-out">Sign out</a>';
+  }else{
+    if(authPane!=null) {
+      authPane.innerHTML = '<a href="#" id="sign-in">Sign In</a>';
+    }
+  }
+
+  // this function will be called when the oauth process is complete
+  window.oauthCallback = function(token) {
+    L.esri.get('https://www.arcgis.com/sharing/rest/portals/self', {
+      token: token
+    }, function(error, response){
+      username = response.user.username;
+      firstname = response.user.firstName;
+      email = response.user.email;
+      var expire = new Date();
+      expire.setTime(today.getTime() + 3600000*24*14); //two weeks same as ArcGIS Online token expiry
+      document.cookie = "token=" + token + ";username=" + username + ";firstname=" + firstname + ";email=" + email  + ";expires="+expire.toGMTString() + ";secure";
+      authPane.innerHTML = '<label>Hello ' + firstname + '.</label>';
+    });
+  };
+
+  signInButton.addEventListener('click', function(e){
+    oauth();
+    e.preventDefault();
+  });
+
+  //********************************************************************
+
+  var markersObject = [];
+  var rinks_url = 'https://services1.arcgis.com/OAsihu89uae6w8NX/arcgis/rest/services/survey123_47bbdd102ad44affb7a5835f9fb4085e/FeatureServer/0';
+  var readings_url = 'https://services1.arcgis.com/OAsihu89uae6w8NX/arcgis/rest/services/survey123_c3d35e73bb6e47fbb0b6d17f687a954e/FeatureServer/0';
+
+var map, featureList;
+
+var now = new Date();
+var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+var icon_notskateable = L.icon({
+    iconUrl: 'http://haydnlawrence.github.io/rinkwatch/images/icon_rink_notskateable.png',
+    iconSize: [50,50]
+});
+var icon_skateable = L.icon({
+    iconUrl: 'http://haydnlawrence.github.io/rinkwatch/images/icon_rink_skateable.png',
+    iconSize: [50,50]
+});
+var icon_rink_marker = L.icon({
+    iconUrl: 'http://haydnlawrence.github.io/rinkwatch/images/icon_rink_marker.png',
+    iconSize: [50,50]
+});
+var icon_owner = L.icon({
+    iconUrl: 'http://haydnlawrence.github.io/rinkwatch/images/icon_rink_owner.png',
+    iconSize: [50,50]
+}); 
+
 $(window).resize(function() {
   sizeLayerControl();
 });
@@ -10,7 +103,7 @@ $(document).on("click", ".feature-row", function(e) {
 
 if ( !("ontouchstart" in window) ) {
   $(document).on("mouseover", ".feature-row", function(e) {
-    //highlight.clearLayers().addLayer(L.circleMarker([$(this).attr("lat"), $(this).attr("lng")], highlightStyle));
+    highlight.clearLayers().addLayer(L.circleMarker([$(this).attr("lat"), $(this).attr("lng")], highlightStyle));
   });
 }
 
@@ -89,7 +182,7 @@ function syncSidebar() {
   $("#feature-list tbody").empty();
   /* Loop through rinks layer and add only features which are in the map bounds */
     if (map.hasLayer(rinks_layer)) {
-        var Q = L.esri.query({url: readings_url}); //change to readings_url once it is working 
+        var Q = L.esri.query({url: rinks_url}); //change to readings_url once it is working 
         Q.within(map.getBounds());
         Q.run(function(error, featureCollection){
           //alert(featureCollection);
@@ -109,14 +202,14 @@ function syncSidebar() {
       }
     
   
-//   /* Update list.js featureList */
-//   featureList = new List("features", {
-//     valueNames: ["feature-name"]
-//   });
-//   featureList.sort("feature-name", {
-//     order: "asc"
-//   });
-// }
+  /* Update list.js featureList */
+  featureList = new List("features", {
+    valueNames: ["feature-name"]
+  });
+  featureList.sort("feature-name", {
+    order: "asc"
+  });
+}
 
 /* Basemap Layers */
 var CartoDB_DarkMatter = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png', {
@@ -151,22 +244,88 @@ var highlightStyle = {
 
 
 
-// Single marker cluster layer to hold all clusters 
-// var markerClusters = new L.MarkerClusterGroup({
-//   spiderfyOnMaxZoom: true,
-//   showCoverageOnHover: false,
-//   zoomToBoundsOnClick: true,
-//   disableClusteringAtZoom: 16
-// });
-
+/* Single marker cluster layer to hold all clusters 
+var markerClusters = new L.MarkerClusterGroup({
+  spiderfyOnMaxZoom: true,
+  showCoverageOnHover: false,
+  zoomToBoundsOnClick: true,
+  disableClusteringAtZoom: 16
+});
+*/
 /* Empty layer placeholder to add to layer control for listening when to add/remove theaters to markerClusters layer */
+ var rinks_layer = L.esri.featureLayer({
+    url: rinks_url,
+    onEachFeature: function(feature, layer){
+
+      L.esri.query({
+        url: readings_url,
+      }).where("Creator='" + feature.properties.Creator + "'").orderBy("CreationDate", "ASC").run(function(error, featureCollection){
+        
+        var skateable, reading_date, counter = 0, readings = [];
+        if(featureCollection){
+          feature_count = featureCollection.features.length; // get the number of records
+          $.each(featureCollection.features, function(i, v) { // loop around each reading for this user
+
+            counter++; // this is used to determine when we have the last record (i.e. the most recent one)
+            reading_date = new Date(v.properties.CreationDate);
+            readings.push(parseInt(v.properties.reading_conditions)); // put all data for the chart in the popup box
+
+            layer.Creator = v.properties.Creator;
+
+            if(counter >= feature_count){ // this will activate for the last record in the list of readings ordered by date ASC
+              if(v.properties.reading_skateable == "0"){  
+                skateable = 'Not Skateable';
+                if(today < reading_date){ // if it's a reading from today, change the marker
+                  layer.setIcon(icon_notskateable);
+                } // if
+              }else if(v.properties.reading_skateable == "1"){
+                skateable = 'Skateable';
+                if(today < reading_date){
+                  layer.setIcon(icon_skateable);
+                } // if
+              } // else if
+            } // END if(counter >= feature_count)
+          }); // END $.each
+        } // END if(featureCollection)
+
+        if(feature.properties.Creator == username){ // This is the user's rink
+          var popupContent = L.Util.template(
+              'Rink: {rink_name} <br />' + 
+              'Description: {rink_desc} <br />' + 
+              'Creator: {Creator} <br />' + 
+              'Last update: ' + skateable + ' on ' + reading_date + ' <br />' + 
+              '<img src="' + rinks_url + '/{ObjectId}/attachments/{ObjectId}" style="width:200px;"> <br />' +
+              'Readings: ' + readings
+          , feature.properties);
+          layer.bindPopup(popupContent);
+        } else {
+          var popupContent = L.Util.template(
+              'Rink: {rink_name} <br />' + 
+              'Description: {rink_desc} <br />' + 
+              'Creator: {Creator} <br />' + 
+              'Last update: ' + skateable + ' on ' + reading_date + ' <br />' + 
+              '<img src="' + rinks_url + '/{ObjectId}/attachments/{ObjectId}" style="width:200px;"> <br />' +
+              'Readings: ' + readings
+          , feature.properties);
+          layer.bindPopup(popupContent);
+        }
+      }); // END query.where.orderBy.run
+    }, // END onEachFeature
+
+   // pointToLayer: function(geojson, latlng){
+   //   return L.marker(latlng, {
+   //     icon: icon_rink_marker
+   //   });
+   // }, // End pointToLayer
+  });
  
+ //var rinks = rinks_layer;
 
 map = L.map("map", {
   zoom: 4,
   center: [45.767523,-87.978516],
   //layers: [usgsImagery, rinks_layer, markerClusters, highlight],
-  layers: [usgsImagery, skateableLayer, notskateableLayer, rinksLayer, highlight],
+  layers: [usgsImagery, rinks_layer, highlight],
   zoomControl: false,
   attributionControl: false
 });
@@ -174,28 +333,16 @@ map = L.map("map", {
 
 /* Layer control listeners that allow for a single markerClusters layer */
 map.on("overlayadd", function(e) {
-  if (e.layer === rinksLayer) {
-    markerClusters.addLayer(rinksLayer);
-    syncSidebar();
-  }else if (e.layer === notskateableLayer){
-    markerClusters.addLayer(notskateableLayer);
-    syncSidebar();
-  }else if (e.layer === skateableLayer){
-    markerClusters.addLayer(skateableLayer);
+  if (e.layer === rinks_layer) {
+    markerClusters.addLayer(rinks_layer);
     syncSidebar();
   }
   
 });
 
 map.on("overlayremove", function(e) {
-  if (e.layer === rinksLayer) {
-    markerClusters.removeLayer(rinksLayer);
-    syncSidebar();
-  }else if (e.layer === notskateableLayer){
-    markerClusters.removeLayer(notskateableLayer);
-    syncSidebar();
-  }else if (e.layer === skateableLayer){
-    markerClusters.removeLayer(skateableLayer);
+  if (e.layer === rinks_layer) {
+    markerClusters.removeLayer(rinks_layer);
     syncSidebar();
   }
   
@@ -282,6 +429,7 @@ var baseLayers = {
 
 var groupedOverlays = {
   "Rinks": {
+    
     "<img src='assets/img/icon_rink_notskateable.png' width='24' height='28'>&nbsp;Not Skateable": notskateableLayer,
     "<img src='assets/img/icon_rink_skateable.png' width='24' height='28'>&nbsp;Skateable": skateableLayer,
     "<img src='assets/img/icon_rink_marker.png' width='24' height='28'>&nbsp;All Rinks": rinksLayer
@@ -291,6 +439,9 @@ var groupedOverlays = {
   //  "Pacific Northwest": boroughs
   //}
 };
+
+
+
 
 
 //info.addTo(map); 
@@ -311,3 +462,5 @@ if (!L.Browser.touch) {
 } else {
   L.DomEvent.disableClickPropagation(container);
 }
+
+
