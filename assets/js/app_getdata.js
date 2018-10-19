@@ -23,7 +23,7 @@ var days_ago = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 7);
 console.log("hello0")
 
 
-var temp_layer = L.esri.featureLayer({
+var rinks_layer = L.esri.featureLayer({
   url: rinks_url,
   onEachFeature: function(feature, layer){
     var rink_creator = feature.properties.Creator;
