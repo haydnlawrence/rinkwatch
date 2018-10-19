@@ -15,9 +15,12 @@ var rinks_url = 'https://services1.arcgis.com/OAsihu89uae6w8NX/arcgis/rest/servi
 var readings_url = 'https://services1.arcgis.com/OAsihu89uae6w8NX/arcgis/rest/services/survey123_c3d35e73bb6e47fbb0b6d17f687a954e/FeatureServer/0';
 
 var map;
-//var rinksLayer = new L.LayerGroup();
+var rinksLayer = new L.LayerGroup();
 var skateableLayer = new L.LayerGroup();
 var notskateableLayer = new L.LayerGroup();
+rinksLayer.addTo(map);
+skateableLayer.addTo(map);
+notskateableLayer.addTo(map);
 
 var now = new Date();
 var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
@@ -131,7 +134,7 @@ var rinksLayer = L.esri.featureLayer({
   // }, // End pointToLayer
 });
 
-console.log("CHECK22");
+console.log("CHECK23");
 
 
 
