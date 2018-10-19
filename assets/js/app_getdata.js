@@ -88,7 +88,7 @@ var rinks_layer = L.esri.featureLayer({
         layer.setIcon(icon_owner);
         var zoom = 10;
         map.setView(coords, zoom);
-        layer.addTo(rinksLayer);
+        L.marker(coords).bindPopup(popupContent).addTo(rinksLayer);
       } else {
         var popupContent = L.Util.template(
             'Creator: {Creator} <br />' + 
@@ -97,20 +97,20 @@ var rinks_layer = L.esri.featureLayer({
             'Last update: ' + last_reading_skateable + ' on ' + last_reading_reading_date + ' <br />' + 
             '<img src="' + rinks_url + '/{ObjectId}/attachments/{ObjectId}" style="width:200px;"> <br />'
         , feature.properties);
-        layer.bindPopup(popupContent);
+        
 
         // This sets the icon if there is a reading within the last 7 days and if it is skateable or not skateable
         if(reading_date[0] > days_ago){
           if(reading_skateable[0]==0){
             layer.setIcon(icon_notskateable);
-            layer.addTo(nonskateableLayer);
+            L.marker(coords).bindPopup(popupContent).addTo(nonskateableLayer);
           }else{
             layer.setIcon(icon_skateable);
-            layer.addTo(skateableLayer);
+            L.marker(coords).bindPopup(popupContent).addTo(skateableLayer);
           }
         }else{
           layer.setIcon(icon_rink_marker);
-          layer.addTo(rinksLayer);
+          L.marker(coords).bindPopup(popupContent).addTo(rinksLayer);
         }
       }
 
@@ -124,5 +124,5 @@ var rinks_layer = L.esri.featureLayer({
  // }, // End pointToLayer
 });
 
-console.log("CHECK3");
+console.log("CHECK4");
 
