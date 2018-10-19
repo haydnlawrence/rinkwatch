@@ -80,9 +80,11 @@ var rinks_layer = L.esri.featureLayer({
           , feature.properties);
           //layer.bindPopup(popupContent);
         }
+        rinksReadings[rink_name_data] = [reading_date, reading_skateable, reading_conditions, new L.marker(coords,{icon: icon_rink_marker}).addTo(map).bindPopup(popupContent)];
+
 console.log("toto")
+ 
       }); // END query.where.orderBy.run
-      rinksReadings[rink_name_data] = [reading_date, reading_skateable, reading_conditions, new L.marker(coords,{icon: icon_rink_marker}).addTo(map).bindPopup(popupContent)];
     }, // END onEachFeature
 
    // pointToLayer: function(geojson, latlng){
