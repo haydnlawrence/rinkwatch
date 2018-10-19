@@ -41,7 +41,7 @@ var icon_owner = L.icon({
 var rinks_layer = L.esri.featureLayer({
     url: rinks_url,
     onEachFeature: function(feature, layer){
-      var coords = [feature.geometry.coordinates[0], feature.geometry.coordinates[1]];
+      var coords = [feature.geometry.coordinates[1], feature.geometry.coordinates[0]];
       var rink_name_data = feature.properties.rink_name;
 
       // create temporary arrays for each reading for this particular user
