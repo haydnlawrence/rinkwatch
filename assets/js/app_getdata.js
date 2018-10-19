@@ -83,7 +83,7 @@ var rinks_layer = L.esri.featureLayer({
         }
         rinksReadings[rink_name_data] = [reading_date, reading_skateable, reading_conditions, coords];
 
-console.log("hello1")
+console.log("hello2")
  
       }); // END query.where.orderBy.run
     }, // END onEachFeature
