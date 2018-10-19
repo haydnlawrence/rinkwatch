@@ -61,7 +61,7 @@ console.log("Hello2");
 console.log("rink_creator: " + rink_creator);
 console.log(rinksReadings[rink_creator]);
     }); // END query.where.orderBy.run
-  }, // END onEachFeature
+  } // END onEachFeature
 });
 
-console.log("CHECK1");
+console.log("CHECK2");
