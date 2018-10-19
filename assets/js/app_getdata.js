@@ -123,12 +123,12 @@ var rinksLayer = L.esri.featureLayer({
     }); // END query.where.orderBy.run
   }, // END onEachFeature
 
-  pointToLayer: function(geojson, latlng){
-    return L.circleMarker(latlng, 10, {
-      color: "#000000"
-    })
-  }, // End pointToLayer
-}).addTo(map);
+  // pointToLayer: function(geojson, latlng){
+  //   return L.circleMarker(latlng, 10, {
+  //     color: "#000000"
+  //   })
+  // }, // End pointToLayer
+});
 
 console.log("CHECK20");
 
