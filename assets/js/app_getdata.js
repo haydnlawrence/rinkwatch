@@ -39,8 +39,6 @@ var rinks_layer = L.esri.featureLayer({
       var reading_skateable = [];
       var reading_conditions = [];
 
-console.log("goodbye");
-
       L.esri.query({
         url: readings_url,
       }).where("Creator='" + feature.properties.Creator + "'").orderBy("CreationDate", "DESC").run(function(error, featureCollection){
@@ -79,8 +77,6 @@ console.log("goodbye");
 
         rinksReadings[rink_name_data] = [reading_date, reading_skateable, reading_conditions];
 
-console.log(rinksReadings);
-        
         last_reading_reading_date = rinksReadings[rink_name_data][0][0];
         if(rinksReadings[rink_name_data][1][0]==0){
           last_reading_skateable = 'Not Skateable';
@@ -97,9 +93,7 @@ console.log(rinksReadings);
               '<img src="' + rinks_url + '/{ObjectId}/attachments/{ObjectId}" style="width:200px;"> <br />'
           , feature.properties);
           layer.bindPopup(popupContent);
-          map.panTo(coords);
-          //****************Query last reading set icon based on red or blue.  Add all data to dictionary. Set zoom.
-          //layer.setIcon(icon_owner);
+          map.fitBounds(new L.LatLngBounds(coords));
         } else {
           var popupContent = L.Util.template(
               'Creator: {Creator} <br />' + 
