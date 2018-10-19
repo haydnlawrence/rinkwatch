@@ -19,12 +19,10 @@ var now = new Date();
 var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 var days_ago = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 7);
 
-console.log("hello0")
-
+// Query getting all rinks
 L.esri.query({
   url: rinks_url,
 }).run(function(error, feature_rinks){
-
   $.each(feature_rinks.features, function(x, rink) { 
 
     var rink_creator = rink.properties.Creator;
@@ -45,7 +43,6 @@ L.esri.query({
     L.esri.query({
       url: readings_url,
     }).where("Creator='" + rink.properties.Creator + "'").orderBy("CreationDate", "DESC").run(function(error, feature_readings){
-console.log("Hello2");
       if(feature_readings){
         // loop around each reading for this user
         $.each(feature_readings.features, function(i, reading) { 
@@ -57,10 +54,11 @@ console.log("Hello2");
           reading_objectid.push(reading.properties.ObjectId); // [3]
 
         }); // END $.each
-      } // END if(featureCollection)
-    });
-      // Put all the information into the array for use by the app
+      } // END if(feature_readings)
+    }); // END query on readings_url
+    // Put all the information into the array for use by the app
     rinksReadings[rink_creator] = [reading_date, reading_skateable, reading_conditions, reading_objectid, coords, rink_objectid, rink_name, rink_desc, rink_creator];
 
-  }); // END query.where.orderBy.run
-}); // END onEachFeature
+  }); // END onEachFeature
+}); // END query on rinks_url
+
