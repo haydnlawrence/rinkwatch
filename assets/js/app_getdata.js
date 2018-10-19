@@ -23,7 +23,7 @@ console.log("hello0")
 
 L.esri.query({
   url: rinks_url,
-}).run(function(error, feature_rinks)){
+}).run(function(error, feature_rinks){
   //onEachFeature: function(feature, layer){
   var rink_creator = feature_rinks.properties.Creator;
 console.log("hello1")
@@ -61,8 +61,8 @@ console.log("Hello2");
     rinksReadings[rink_creator] = [reading_date, reading_skateable, reading_conditions, reading_objectid, coords, rink_objectid, rink_name, rink_desc, rink_creator];
 console.log("rink_creator: " + rink_creator);
 console.log(rinksReadings[rink_creator]);
-  } // END query.where.orderBy.run
-} // END onEachFeature
+  }); // END query.where.orderBy.run
+}); // END onEachFeature
 
 
 console.log("CHECK2");
