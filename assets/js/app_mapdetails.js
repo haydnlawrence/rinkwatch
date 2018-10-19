@@ -64,7 +64,6 @@ var icon_owner = L.icon({
     iconSize: [50,50]
 }); 
 
-console.log(rinksReadings)
 
 // for each (rink in )
 //       // This is just setting human language for the information in the pop up box below

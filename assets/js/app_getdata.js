@@ -56,8 +56,8 @@ L.esri.featureLayer({
       } // END if(featureCollection)
 
       // Put all the information into the array for use by the app
-      rinksReadings[rink_creator] = [reading_date, reading_skateable, reading_conditions, reading_objectid, coords, rink_objectid];
-
+      rinksReadings[rink_creator] = [reading_date, reading_skateable, reading_conditions, reading_objectid, coords, rink_objectid, rink_name, rink_desc, rink_creator];
+      console.log(rinksReadings[rink_creator]);
     }); // END query.where.orderBy.run
   }, // END onEachFeature
 });
