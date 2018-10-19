@@ -44,38 +44,15 @@ var rinks_layer = L.esri.featureLayer({
       }).where("Creator='" + feature.properties.Creator + "'").orderBy("CreationDate", "DESC").run(function(error, featureCollection){
         
         if(featureCollection){
-          feature_count = featureCollection.features.length; // get the number of records
+          //feature_count = featureCollection.features.length; // get the number of records
           $.each(featureCollection.features, function(i, v) { // loop around each reading for this user
 
-            //counter++; // this is used to determine when we have the last record (i.e. the most recent one)
             reading_date.push(new Date(v.properties.CreationDate));
             reading_skateable.push(v.properties.reading_skateable);
             reading_conditions.push(v.properties.reading_conditions);
 
-           
-            //readings.push(parseInt(v.properties.reading_conditions)); // put all data for the chart in the popup box
-
-            
-            // if(counter >= feature_count){ // this will activate for the last record in the list of readings ordered by date ASC
-            //   if(v.properties.reading_skateable == "0"){  
-            //     skateable = 'Not Skateable';
-            //     if(today < reading_date){ // if it's a reading from today, change the marker
-            //       markersObject[v.properties.Creator] = [new L.marker([v.geometry.coordinates[0],v.geometry.coordinates[1]], {icon:icon_skateable}).addTo(map)];
-            //       console.log(markersObject)
-            //       //layer.setIcon(icon_notskateable);
-            //     } // if
-            //   }else if(v.properties.reading_skateable == "1"){
-            //     skateable = 'Skateable';
-            //     if(today < reading_date){
-            //       markersObject[v.properties.Creator] = [new L.marker([v.geometry.coordinates[0],v.geometry.coordinates[1]], {icon:icon_notskateable}).addTo(map)];
-            //       console.log(markersObject)
-            //     } // if
-            //   } // else if
-            //} // END if(counter >= feature_count)
           }); // END $.each
         } // END if(featureCollection)
-
-        rinksReadings[rink_name_data] = [reading_date, reading_skateable, reading_conditions];
 
         last_reading_reading_date = rinksReadings[rink_name_data][0][0];
         if(rinksReadings[rink_name_data][1][0]==0){
@@ -92,8 +69,7 @@ var rinks_layer = L.esri.featureLayer({
               'Last update: ' + last_reading_skateable + ' on ' + last_reading_reading_date + ' <br />' + 
               '<img src="' + rinks_url + '/{ObjectId}/attachments/{ObjectId}" style="width:200px;"> <br />'
           , feature.properties);
-          layer.bindPopup(popupContent);
-          map.fitBounds(new L.LatLngBounds(coords));
+          //layer.bindPopup(popupContent);
         } else {
           var popupContent = L.Util.template(
               'Creator: {Creator} <br />' + 
@@ -102,10 +78,11 @@ var rinks_layer = L.esri.featureLayer({
               'Last update: ' + last_reading_skateable + ' on ' + last_reading_reading_date + ' <br />' + 
               '<img src="' + rinks_url + '/{ObjectId}/attachments/{ObjectId}" style="width:200px;"> <br />'
           , feature.properties);
-          layer.bindPopup(popupContent);
+          //layer.bindPopup(popupContent);
         }
+console.log("toto")
       }); // END query.where.orderBy.run
-console.log(rinksReadings);
+      rinksReadings[rink_name_data] = [reading_date, reading_skateable, reading_conditions, new L.marker(coords,{icon: icon_rink_marker}).addTo(map).bindPopup(popupContent)];
     }, // END onEachFeature
 
    // pointToLayer: function(geojson, latlng){
