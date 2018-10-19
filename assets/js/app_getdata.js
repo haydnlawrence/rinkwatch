@@ -4,7 +4,9 @@
 // rinkReadings[username][0] is an array of the reading dates
 // rinkReadings[username][1] is an array of the reading data (0 or 1)
 // rinkReadings[username][2] is an array of the reading conditions (0 to 4)
-// rinkReadings[username][3] is the rink coordinates [lat, lng]
+// rinkReadings[username][3] is an array of the reading ObjectIDs to create image links
+// rinkReadings[username][4] are the rink coordinates [lat, lng]
+// rinkReadings[username][5] is the rink ObjectID to create image link
 //*****************************************************************************
 var rinksReadings = {};
 
@@ -13,7 +15,7 @@ var rinks_url = 'https://services1.arcgis.com/OAsihu89uae6w8NX/arcgis/rest/servi
 var readings_url = 'https://services1.arcgis.com/OAsihu89uae6w8NX/arcgis/rest/services/survey123_c3d35e73bb6e47fbb0b6d17f687a954e/FeatureServer/0';
 
 var map;
-var rinksLayer = new L.LayerGroup();
+//var rinksLayer = new L.LayerGroup();
 var skateableLayer = new L.LayerGroup();
 var notskateableLayer = new L.LayerGroup();
 
@@ -39,10 +41,11 @@ var icon_owner = L.icon({
     iconSize: [50,50]
 }); 
 
-var rinks_layer = L.esri.featureLayer({
+var rinksLayer = L.esri.featureLayer({
   url: rinks_url,
   onEachFeature: function(feature, layer){
-    var coords = [feature.geometry.coordinates[1], feature.geometry.coordinates[0]];
+    var coords = [feature.geometry.coordinates[1], feature.geometry.coordinates[0]]; // [4]
+    var rink_objectid = feature.properties.ObjectId; // [5]
     var rink_name_data = feature.properties.rink_name;
 
     // create temporary arrays for each reading for this particular user
@@ -63,6 +66,7 @@ var rinks_layer = L.esri.featureLayer({
           reading_date.push(new Date(v.properties.CreationDate)); // [0]
           reading_skateable.push(v.properties.reading_skateable); // [1]
           reading_conditions.push(v.properties.reading_conditions); // [2]
+          reading_objectid.push(v.properties.ObjectId); // [3]
 
         }); // END $.each
       } // END if(featureCollection)
@@ -88,7 +92,7 @@ var rinks_layer = L.esri.featureLayer({
         layer.setIcon(icon_owner);
         var zoom = 10;
         map.setView(coords, zoom);
-        L.marker(coords).bindPopup(popupContent).addTo(rinksLayer);
+        //L.marker(coords).bindPopup(popupContent).addTo(rinksLayer);
       } else {
         var popupContent = L.Util.template(
             'Creator: {Creator} <br />' + 
@@ -108,22 +112,25 @@ var rinks_layer = L.esri.featureLayer({
             L.marker(coords).bindPopup(popupContent).addTo(skateableLayer);
           }
         }else{
-          layer.setIcon(icon_rink_marker);
-          L.marker(coords).bindPopup(popupContent).addTo(rinksLayer);
+          //layer.setIcon(icon_rink_marker);
+          //L.marker(coords).bindPopup(popupContent).addTo(rinksLayer);
         }
       }
 
       // Put all the information into the array for use by the app
-      rinksReadings[rink_name_data] = [reading_date, reading_skateable, reading_conditions, coords];
+      rinksReadings[rink_name_data] = [reading_date, reading_skateable, reading_conditions, reading_objectid, coords, rink_objectid];
 
     }); // END query.where.orderBy.run
   }, // END onEachFeature
 
- // pointToLayer: function(geojson, latlng){
- // }, // End pointToLayer
-});
+  pointToLayer: function(geojson, latlng){
+    return L.circleMarker(latlng, 10, {
+      color: "#000000"
+    })
+  }, // End pointToLayer
+}).addTo(map);
 
-console.log("CHECK18");
+console.log("CHECK20");
 
 
 
