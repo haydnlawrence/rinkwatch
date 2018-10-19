@@ -13,9 +13,9 @@ var rinks_url = 'https://services1.arcgis.com/OAsihu89uae6w8NX/arcgis/rest/servi
 var readings_url = 'https://services1.arcgis.com/OAsihu89uae6w8NX/arcgis/rest/services/survey123_c3d35e73bb6e47fbb0b6d17f687a954e/FeatureServer/0';
 
 var map;
-var rinksLayer = L.LayerGroup();
-var skateableLayer = L.LayerGroup();
-var notskateableLayer = L.LayerGroup();
+var rinksLayer = new L.LayerGroup();
+var skateableLayer = new L.LayerGroup();
+var notskateableLayer = new L.LayerGroup();
 
 var now = new Date();
 var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
@@ -88,7 +88,7 @@ var rinks_layer = L.esri.featureLayer({
         layer.setIcon(icon_owner);
         var zoom = 10;
         map.setView(coords, zoom);
-        L.marker(coords).bindPopup(popupContent).addTo(rinksLayer);
+        new L.marker(coords).bindPopup(popupContent).addTo(rinksLayer);
       } else {
         var popupContent = L.Util.template(
             'Creator: {Creator} <br />' + 
@@ -102,14 +102,14 @@ var rinks_layer = L.esri.featureLayer({
         if(reading_date[0] > days_ago){
           if(reading_skateable[0]==0){
             layer.setIcon(icon_notskateable);
-            L.marker(coords).bindPopup(popupContent).addTo(nonskateableLayer);
+            new L.marker(coords).bindPopup(popupContent).addTo(nonskateableLayer);
           }else{
             layer.setIcon(icon_skateable);
-            L.marker(coords).bindPopup(popupContent).addTo(skateableLayer);
+            new L.marker(coords).bindPopup(popupContent).addTo(skateableLayer);
           }
         }else{
           layer.setIcon(icon_rink_marker);
-          L.marker(coords).bindPopup(popupContent).addTo(rinksLayer);
+          new L.marker(coords).bindPopup(popupContent).addTo(rinksLayer);
         }
       }
 
@@ -123,5 +123,5 @@ var rinks_layer = L.esri.featureLayer({
  // }, // End pointToLayer
 });
 
-console.log("CHECK4");
+console.log("CHECK6");
 
