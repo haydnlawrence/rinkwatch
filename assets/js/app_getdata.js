@@ -25,6 +25,7 @@ L.esri.query({
   url: rinks_url,
 }).run(function(error, feature_rinks){
   //onEachFeature: function(feature, layer){
+console.log(feature_rinks);
   var rink_creator = feature_rinks.properties.Creator;
 console.log("hello1")
   // create temporary arrays for each reading for this particular user
