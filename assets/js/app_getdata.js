@@ -14,9 +14,45 @@ var rinksReadings = {};
 var rinks_url = 'https://services1.arcgis.com/OAsihu89uae6w8NX/arcgis/rest/services/survey123_47bbdd102ad44affb7a5835f9fb4085e/FeatureServer/0';
 var readings_url = 'https://services1.arcgis.com/OAsihu89uae6w8NX/arcgis/rest/services/survey123_c3d35e73bb6e47fbb0b6d17f687a954e/FeatureServer/0';
 
-var rinksLayer = new L.featureGroup();
-var skateableLayer = new L.featureGroup();
-var notskateableLayer = new L.featureGroup();
+/* Basemap Layers */
+var CartoDB_DarkMatter = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png', {
+  attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
+  subdomains: 'abcd',
+  maxZoom: 19
+});
+
+var cartoLight = L.tileLayer("https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png", {
+  maxZoom: 19,
+  attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="https://cartodb.com/attributions">CartoDB</a>'
+});
+var usgsImagery = L.layerGroup([L.tileLayer("http://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryOnly/MapServer/tile/{z}/{y}/{x}", {
+  maxZoom: 15,
+}), L.tileLayer.wms("http://raster.nationalmap.gov/arcgis/services/Orthoimagery/USGS_EROS_Ortho_SCALE/ImageServer/WMSServer?", {
+  minZoom: 16,
+  maxZoom: 19,
+  layers: "0",
+  format: 'image/jpeg',
+  transparent: true,
+  attribution: "Aerial Imagery courtesy USGS"
+})]);
+
+/* Overlay Layers */
+var highlight = L.geoJson(null);
+var highlightStyle = {
+  stroke: false,
+  fillColor: "#00FFFF",
+  fillOpacity: 0.7,
+  radius: 10
+};
+
+/* Single marker cluster layer to hold all clusters 
+var markerClusters = new L.MarkerClusterGroup({
+  spiderfyOnMaxZoom: true,
+  showCoverageOnHover: false,
+  zoomToBoundsOnClick: true,
+  disableClusteringAtZoom: 16
+});
+*/
 
 var map = L.map("map", {
   zoom: 4,
@@ -26,6 +62,10 @@ var map = L.map("map", {
   zoomControl: false,
   attributionControl: false
 });
+
+var rinksLayer = new L.featureGroup();
+var skateableLayer = new L.featureGroup();
+var notskateableLayer = new L.featureGroup();
 
 var now = new Date();
 var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
