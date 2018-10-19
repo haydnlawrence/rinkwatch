@@ -41,7 +41,7 @@ var icon_owner = L.icon({
     iconSize: [50,50]
 }); 
 
-var rinksLayer = L.esri.featureLayer({
+var rinks = L.esri.featureLayer({
   url: rinks_url,
   onEachFeature: function(feature, layer){
     var coords = [feature.geometry.coordinates[1], feature.geometry.coordinates[0]]; // [4]
