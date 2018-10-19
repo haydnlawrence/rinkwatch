@@ -52,6 +52,7 @@ var rinksLayer = L.esri.featureLayer({
     var reading_date = [];
     var reading_skateable = [];
     var reading_conditions = [];
+    var reading_objectid = [];
 
     // Query getting all readings for current user sorted by most recent date
     L.esri.query({
@@ -92,7 +93,7 @@ var rinksLayer = L.esri.featureLayer({
         layer.setIcon(icon_owner);
         var zoom = 10;
         map.setView(coords, zoom);
-        //L.marker(coords).bindPopup(popupContent).addTo(rinksLayer);
+        L.marker(coords).bindPopup(popupContent).addTo(rinksLayer);
       } else {
         var popupContent = L.Util.template(
             'Creator: {Creator} <br />' + 
@@ -112,8 +113,8 @@ var rinksLayer = L.esri.featureLayer({
             L.marker(coords).bindPopup(popupContent).addTo(skateableLayer);
           }
         }else{
-          //layer.setIcon(icon_rink_marker);
-          //L.marker(coords).bindPopup(popupContent).addTo(rinksLayer);
+          layer.setIcon(icon_rink_marker);
+          L.marker(coords).bindPopup(popupContent).addTo(rinksLayer);
         }
       }
 
@@ -130,7 +131,7 @@ var rinksLayer = L.esri.featureLayer({
   // }, // End pointToLayer
 });
 
-console.log("CHECK21");
+console.log("CHECK22");
 
 
 
