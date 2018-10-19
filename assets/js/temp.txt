@@ -1,0 +1,11 @@
+//*****************************************************************************
+// rinksReadings is the global array that will hold all information about rinks and their readings
+// rinkReadings[username][0] is an array of the reading dates
+// rinkReadings[username][1] is an array of the reading data (0 or 1)
+// rinkReadings[username][2] is an array of the reading conditions (0 to 4)
+// rinkReadings[username][3] is an array of the reading ObjectIDs to create image links
+// rinkReadings[username][4] are the rink coordinates [lat, lng]
+// rinkReadings[username][5] is the rink ObjectID to create image link
+// rinkReadings[username][6] is the rink name
+// rinkReadings[username][7] is the rink description
+//*****************************************************************************
