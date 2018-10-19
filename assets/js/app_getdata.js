@@ -16,6 +16,10 @@ var rinks_url = 'https://services1.arcgis.com/OAsihu89uae6w8NX/arcgis/rest/servi
 var readings_url = 'https://services1.arcgis.com/OAsihu89uae6w8NX/arcgis/rest/services/survey123_c3d35e73bb6e47fbb0b6d17f687a954e/FeatureServer/0';
 
 var map;
+var rinksLayer = new L.LayerGroup();
+var skateableLayer = new L.LayerGroup();
+var notskateableLayer = new L.LayerGroup();
+
 var now = new Date();
 var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 var days_ago = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 7);
@@ -86,8 +90,8 @@ var rinks_layer = L.esri.featureLayer({
           layer.bindPopup(popupContent);
           layer.setIcon(icon_owner);
           var zoom = 10;
-console.log("coords: " + coords)          ;
           map.setView(coords, zoom);
+          rinksLayer.addLayer(layer);
         } else {
           var popupContent = L.Util.template(
               'Creator: {Creator} <br />' + 
@@ -102,11 +106,14 @@ console.log("coords: " + coords)          ;
           if(reading_date[0] > days_ago){
             if(reading_skateable[0]==0){
               layer.setIcon(icon_notskateable);
+              nonskateableLayer.addLayer(layer);
             }else{
               layer.setIcon(icon_skateable);
+              skateableLayer.addLayer(layer);
             }
           }else{
             layer.setIcon(icon_rink_marker);
+            rinksLayer.addLayer(layer);
           }
         }
 

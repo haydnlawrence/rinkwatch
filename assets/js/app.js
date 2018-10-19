@@ -268,15 +268,17 @@ var baseLayers = {
   "Aerial Imagery": usgsImagery
 };
 
-  var groupedOverlays = {
+var groupedOverlays = {
   "Rinks": {
-    "<img src='http://haydnlawrence.github.io/rinkwatch/assets/img/icon_rink_notskateable.png' width='24' height='28'>&nbsp;Skateable": rinks_layer
+    "<img src='assets/img/icon_rink_notskateable.png' width='24' height='28'>&nbsp;Not Skateable": notskateableLayer,
+    "<img src='assets/img/icon_rink_skateable.png' width='24' height='28'>&nbsp;Skateable": skateableLayer,
+    "<img src='assets/img/icon_rink_marker.png' width='24' height='28'>&nbsp;All Rinks": rinksLayer
     //"<img src='assets/img/museum.png' width='24' height='28'>&nbsp;Museums": museumLayer
   }//,
   //"Reference": {
   //  "Pacific Northwest": boroughs
   //}
-  };
+};
 
 
 
