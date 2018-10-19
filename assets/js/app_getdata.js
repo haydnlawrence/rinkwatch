@@ -24,7 +24,7 @@ var temp_layer = L.esri.featureLayer({
   url: rinks_url,
   onEachFeature: function(feature, layer){
     var rink_creator = feature.properties.Creator;
-
+    console.log("hello1")
     // create temporary arrays for each reading for this particular user
     var reading_date = []; // [0]
     var reading_skateable = []; // [1]
@@ -41,7 +41,7 @@ var temp_layer = L.esri.featureLayer({
     L.esri.query({
       url: readings_url,
     }).where("Creator='" + feature.properties.Creator + "'").orderBy("CreationDate", "DESC").run(function(error, featureCollection){
-      
+      console.log("Hello2");
       if(featureCollection){
         // loop around each reading for this user
         $.each(featureCollection.features, function(i, v) { 
