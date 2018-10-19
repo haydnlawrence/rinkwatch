@@ -152,12 +152,12 @@ var highlightStyle = {
 
 
 // Single marker cluster layer to hold all clusters 
-var markerClusters = new L.MarkerClusterGroup({
-  spiderfyOnMaxZoom: true,
-  showCoverageOnHover: false,
-  zoomToBoundsOnClick: true,
-  disableClusteringAtZoom: 16
-});
+// var markerClusters = new L.MarkerClusterGroup({
+//   spiderfyOnMaxZoom: true,
+//   showCoverageOnHover: false,
+//   zoomToBoundsOnClick: true,
+//   disableClusteringAtZoom: 16
+// });
 
 /* Empty layer placeholder to add to layer control for listening when to add/remove theaters to markerClusters layer */
  
@@ -172,34 +172,34 @@ map = L.map("map", {
 });
 
 
-/* Layer control listeners that allow for a single markerClusters layer */
-map.on("overlayadd", function(e) {
-  if (e.layer === rinksLayer) {
-    markerClusters.addLayer(rinksLayer);
-    //syncSidebar();
-  }else if (e.layer === notskateableLayer){
-    markerClusters.addLayer(notskateableLayer);
-    //syncSidebar();
-  }else if (e.layer === skateableLayer){
-    markerClusters.addLayer(skateableLayer);
-    //syncSidebar();
-  }
+// /* Layer control listeners that allow for a single markerClusters layer */
+// map.on("overlayadd", function(e) {
+//   if (e.layer === rinksLayer) {
+//     markerClusters.addLayer(rinksLayer);
+//     //syncSidebar();
+//   }else if (e.layer === notskateableLayer){
+//     markerClusters.addLayer(notskateableLayer);
+//     //syncSidebar();
+//   }else if (e.layer === skateableLayer){
+//     markerClusters.addLayer(skateableLayer);
+//     //syncSidebar();
+//   }
   
-});
+// });
 
-map.on("overlayremove", function(e) {
-  if (e.layer === rinksLayer) {
-    markerClusters.removeLayer(rinksLayer);
-    syncSidebar();
-  }else if (e.layer === notskateableLayer){
-    markerClusters.removeLayer(notskateableLayer);
-    syncSidebar();
-  }else if (e.layer === skateableLayer){
-    markerClusters.removeLayer(skateableLayer);
-    syncSidebar();
-  }
+// map.on("overlayremove", function(e) {
+//   if (e.layer === rinksLayer) {
+//     markerClusters.removeLayer(rinksLayer);
+//     syncSidebar();
+//   }else if (e.layer === notskateableLayer){
+//     markerClusters.removeLayer(notskateableLayer);
+//     syncSidebar();
+//   }else if (e.layer === skateableLayer){
+//     markerClusters.removeLayer(skateableLayer);
+//     syncSidebar();
+//   }
   
-});
+// });
 
 /* Filter sidebar feature list to only show features in current map bounds */
 map.on("moveend", function (e) {
