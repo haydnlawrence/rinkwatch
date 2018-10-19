@@ -46,7 +46,7 @@ L.esri.query({
       url: readings_url,
     }).where("Creator='" + rink.properties.Creator + "'").orderBy("CreationDate", "DESC").run(function(error, feature_readings){
 console.log("Hello2");
-      if(featureCollection){
+      if(feature_readings){
         // loop around each reading for this user
         $.each(feature_readings.features, function(i, reading) { 
 
