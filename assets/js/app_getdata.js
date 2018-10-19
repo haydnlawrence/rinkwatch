@@ -1,6 +1,3 @@
-console.log("*********");
-console.log("Getting rink and reading data from hosted feature services - app_getdata.js")
-console.log("*********");
 
 //*****************************************************************************
 // rinksReadings is the global array that will hold all information about rinks and their readings

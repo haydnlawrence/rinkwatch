@@ -1,9 +1,5 @@
-console.log("*********");
-console.log("Setting up OAuth and cookie - app_authorization.js")
-console.log("*********");
 
   var clientID = 'sPZnxpFgGypJrX1Y';
-
 
   var accessToken;
   var callbacks = [];
