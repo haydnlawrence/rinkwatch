@@ -123,9 +123,9 @@ var rinks_layer = L.esri.featureLayer({
  // }, // End pointToLayer
 });
 
-nonskateableLayer.addTo(map);
+map.addLayer(nonskateableLayer);
 skateableLayer.addTo(map);
 rinksLayer.addTo(map);
 
-console.log("CHECK8");
+console.log("CHECK9");
 
