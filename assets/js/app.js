@@ -118,57 +118,8 @@ function syncSidebar() {
   });
 }
 
-/* Basemap Layers */
-var CartoDB_DarkMatter = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png', {
-  attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
-  subdomains: 'abcd',
-  maxZoom: 19
-});
-
-var cartoLight = L.tileLayer("https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png", {
-  maxZoom: 19,
-  attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="https://cartodb.com/attributions">CartoDB</a>'
-});
-var usgsImagery = L.layerGroup([L.tileLayer("http://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryOnly/MapServer/tile/{z}/{y}/{x}", {
-  maxZoom: 15,
-}), L.tileLayer.wms("http://raster.nationalmap.gov/arcgis/services/Orthoimagery/USGS_EROS_Ortho_SCALE/ImageServer/WMSServer?", {
-  minZoom: 16,
-  maxZoom: 19,
-  layers: "0",
-  format: 'image/jpeg',
-  transparent: true,
-  attribution: "Aerial Imagery courtesy USGS"
-})]);
-
-/* Overlay Layers */
-var highlight = L.geoJson(null);
-var highlightStyle = {
-  stroke: false,
-  fillColor: "#00FFFF",
-  fillOpacity: 0.7,
-  radius: 10
-};
 
 
-
-/* Single marker cluster layer to hold all clusters 
-var markerClusters = new L.MarkerClusterGroup({
-  spiderfyOnMaxZoom: true,
-  showCoverageOnHover: false,
-  zoomToBoundsOnClick: true,
-  disableClusteringAtZoom: 16
-});
-*/
-
-
-map = L.map("map", {
-  zoom: 4,
-  center: [45.767523,-87.978516],
-  //layers: [usgsImagery, rinks_layer, markerClusters, highlight],
-  layers: [usgsImagery, rinksLayer, notskateableLayer, skateableLayer, highlight],
-  zoomControl: false,
-  attributionControl: false
-});
 
 /* Layer control listeners that allow for a single markerClusters layer */
 map.on("overlayadd", function(e) {
