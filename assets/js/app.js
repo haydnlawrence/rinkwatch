@@ -165,7 +165,7 @@ map = L.map("map", {
   zoom: 4,
   center: [45.767523,-87.978516],
   //layers: [usgsImagery, rinks_layer, markerClusters, highlight],
-  layers: [usgsImagery, rinksLayer, rinks_layer, notskateableLayer, skateableLayer, highlight],
+  layers: [usgsImagery, rinksLayer, notskateableLayer, skateableLayer, highlight],
   zoomControl: false,
   attributionControl: false
 });
