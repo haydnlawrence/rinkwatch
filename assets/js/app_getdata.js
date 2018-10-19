@@ -99,7 +99,7 @@ console.log("coords: " + coords + " & rink_name: " + rink_name_data);
           layer.bindPopup(popupContent);
         }
       }); // END query.where.orderBy.run
-console.log(rinkReadings);
+console.log(rinksReadings);
     }, // END onEachFeature
 
    // pointToLayer: function(geojson, latlng){
