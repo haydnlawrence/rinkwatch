@@ -20,7 +20,7 @@ var now = new Date();
 var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 var days_ago = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 7);
 
-L.esri.featureLayer({
+var temp_layer = L.esri.featureLayer({
   url: rinks_url,
   onEachFeature: function(feature, layer){
     var rink_creator = feature.properties.Creator;
@@ -62,6 +62,7 @@ L.esri.featureLayer({
   }, // END onEachFeature
 });
 
+console.log("CHECK26");
 
 
 
