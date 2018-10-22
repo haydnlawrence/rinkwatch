@@ -8,16 +8,13 @@
 // rinkReadings[username][5] is the rink ObjectID to create image link
 // rinkReadings[username][6] is the rink name
 // rinkReadings[username][7] is the rink description
+// rinkReadings[username][8] is the rink's creator
 //*****************************************************************************
 var rinksReadings = {};
 
 // links to the two Survey123 hosted feature services
 var rinks_url = 'https://services1.arcgis.com/OAsihu89uae6w8NX/arcgis/rest/services/survey123_47bbdd102ad44affb7a5835f9fb4085e/FeatureServer/0';
 var readings_url = 'https://services1.arcgis.com/OAsihu89uae6w8NX/arcgis/rest/services/survey123_c3d35e73bb6e47fbb0b6d17f687a954e/FeatureServer/0';
-
-var now = new Date();
-var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-var days_ago = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 7);
 
 // Query getting all rinks
 L.esri.query({
@@ -56,6 +53,7 @@ L.esri.query({
         }); // END $.each
       } // END if(feature_readings)
     }); // END query on readings_url
+    
     // Put all the information into the array for use by the app
     rinksReadings[rink_creator] = [reading_date, reading_skateable, reading_conditions, reading_objectid, coords, rink_objectid, rink_name, rink_desc, rink_creator];
 
