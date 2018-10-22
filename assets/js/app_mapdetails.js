@@ -1,4 +1,4 @@
-     
+console.log("app_mapdetails.js");     
 // set the icons
 var icon_notskateable = L.icon({
     iconUrl: 'assets/img/icon_rink_notskateable.png',

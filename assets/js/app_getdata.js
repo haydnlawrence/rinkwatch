@@ -1,3 +1,4 @@
+console.log("app_getdata.js");
 //*****************************************************************************
 // rinksReadings is the global array that will hold all information about rinks and their readings
 // rinkReadings[username][0] is an array of the reading dates
