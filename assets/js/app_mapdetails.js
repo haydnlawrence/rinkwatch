@@ -168,6 +168,7 @@ var map = L.map("map", {
   attributionControl: false
 });
 
+console.log("hello");
       /* Single marker cluster layer to hold all clusters 
 var markerClusters = new L.MarkerClusterGroup({
   spiderfyOnMaxZoom: true,
