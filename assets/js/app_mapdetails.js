@@ -160,7 +160,7 @@ for (rink in rinksReadings){
 
 // Create and set the map
 var map = L.map("map", {
-  zoom: 4,
+  zoom: 20,
   center: [45.767523,-87.978516],
   //layers: [usgsImagery, rinks_layer, markerClusters, highlight],
   layers: [usgsImagery, highlight, rinksLayer, skateableLayer, nonskateableLayer],
