@@ -74,7 +74,7 @@ function setMapDetails(){
 
   var now = new Date();
   var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-  var days_ago = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 7);
+  var days_ago = new Date(now.getFullYear(), now.getMonth(), now.getDate() - show_skateable_how_many_days_ago);
 
   //Object.keys(all_rinks).forEach(function(rink){
   for(var rink=0;rink<all_rinks.length;rink++){
@@ -98,13 +98,14 @@ function setMapDetails(){
     }else{
       last_reading_skateable = 'Skateable';
     }
+    last_reading_date_formatted = last_reading_date.getDate() + "/" + (last_reading_date.getMonth() + 1) + "/" + last_reading_date.getFullYear();
 
     // Set up the pop for each rink
     var popupContent = L.Util.template(
       'Creator: ' + rink_creator + ' <br />' + 
       'Rink: ' + rink_name + ' <br />' + 
       'Description: ' + rink_desc + ' <br />' + 
-      'Last update: ' + last_reading_skateable + ' on ' + last_reading_date + ' <br />' + 
+      'Last update: ' + last_reading_skateable + ' on ' + last_reading_date_formatted + ' <br />' + 
       '<img src="' + rinks_url + '/' + rink_oid + '/attachments/' + rink_oid + '" style="width:200px;"> <br />'
     ); // popupContent
 

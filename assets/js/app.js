@@ -12,6 +12,7 @@ var notskateableLayer = new L.featureGroup();
 // links to the two Survey123 hosted feature services
 var rinks_url = 'https://services1.arcgis.com/OAsihu89uae6w8NX/arcgis/rest/services/survey123_47bbdd102ad44affb7a5835f9fb4085e/FeatureServer/0';
 var readings_url = 'https://services1.arcgis.com/OAsihu89uae6w8NX/arcgis/rest/services/survey123_c3d35e73bb6e47fbb0b6d17f687a954e/FeatureServer/0';
+var show_skateable_how_many_days_ago = 7;
 
   var icon_notskateable = L.icon({
       iconUrl: 'assets/img/icon_rink_notskateable.png',
