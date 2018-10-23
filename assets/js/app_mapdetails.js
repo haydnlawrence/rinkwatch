@@ -112,8 +112,10 @@ function setMapDetails(){
 
     // Check to see if the current rink belongs to the currently logged in user
     var currentUser = rink_creator==username ? true : false;
+    var currentUser_latlng = [];
     if(currentUser){
       L.marker(rink_latlng, {icon: icon_owner}).bindPopup(popupContent).addTo(rinksLayer);
+      currentUser_latlng = rink_latlng;
       if(last_reading_date > days_ago){
         if(last_reading_data==0){
           L.marker(rink_latlng, {icon: icon_notskateable}).bindPopup(popupContent).addTo(notskateableLayer);
@@ -153,8 +155,8 @@ function setMapDetails(){
   });
 
   if(currentUser){
-    map.setView(rink_latlng);
-    map.setZoom(12);
+    map.setView(currentUser_latlng);
+    map.setZoom(9);
   }
 
   var baseLayers = {
