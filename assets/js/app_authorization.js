@@ -72,6 +72,10 @@
     window.location.reload(false);
   });
 
+  function enter_reading_data(){
+    window.open("https://arcg.is/1uCjaS");
+  }
+
   // this function will be called when the oauth process is complete
   window.oauthCallback = function(token) {
     L.esri.get('https://www.arcgis.com/sharing/rest/portals/self', {

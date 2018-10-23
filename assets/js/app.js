@@ -1,4 +1,5 @@
 console.log("app.js");  
+console.log("hello")
 
 var map;
 var all_rinks = [];
@@ -30,9 +31,5 @@ var show_skateable_how_many_days_ago = 7;
       iconUrl: 'assets/img/icon_rink_owner.png',
       iconSize: [50,50]
   }); 
-
-function enter_reading_data(){
-	window.open("https://arcg.is/1uCjaS");
-}
 
 getData();
