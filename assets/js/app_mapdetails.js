@@ -87,7 +87,7 @@ function setMapDetails(){
     rink_name = all_rinks[rink][3];
     rink_desc = all_rinks[rink][4];
 
-
+    // If there are any readings yet otherwise set the last_reading_date to longer so it does not look at it for skateable/not skateable
     if(all_readings[rink]){
       // Get the most up to date reading
       last_reading_date = all_readings[rink][1][0];
@@ -112,7 +112,7 @@ function setMapDetails(){
       ); // popupContent
     }else{
       // Set up the pop for each rink
-      last_reading_date = new Date(now.getFullYear(), now.getMonth(), now.getDate() - (show_skateable_how_many_days_ago + 7);
+      last_reading_date = new Date(now.getFullYear(), now.getMonth(), now.getDate() - (show_skateable_how_many_days_ago + 7));
       var popupContent = L.Util.template(
         'Creator: ' + rink_creator + ' <br />' + 
         'Rink: ' + rink_name + ' <br />' + 
