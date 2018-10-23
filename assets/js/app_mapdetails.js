@@ -114,8 +114,6 @@ function setMapDetails(){
     var currentUser = rink_creator==username ? true : false;
     if(currentUser){
       L.marker(rink_latlng, {icon: icon_owner}).bindPopup(popupContent).addTo(rinksLayer);
-      map.setView(rink_latlng);
-      map.setZoom(12);
       if(last_reading_date > days_ago){
         if(last_reading_data==0){
           L.marker(rink_latlng, {icon: icon_notskateable}).bindPopup(popupContent).addTo(notskateableLayer);
@@ -153,6 +151,11 @@ function setMapDetails(){
     zoomControl: false,
     attributionControl: false
   });
+
+  if(currentUser){
+    map.setView(rink_latlng);
+    map.setZoom(12);
+  }
 
   var baseLayers = {
     "Terrain": basemap_terrain,
