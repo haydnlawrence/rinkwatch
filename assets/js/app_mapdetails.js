@@ -117,7 +117,7 @@ function setMapDetails(){
       // This sets the icon if there is a reading within the last 7 days and if it is skateable or not skateable
       if(last_reading_date > days_ago){
         if(last_reading_data==0){
-          L.marker(rink_latlng, {icon: icon_notskateable}).bindPopup(popupContent).addTo(nonskateableLayer);
+          L.marker(rink_latlng, {icon: icon_notskateable}).bindPopup(popupContent).addTo(notskateableLayer);
           L.marker(rink_latlng, {icon: icon_rink_marker}).bindPopup(popupContent).addTo(rinksLayer);
         }else{
           L.marker(rink_latlng, {icon: icon_skateable}).bindPopup(popupContent).addTo(skateableLayer);
