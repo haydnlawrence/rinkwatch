@@ -1,6 +1,6 @@
 console.log("app_mapdetails.js");     
 
-function setMapProperties(){
+function setMapDetails(){
   // set the icons
   var icon_notskateable = L.icon({
       iconUrl: 'assets/img/icon_rink_notskateable.png',
@@ -72,10 +72,18 @@ function setMapProperties(){
   // rinksReadings[username][7] is the rink description
   // rinksReadings[username][8] is the rink's creator
   //*****************************************************************************
-console.log(rinksReadings)
-  Object.keys(rinksReadings).forEach(function(rink){
+
+console.log("Rinks");
+console.log(all_rinks);
+console.log("Readings");
+console.log(all_readings);
+
+
+
+  Object.keys(all_rinks).forEach(function(rink){
   //for(var rink=0;rink<rinksReadings.length;rink++){
     var rink_latlng, rink_oid, rink_name, rink_desc, rink_creator, last_reading_date, last_reading_data;
+    var rink_creator = rink
 
     rink_latlng = rinksReadings[rink][4];
     rink_oid = rinksReadings[rink][5];
@@ -84,8 +92,10 @@ console.log(rinksReadings)
     rink_creator = rinksReadings[rink][8];
 
     // Get the most up to date reading
-    last_reading_date = rinksReadings[rink][0][0];
-    last_reading_data = rinksReadings[rink][1][0];
+    last_reading_date = rinksReadings[rink][0];
+    last_reading_data = rinksReadings[rink][1];
+    last_reading_condition = rinksReadings[rink][2];
+    last_reading_oid = rinksReadings[rink][3];
 
     if(last_reading_data==0){
       last_reading_skateable = 'Not Skateable';
@@ -111,8 +121,10 @@ console.log(rinksReadings)
       if(last_reading_date > days_ago){
         if(last_reading_data==0){
           L.marker(rink_latlng, {icon: icon_notskateable}).bindPopup(popupContent).addTo(nonskateableLayer);
+          L.marker(rink_latlng, {icon: icon_rink_marker}).bindPopup(popupContent).addTo(rinksLayer);
         }else{
           L.marker(rink_latlng, {icon: icon_skateable}).bindPopup(popupContent).addTo(skateableLayer);
+          L.marker(rink_latlng, {icon: icon_rink_marker}).bindPopup(popupContent).addTo(rinksLayer);
         }
       }else{
         L.marker(rink_latlng, {icon: icon_rink_marker}).bindPopup(popupContent).addTo(rinksLayer);
@@ -122,7 +134,7 @@ console.log(rinksReadings)
   }); // END for (rink in rinksReadings)
 
   // Create and set the map
-  var map = L.map("map", {
+  map = L.map("map", {
     zoom: 4,
     center: [45.767523,-87.978516],
     //layers: [usgsImagery, rinks_layer, markerClusters, highlight],
@@ -255,48 +267,6 @@ console.log(rinksReadings)
   //   L.DomEvent.disableClickPropagation(container);
   // }
 } // END function setMapProperties()
-
-
-
-//       // Check to see if it is the user's rink - if so, use special marker icon and possibly specialized pop up box info
-//       if(feature.properties.Creator == username){ // This is the user's rink
-//         var popupContent = L.Util.template(
-//             'Creator: {Creator} <br />' + 
-//             'Rink: {rink_name} <br />' + 
-//             'Description: {rink_desc} <br />' + 
-//             'Last update: ' + last_reading_skateable + ' on ' + last_reading_reading_date + ' <br />' + 
-//             '<img src="' + rinks_url + '/{ObjectId}/attachments/{ObjectId}" style="width:200px;"> <br />'
-//         , feature.properties);
-//         layer.bindPopup(popupContent);
-//         layer.setIcon(icon_owner);
-//         var zoom = 10;
-//         map.setView(coords, zoom);
-//         L.marker(coords).bindPopup(popupContent).addTo(rinksLayer);
-//       } else {
-//         var popupContent = L.Util.template(
-//             'Creator: {Creator} <br />' + 
-//             'Rink: {rink_name} <br />' + 
-//             'Description: {rink_desc} <br />' + 
-//             'Last update: ' + last_reading_skateable + ' on ' + last_reading_reading_date + ' <br />' + 
-//             '<img src="' + rinks_url + '/{ObjectId}/attachments/{ObjectId}" style="width:200px;"> <br />'
-//         , feature.properties);
- 
-//         // This sets the icon if there is a reading within the last 7 days and if it is skateable or not skateable
-//         if(reading_date[0] > days_ago){
-//           if(reading_skateable[0]==0){
-//             layer.setIcon(icon_notskateable);
-//             L.marker(coords).bindPopup(popupContent).addTo(nonskateableLayer);
-//           }else{
-//             layer.setIcon(icon_skateable);
-//             L.marker(coords).bindPopup(popupContent).addTo(skateableLayer);
-//           }
-//         }else{
-//           layer.setIcon(icon_rink_marker);
-//           L.marker(coords).bindPopup(popupContent).addTo(rinksLayer);
-//         }
-//       }
-
-
 
       /* Single marker cluster layer to hold all clusters 
 var markerClusters = new L.MarkerClusterGroup({
