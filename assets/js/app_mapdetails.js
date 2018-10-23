@@ -113,8 +113,6 @@ function setMapDetails(){
     var currentUser = rink_creator==username ? true : false;
     if(currentUser){
       L.marker(rink_latlng, {icon: icon_owner}).bindPopup(popupContent).addTo(rinksLayer);
-      console.log(rink_creator);
-      console.log(username);
     }else{
       // This sets the icon if there is a reading within the last 7 days and if it is skateable or not skateable
       if(last_reading_date > days_ago){
