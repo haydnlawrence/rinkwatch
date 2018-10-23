@@ -32,4 +32,8 @@ var icon_owner = L.icon({
   iconSize: [50,50]
 }); 
 
+$("#enter_rink_data").click(function() {
+window.open("https://arcg.is/1uCjaS");
+});
+
 getData();
