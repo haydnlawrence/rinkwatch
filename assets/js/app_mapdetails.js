@@ -141,6 +141,7 @@ function setMapDetails(){
   } // END for (rink in rinksReadings)
 
   var basemap_terrain = L.esri.basemapLayer('Terrain');
+  var basemap_terrain_labels = L.esri.basemapLayer('TerrainLabels');
   var basemap_imagery = L.esri.basemapLayer('Imagery');
   var basemap_streets = L.esri.basemapLayer('Streets');
 
@@ -149,7 +150,7 @@ function setMapDetails(){
     zoom: 4,
     center: [45.767523,-87.978516],
     //layers: [usgsImagery, rinks_layer, markerClusters, highlight],
-    layers: [basemap_terrain, rinksLayer, skateableLayer, notskateableLayer],
+    layers: [basemap_terrain, basemap_terrain_labels, rinksLayer, skateableLayer, notskateableLayer],
     zoomControl: false,
     attributionControl: false
   });
