@@ -19,37 +19,38 @@ function setMapDetails(){
       iconSize: [50,50]
   }); 
 
-  /* Basemap Layers */
-  var CartoDB_DarkMatter = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
-    subdomains: 'abcd',
-    maxZoom: 19
-  });
+  // /* Basemap Layers */
 
-  var cartoLight = L.tileLayer("https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png", {
-    maxZoom: 19,
-    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="https://cartodb.com/attributions">CartoDB</a>'
-  });
+  // var CartoDB_DarkMatter = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png', {
+  //   attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
+  //   subdomains: 'abcd',
+  //   maxZoom: 19
+  // });
 
-  var usgsImagery = L.layerGroup([L.tileLayer("http://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryOnly/MapServer/tile/{z}/{y}/{x}", {
-    maxZoom: 15,
-  }), L.tileLayer.wms("http://raster.nationalmap.gov/arcgis/services/Orthoimagery/USGS_EROS_Ortho_SCALE/ImageServer/WMSServer?", {
-    minZoom: 16,
-    maxZoom: 19,
-    layers: "0",
-    format: 'image/jpeg',
-    transparent: true,
-    attribution: "Aerial Imagery courtesy USGS"
-  })]);
+  // var cartoLight = L.tileLayer("https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png", {
+  //   maxZoom: 19,
+  //   attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="https://cartodb.com/attributions">CartoDB</a>'
+  // });
 
-  /* Overlay Layers */
-  var highlight = L.geoJson(null);
-  var highlightStyle = {
-    stroke: false,
-    fillColor: "#00FFFF",
-    fillOpacity: 0.7,
-    radius: 10
-  };
+  // var usgsImagery = L.layerGroup([L.tileLayer("http://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryOnly/MapServer/tile/{z}/{y}/{x}", {
+  //   maxZoom: 15,
+  // }), L.tileLayer.wms("http://raster.nationalmap.gov/arcgis/services/Orthoimagery/USGS_EROS_Ortho_SCALE/ImageServer/WMSServer?", {
+  //   minZoom: 16,
+  //   maxZoom: 19,
+  //   layers: "0",
+  //   format: 'image/jpeg',
+  //   transparent: true,
+  //   attribution: "Aerial Imagery courtesy USGS"
+  // })]);
+
+  // /* Overlay Layers */
+  // var highlight = L.geoJson(null);
+  // var highlightStyle = {
+  //   stroke: false,
+  //   fillColor: "#00FFFF",
+  //   fillOpacity: 0.7,
+  //   radius: 10
+  // };
 
 //*****************************************************************************
 // all_rinks is the global array that will hold all information about rinks 
@@ -113,6 +114,8 @@ function setMapDetails(){
     var currentUser = rink_creator==username ? true : false;
     if(currentUser){
       L.marker(rink_latlng, {icon: icon_owner}).bindPopup(popupContent).addTo(rinksLayer);
+      map.setView(rink_latlng);
+      map.setZoom(12);
       if(last_reading_date > days_ago){
         if(last_reading_data==0){
           L.marker(rink_latlng, {icon: icon_notskateable}).bindPopup(popupContent).addTo(notskateableLayer);
@@ -137,16 +140,40 @@ function setMapDetails(){
 
   } // END for (rink in rinksReadings)
 
+  var basemap_terrain = L.esri.basemapLayer('Terrain');
+  var basemap_imagery = L.esri.basemapLayer('Imagery');
+  var basemap_streets = L.esri.basemapLayer('Streets');
+
   // Create and set the map
   map = L.map("map", {
     zoom: 4,
     center: [45.767523,-87.978516],
     //layers: [usgsImagery, rinks_layer, markerClusters, highlight],
-    layers: [usgsImagery, highlight, rinksLayer, skateableLayer, notskateableLayer],
+    layers: [basemap_terrain, rinksLayer, skateableLayer, notskateableLayer],
     zoomControl: false,
     attributionControl: false
   });
 
+  var baseLayers = {
+    "Terrain": basemap_terrain,
+    "Imagery": basemap_imagery,
+    "Streets": basemap_streets
+  };
+
+  var groupedOverlays = {
+    "Rinks": {
+      "<img src='assets/img/icon_rink_notskateable.png' width='24' height='28'>&nbsp;Not Skateable": notskateableLayer,
+      "<img src='assets/img/icon_rink_skateable.png' width='24' height='28'>&nbsp;Skateable": skateableLayer,
+      "<img src='assets/img/icon_rink_marker.png' width='24' height='28'>&nbsp;All Rinks": rinksLayer
+    }//,
+    //"Reference": {
+    //  "Pacific Northwest": boroughs
+    //}
+  };
+
+  var layerControl = L.control.groupedLayers(baseLayers, groupedOverlays, {
+    collapsed: isCollapsed
+  }).addTo(map);
 
   // /* Layer control listeners that allow for a single markerClusters layer */
   // map.on("overlayadd", function(e) {
@@ -239,27 +266,7 @@ function setMapDetails(){
     var isCollapsed = false;
   }
 
-  var baseLayers = {
-    "Dark Map": CartoDB_DarkMatter,
-    "Aerial Imagery": usgsImagery
-  };
 
-  var groupedOverlays = {
-    "Rinks": {
-      
-      "<img src='assets/img/icon_rink_notskateable.png' width='24' height='28'>&nbsp;Not Skateable": notskateableLayer,
-      "<img src='assets/img/icon_rink_skateable.png' width='24' height='28'>&nbsp;Skateable": skateableLayer,
-      "<img src='assets/img/icon_rink_marker.png' width='24' height='28'>&nbsp;All Rinks": rinksLayer
-      //"<img src='assets/img/museum.png' width='24' height='28'>&nbsp;Museums": museumLayer
-    }//,
-    //"Reference": {
-    //  "Pacific Northwest": boroughs
-    //}
-  };
-
-  var layerControl = L.control.groupedLayers(baseLayers, groupedOverlays, {
-    collapsed: isCollapsed
-  }).addTo(map);
 
   // // Leaflet patch to make layer control scrollable on touch browsers
   // var container = $(".leaflet-control-layers")[0];
