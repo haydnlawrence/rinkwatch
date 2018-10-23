@@ -72,10 +72,6 @@
     window.location.reload(false);
   });
 
-  function enter_reading_data(){
-    window.open("https://arcg.is/1uCjaS");
-  }
-
   // this function will be called when the oauth process is complete
   window.oauthCallback = function(token) {
     L.esri.get('https://www.arcgis.com/sharing/rest/portals/self', {
@@ -92,7 +88,7 @@
       set_cookie("email",email);
 
       authMenu.innerHTML = '<a href="#" id="sign-out"><i class="fa fa-list white"></i>&nbsp;&nbsp;Sign out</a>';
-      enterRinkDataMenu.innerHTML = '<a href="#" onClick="enter_reading_data();"><i class="fa fa-globe white"></i>&nbsp;&nbsp;Enter Rink Data</a>';
+      enterRinkDataMenu.innerHTML = '<a href="https://arcg.is/1uCjaS" target="_blank"><i class="fa fa-globe white"></i>&nbsp;&nbsp;Enter Rink Data</a>';
       welcomeMessageMenu.innerHTML = 'Welcome ' + firstname + '.'; 
 
       $("#sign-out").click(function() {

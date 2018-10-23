@@ -1,5 +1,5 @@
 console.log("app.js");  
-console.log("hello")
+console.log("hello1")
 
 var map;
 var all_rinks = [];
