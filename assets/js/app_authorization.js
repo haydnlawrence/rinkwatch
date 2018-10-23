@@ -90,9 +90,6 @@
       authMenu.innerHTML = '<a href="#" id="sign-out"><i class="fa fa-list white"></i>&nbsp;&nbsp;Sign out</a>';
       enterRinkDataMenu.innerHTML = '<i class="fa fa-globe white"></i>&nbsp;&nbsp;Enter Rink Data';
       welcomeMessageMenu.innerHTML = 'Welcome ' + firstname + '.'; 
-      $("#enter_rink_data").click(function() {
-        window.open("https://arcg.is/1uCjaS");
-      });
 
       $("#sign-out").click(function() {
         window.open('https://www.arcgis.com/sharing/oauth2/signout', '_blank', 'height=400,width=400,menubar=no,location=no,resizable=no,scrollbars=no,status=yes');
