@@ -155,7 +155,7 @@ function setMapDetails(){
   });
 
   if(currentUser){
-    map.setView(currentUser_latlng, 8, {animation: true});
+    map.setView(currentUser_latlng, 7, {animation: true});
   }
 
   var baseLayers = {
