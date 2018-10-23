@@ -31,4 +31,8 @@ var show_skateable_how_many_days_ago = 7;
       iconSize: [50,50]
   }); 
 
+function enter_reading_data(){
+	window.open("https://arcg.is/1uCjaS");
+}
+
 getData();

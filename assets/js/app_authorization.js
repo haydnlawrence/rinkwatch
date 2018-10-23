@@ -88,7 +88,7 @@
       set_cookie("email",email);
 
       authMenu.innerHTML = '<a href="#" id="sign-out"><i class="fa fa-list white"></i>&nbsp;&nbsp;Sign out</a>';
-      enterRinkDataMenu.innerHTML = '<i class="fa fa-globe white"></i>&nbsp;&nbsp;Enter Rink Data';
+      enterRinkDataMenu.innerHTML = '<a href="#" onClick="enter_reading_data();"><i class="fa fa-globe white"></i>&nbsp;&nbsp;Enter Rink Data</a>';
       welcomeMessageMenu.innerHTML = 'Welcome ' + firstname + '.'; 
 
       $("#sign-out").click(function() {
