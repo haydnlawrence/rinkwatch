@@ -156,6 +156,7 @@ function setMapDetails(){
 
   if(currentUser){
     map.setView(currentUser_latlng);
+    console.log(currentUser_latlng)
     map.setZoom(9);
   }
 
