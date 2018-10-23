@@ -155,9 +155,8 @@ function setMapDetails(){
   });
 
   if(currentUser){
-    map.setZoom(8);
-    map.panTo(currentUser_latlng);
-    console.log("hello")
+    map.setView(currentUser_latlng, 8, {animation: true});
+    console.log("hello1")
   }
 
   var baseLayers = {
