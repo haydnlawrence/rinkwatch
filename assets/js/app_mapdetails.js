@@ -60,26 +60,6 @@ function setMapDetails(){
   var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
   var days_ago = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 7);
 
-  //*****************************************************************************
-  // rinksReadings is the global array that will hold all information about rinks and their readings
-  // rinksReadings[username][0] is an array of the reading dates
-  // rinksReadings[username][1] is an array of the reading data (0 or 1)
-  // rinksReadings[username][2] is an array of the reading conditions (0 to 4)
-  // rinksReadings[username][3] is an array of the reading ObjectIDs to create image links
-  // rinksReadings[username][4] are the rink coordinates [lat, lng]
-  // rinksReadings[username][5] is the rink ObjectID to create image link
-  // rinksReadings[username][6] is the rink name
-  // rinksReadings[username][7] is the rink description
-  // rinksReadings[username][8] is the rink's creator
-  //*****************************************************************************
-
-console.log("Rinks");
-console.log(all_rinks);
-console.log("Readings");
-console.log(all_readings);
-
-
-
   Object.keys(all_rinks).forEach(function(rink){
   //for(var rink=0;rink<rinksReadings.length;rink++){
     var rink_latlng, rink_oid, rink_name, rink_desc, rink_creator, last_reading_date, last_reading_data;
