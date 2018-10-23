@@ -156,7 +156,6 @@ function setMapDetails(){
 
   if(currentUser){
     map.setView(currentUser_latlng, 8, {animation: true});
-    console.log("hello1")
   }
 
   var baseLayers = {
