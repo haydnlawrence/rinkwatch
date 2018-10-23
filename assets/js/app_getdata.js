@@ -19,7 +19,7 @@ console.log("app_getdata.js");
 function getData(){
 
   // This is to counter the asynchrosity of the queries when two are needed
-  // Get all the rinks and readings with "creator", which is a unique identifier and create one array 
+  // Get all the rinks and readings with "username", which is a unique identifier and create one array 
   // Get rinks --> then get readings --> then put them together and finish loading code
   var check_rinks = false;
   var check_readings = false;
@@ -27,14 +27,14 @@ function getData(){
   var promise_rinks = new Promise(function(resolve, reject) {
     L.esri.query({
       url: rinks_url,
-    }).orderBy("Creator", "DESC").run(function(error, feature_rinks){
+    }).orderBy("username", "DESC").run(function(error, feature_rinks){
       $.each(feature_rinks.features, function(x, rink) { 
 
         var rink_latlng = [rink.geometry.coordinates[1], rink.geometry.coordinates[0]]; 
         var rink_objectid = rink.properties.ObjectId; 
         var rink_name = rink.properties.rink_name;
         var rink_desc = rink.properties.rink_desc; 
-        var rink_creator = rink.properties.Creator; 
+        var rink_creator = rink.properties.username; 
 
         all_rinks.push([rink_creator, rink_latlng, rink_objectid, rink_name, rink_desc]);
       }); // END $.each
@@ -49,7 +49,7 @@ function getData(){
 
     L.esri.query({
       url: readings_url,
-    }).orderBy("Creator", "DESC").orderBy("reading_date", "DESC").run(function(error, feature_readings){
+    }).orderBy("username", "DESC").orderBy("reading_date", "DESC").run(function(error, feature_readings){
 
       var reading_creator_last = '';
       var reading_creator = '';
@@ -63,7 +63,7 @@ function getData(){
 
         $.each(feature_readings.features, function(i, reading) { 
 
-          reading_creator = reading.properties.Creator;
+          reading_creator = reading.properties.username;
           if(reading_creator != reading_creator_last ){
             if(reading_creator_last != ''){
               all_readings.push([reading_creator_last, reading_date, reading_skateable, reading_conditions, reading_objectid]);
