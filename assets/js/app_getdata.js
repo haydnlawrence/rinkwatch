@@ -34,7 +34,13 @@ function getData(){
         var rink_objectid = rink.properties.objectid; 
         var rink_name = rink.properties.rink_name;
         var rink_desc = rink.properties.rink_desc; 
-        var rink_creator = rink.properties.username; 
+
+        // This is purely for legacy data ported over from the old system
+        if(rink.properties.Creator != 'colinr23'){
+          var rink_creator = rink.properties.Creator; 
+        }else{
+          var rink_creator = rink.properties.username; 
+        }
 
         all_rinks.push([rink_creator, rink_latlng, rink_objectid, rink_name, rink_desc]);
       }); // END $.each
@@ -63,7 +69,12 @@ function getData(){
 
         $.each(feature_readings.features, function(i, reading) { 
 
-          reading_creator = reading.properties.username;
+          // This is purely for legacy data ported over from the old system
+          if(reading.properties.Creator != 'colinr23'){
+            var reading_creator = reading.properties.Creator; 
+          }else{
+            var reading_creator = reading.properties.username; 
+          }
           if(reading_creator != reading_creator_last ){
             if(reading_creator_last != ''){
               all_readings.push([reading_creator_last, reading_date, reading_skateable, reading_conditions, reading_objectid]);
