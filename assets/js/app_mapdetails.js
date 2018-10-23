@@ -88,27 +88,40 @@ function setMapDetails(){
     rink_desc = all_rinks[rink][4];
 
 
-    // Get the most up to date reading
-    last_reading_date = all_readings[rink][1][0];
-    last_reading_data = all_readings[rink][2][0];
-    last_reading_condition = all_readings[rink][3][0];
-    last_reading_oid = all_readings[rink][4][0];
+    if(all_readings[rink]){
+      // Get the most up to date reading
+      last_reading_date = all_readings[rink][1][0];
+      last_reading_data = all_readings[rink][2][0];
+      last_reading_condition = all_readings[rink][3][0];
+      last_reading_oid = all_readings[rink][4][0];
 
-    if(last_reading_data==0){
-      last_reading_skateable = 'Not Skateable';
+      if(last_reading_data==0){
+        last_reading_skateable = 'Not Skateable';
+      }else{
+        last_reading_skateable = 'Skateable';
+      }
+      last_reading_date_formatted = last_reading_date.getDate() + "/" + (last_reading_date.getMonth() + 1) + "/" + last_reading_date.getFullYear();
+
+      // Set up the pop for each rink
+      var popupContent = L.Util.template(
+        'Creator: ' + rink_creator + ' <br />' + 
+        'Rink: ' + rink_name + ' <br />' + 
+        'Description: ' + rink_desc + ' <br />' + 
+        'Last update: ' + last_reading_skateable + ' on ' + last_reading_date_formatted + ' <br />' + 
+        '<img src="' + rinks_url + '/' + rink_oid + '/attachments/' + rink_oid + '" style="width:200px;"> <br />'
+      ); // popupContent
     }else{
-      last_reading_skateable = 'Skateable';
+      // Set up the pop for each rink
+      last_reading_date = new Date(now.getFullYear(), now.getMonth(), now.getDate() - (show_skateable_how_many_days_ago + 7);
+      var popupContent = L.Util.template(
+        'Creator: ' + rink_creator + ' <br />' + 
+        'Rink: ' + rink_name + ' <br />' + 
+        'Description: ' + rink_desc + ' <br />' + 
+        'No Updates Yet <br />' + 
+        '<img src="' + rinks_url + '/' + rink_oid + '/attachments/' + rink_oid + '" style="width:200px;"> <br />'
+      ); // popupContent
     }
-    last_reading_date_formatted = last_reading_date.getDate() + "/" + (last_reading_date.getMonth() + 1) + "/" + last_reading_date.getFullYear();
 
-    // Set up the pop for each rink
-    var popupContent = L.Util.template(
-      'Creator: ' + rink_creator + ' <br />' + 
-      'Rink: ' + rink_name + ' <br />' + 
-      'Description: ' + rink_desc + ' <br />' + 
-      'Last update: ' + last_reading_skateable + ' on ' + last_reading_date_formatted + ' <br />' + 
-      '<img src="' + rinks_url + '/' + rink_oid + '/attachments/' + rink_oid + '" style="width:200px;"> <br />'
-    ); // popupContent
 
     // Check to see if the current rink belongs to the currently logged in user
     var currentUser = rink_creator==username ? true : false;
