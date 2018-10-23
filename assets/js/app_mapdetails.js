@@ -51,6 +51,22 @@ function setMapDetails(){
     radius: 10
   };
 
+//*****************************************************************************
+// all_rinks is the global array that will hold all information about rinks 
+// all_rinks[username][0] is the username of the creator of the rink
+// all_rinks[username][1] are the rink coordinates [lat, lng]
+// all_rinks[username][2] is the objectID of the rink
+// all_rinks[username][3] is the name of the rink
+// all_rinks[username][4] is the description of the rink
+//*****************************************************************************
+// all_readings is the global array that will hold all information about readings 
+// all_readings[username][0] is the username of the creator of the reading (and hence the rink it's attached to)
+// all_readings[username][1] is an array of the reading dates
+// all_readings[username][2] is an array of the reading data (0 or 1)
+// all_readings[username][3] is an array of the reading conditions (0 to 4)
+// all_readings[username][4] is an array of the reading ObjectIDs to create image links
+//*****************************************************************************
+
   // Create the data layers
   var rinksLayer = new L.featureGroup();
   var skateableLayer = new L.featureGroup();
@@ -60,22 +76,22 @@ function setMapDetails(){
   var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
   var days_ago = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 7);
 
-  Object.keys(all_rinks).forEach(function(rink){
-  //for(var rink=0;rink<rinksReadings.length;rink++){
+  //Object.keys(all_rinks).forEach(function(rink){
+  for(var rink=0;rink<all_rinks.length;rink++){
     var rink_latlng, rink_oid, rink_name, rink_desc, rink_creator, last_reading_date, last_reading_data;
-    var rink_creator = rink
+    
+    rink_creator = all_rinks[rink][0];
+    rink_latlng = all_rinks[rink][1];
+    rink_oid = all_rinks[rink][2];
+    rink_name = all_rinks[rink][3];
+    rink_desc = all_rinks[rink][4];
 
-    rink_latlng = rinksReadings[rink][4];
-    rink_oid = rinksReadings[rink][5];
-    rink_name = rinksReadings[rink][6];
-    rink_desc = rinksReadings[rink][7];
-    rink_creator = rinksReadings[rink][8];
 
     // Get the most up to date reading
-    last_reading_date = rinksReadings[rink][0];
-    last_reading_data = rinksReadings[rink][1];
-    last_reading_condition = rinksReadings[rink][2];
-    last_reading_oid = rinksReadings[rink][3];
+    last_reading_date = all_readings[rink][1][0];
+    last_reading_data = all_readings[rink][2][0];
+    last_reading_condition = all_readings[rink][3][0];
+    last_reading_oid = all_readings[rink][4][0];
 
     if(last_reading_data==0){
       last_reading_skateable = 'Not Skateable';
@@ -111,7 +127,7 @@ function setMapDetails(){
       }
     }
 
-  }); // END for (rink in rinksReadings)
+  } // END for (rink in rinksReadings)
 
   // Create and set the map
   map = L.map("map", {
