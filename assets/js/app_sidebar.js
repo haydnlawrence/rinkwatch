@@ -120,5 +120,5 @@ function sidebarClick(id) {
   featureList.sort("feature-name", {
     order: "asc"
   });
-}
+
 } // END function setNavigationProperties()
