@@ -31,7 +31,7 @@ function getData(){
       $.each(feature_rinks.features, function(x, rink) { 
 
         var rink_latlng = [rink.geometry.coordinates[1], rink.geometry.coordinates[0]]; 
-        var rink_objectid = rink.properties.ObjectId; 
+        var rink_objectid = rink.properties.objectid; 
         var rink_name = rink.properties.rink_name;
         var rink_desc = rink.properties.rink_desc; 
         var rink_creator = rink.properties.username; 
@@ -78,7 +78,7 @@ function getData(){
           reading_date.push(new Date(reading.properties.reading_date)); 
           reading_skateable.push(reading.properties.reading_skateable); 
           reading_conditions.push(reading.properties.reading_conditions); 
-          reading_objectid.push(reading.properties.ObjectId); 
+          reading_objectid.push(reading.properties.objectid); 
         }); // END $.each
         all_readings.push([reading_creator, reading_date, reading_skateable, reading_conditions, reading_objectid]);
       } // END if(feature_readings)
