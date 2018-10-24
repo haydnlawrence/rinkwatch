@@ -4,19 +4,19 @@ function setMapDetails(){
   // set the icons
   var icon_notskateable = L.icon({
       iconUrl: 'assets/img/icon_rink_notskateable.png',
-      iconSize: [50,50]
+      iconSize: [15,15]
   });
   var icon_skateable = L.icon({
       iconUrl: 'assets/img/icon_rink_skateable.png',
-      iconSize: [50,50]
+      iconSize: [15,15]
   });
   var icon_rink_marker = L.icon({
       iconUrl: 'assets/img/icon_rink_marker.png',
-      iconSize: [50,50]
+      iconSize: [15,15]
   });
   var icon_owner = L.icon({
       iconUrl: 'assets/img/icon_rink_owner.png',
-      iconSize: [50,50]
+      iconSize: [15,15]
   }); 
 
   // /* Basemap Layers */

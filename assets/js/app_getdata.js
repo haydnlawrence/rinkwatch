@@ -27,7 +27,7 @@ function getData(){
   var promise_rinks = new Promise(function(resolve, reject) {
     L.esri.query({
       url: rinks_url,
-    }).orderBy("username", "DESC").run(function(error, feature_rinks){
+    }).orderBy("Creator", "DESC").run(function(error, feature_rinks){
       $.each(feature_rinks.features, function(x, rink) { 
 
         var rink_latlng = [rink.geometry.coordinates[1], rink.geometry.coordinates[0]]; 
@@ -55,7 +55,7 @@ function getData(){
 
     L.esri.query({
       url: readings_url,
-    }).orderBy("username", "DESC").orderBy("reading_date", "DESC").run(function(error, feature_readings){
+    }).orderBy("Creator", "DESC").orderBy("reading_date", "DESC").run(function(error, feature_readings){
 
       var reading_creator_last = '';
       var reading_creator = '';
