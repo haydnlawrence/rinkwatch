@@ -77,8 +77,11 @@ function setMapDetails(){
   var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
   var days_ago = new Date(now.getFullYear(), now.getMonth(), now.getDate() - show_skateable_how_many_days_ago);
 
-  //Object.keys(all_rinks).forEach(function(rink){
-  for(var rink=0;rink<all_rinks.length;rink++){
+  var currentUser;
+  var currentUser_latlng = [];  
+
+  Object.keys(all_rinks).forEach(function(rink){
+  //for(var rink=0;rink<all_rinks.length;rink++){
     var rink_latlng, rink_oid, rink_name, rink_desc, rink_creator, last_reading_date, last_reading_data;
     
     rink_creator = all_rinks[rink][0];
@@ -108,8 +111,9 @@ function setMapDetails(){
         'Rink: ' + rink_name + ' <br />' + 
         'Description: ' + rink_desc + ' <br />' + 
         'Last update: ' + last_reading_skateable + ' on ' + last_reading_date_formatted + ' <br />' + 
-        '<img src="' + rinks_url + '/' + rink_oid + '/attachments/' + rink_oid + '" style="width:200px;"> <br />'
+        '<img src="' + rinks_url + '/' + rink_oid + '/attachments/' + rink_oid + '" style="width:200px;" onerror="this.style.display=\'none\'"> <br />'
       ); // popupContent
+
     }else{
       // Set up the pop for each rink
       last_reading_date = new Date(now.getFullYear(), now.getMonth(), now.getDate() - (show_skateable_how_many_days_ago + 7));
@@ -118,14 +122,13 @@ function setMapDetails(){
         'Rink: ' + rink_name + ' <br />' + 
         'Description: ' + rink_desc + ' <br />' + 
         'No Updates Yet <br />' + 
-        '<img src="' + rinks_url + '/' + rink_oid + '/attachments/' + rink_oid + '" style="width:200px;"> <br />'
+        '<img src="' + rinks_url + '/' + rink_oid + '/attachments/' + rink_oid + '" style="width:200px;" onerror="this.style.display=\'none\'"> <br />'
       ); // popupContent
     }
 
-
     // Check to see if the current rink belongs to the currently logged in user
-    var currentUser = rink_creator==username ? true : false;
-    var currentUser_latlng = [];
+    currentUser = rink_creator==username ? true : false;
+    currentUser_latlng = [];
     if(currentUser){
       L.marker(rink_latlng, {icon: icon_owner}).bindPopup(popupContent).addTo(rinksLayer);
       currentUser_latlng = rink_latlng;
@@ -151,7 +154,7 @@ function setMapDetails(){
       }
     }
 
-  } // END for (rink in rinksReadings)
+  }); // END for (rink in rinksReadings)
 
   var basemap_terrain = L.esri.basemapLayer('Terrain');
   var basemap_terrain_labels = L.esri.basemapLayer('TerrainLabels');

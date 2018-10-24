@@ -27,9 +27,8 @@ function getData(){
   var promise_rinks = new Promise(function(resolve, reject) {
     L.esri.query({
       url: rinks_url,
-    }).orderBy("Creator", "DESC").run(function(error, feature_rinks){
+    }).run(function(error, feature_rinks){
       $.each(feature_rinks.features, function(x, rink) { 
-
         var rink_latlng = [rink.geometry.coordinates[1], rink.geometry.coordinates[0]]; 
         var rink_objectid = rink.properties.objectid; 
         var rink_name = rink.properties.rink_name;
@@ -42,7 +41,7 @@ function getData(){
           var rink_creator = rink.properties.username; 
         }
 
-        all_rinks.push([rink_creator, rink_latlng, rink_objectid, rink_name, rink_desc]);
+        all_rinks[rink_creator] = ([rink_creator, rink_latlng, rink_objectid, rink_name, rink_desc]);
       }); // END $.each
 
       // Both queries will check if the other is done.  If it is, then resolve this promise and continue with code execution
@@ -55,7 +54,7 @@ function getData(){
 
     L.esri.query({
       url: readings_url,
-    }).orderBy("Creator", "DESC").orderBy("reading_date", "DESC").run(function(error, feature_readings){
+    }).run(function(error, feature_readings){
 
       var reading_creator_last = '';
       var reading_creator = '';
@@ -77,7 +76,7 @@ function getData(){
           }
           if(reading_creator != reading_creator_last ){
             if(reading_creator_last != ''){
-              all_readings.push([reading_creator_last, reading_date, reading_skateable, reading_conditions, reading_objectid]);
+              all_readings[reading_creator] = ([reading_creator_last, reading_date, reading_skateable, reading_conditions, reading_objectid]);
             }
             reading_creator_last = reading_creator
             reading_date = []; 
@@ -91,7 +90,7 @@ function getData(){
           reading_conditions.push(reading.properties.reading_conditions); 
           reading_objectid.push(reading.properties.objectid); 
         }); // END $.each
-        all_readings.push([reading_creator, reading_date, reading_skateable, reading_conditions, reading_objectid]);
+        all_readings[reading_creator] = ([reading_creator, reading_date, reading_skateable, reading_conditions, reading_objectid]);
       } // END if(feature_readings)
 
       // Both queries will check if the other is done.  If it is, then resolve this promise and continue with code execution
@@ -103,9 +102,20 @@ function getData(){
     }); // END query on readings_url
   }); // END promise_rinks
 
+  Object.size = function(obj) {
+    var size = 0, key;
+    for (key in obj) {
+        if (obj.hasOwnProperty(key)) size++;
+    }
+    return size;
+};
+
   promise_rinks.then(function(value) {
+    console.log("--> " + Object.size(all_rinks))
+    console.log("--> " + Object.size(all_readings))
     console.log(all_rinks);
     console.log(all_readings);
+
     // Call map functions after queries are completed
     setMapDetails();
     setSideBar();    
