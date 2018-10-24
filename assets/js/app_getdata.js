@@ -51,12 +51,8 @@ function getData(){
         check_rinks = true;
       }
 
-      if(!all_rinks[username]){
-        var enterRinkDataMenu = document.getElementById('enter_rink_data');
-        enterRinkDataMenu.innerHTML = '<i class="fa fa-globe white"></i>&nbsp;&nbsp;Create Rink';
-        $("#enter_rink_data").click(function() {
-          window.open("https://arcg.is/0v84nz");
-        });  
+      if(all_rinks[username]){
+        has_rink = true;
       }
     }); // END .run
 
