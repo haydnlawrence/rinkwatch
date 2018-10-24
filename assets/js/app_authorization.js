@@ -87,7 +87,7 @@
       set_cookie("username",username);      
       set_cookie("firstname",firstname);
       set_cookie("email",email);
-
+console.log("-->" + has_rink)
       authMenu.innerHTML = '<a href="#" id="sign-out"><i class="fa fa-list white"></i>&nbsp;&nbsp;Sign out</a>';
       if(has_rink){
         enterRinkDataMenu.innerHTML = '<i class="fa fa-globe white"></i>&nbsp;&nbsp;Enter Rink Data';
