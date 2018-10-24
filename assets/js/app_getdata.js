@@ -111,8 +111,6 @@ function getData(){
 };
 
   promise_rinks.then(function(value) {
-    console.log("--> " + Object.size(all_rinks))
-    console.log("--> " + Object.size(all_readings))
     console.log(all_rinks);
     console.log(all_readings);
 
