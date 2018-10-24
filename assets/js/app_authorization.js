@@ -7,7 +7,6 @@
   var callbackPage = protocol + '//haydnlawrence.github.io/rinkwatch/callback.html';
 
   var authMenu = document.getElementById('auth');
-  var enterRinkDataMenu = document.getElementById('enter_rink_data');
   var welcomeMessageMenu = document.getElementById('welcome_message');
   var check_for_rink = false;
 
@@ -87,19 +86,8 @@
       set_cookie("username",username);      
       set_cookie("firstname",firstname);
       set_cookie("email",email);
-console.log("-->" + has_rink)
+
       authMenu.innerHTML = '<a href="#" id="sign-out"><i class="fa fa-list white"></i>&nbsp;&nbsp;Sign out</a>';
-      if(has_rink){
-        enterRinkDataMenu.innerHTML = '<i class="fa fa-globe white"></i>&nbsp;&nbsp;Enter Rink Data';
-        $("#enter_rink_data").click(function() {
-          window.open("https://arcg.is/0aruLi");
-        });
-      }else{
-        enterRinkDataMenu.innerHTML = '<i class="fa fa-globe white"></i>&nbsp;&nbsp;Create Rink';
-        $("#enter_rink_data").click(function() {
-          window.open("https://arcg.is/0v84nz");
-        });  
-      }  
       welcomeMessageMenu.innerHTML = 'Welcome ' + firstname + '.'; 
 
       $("#sign-out").click(function() {

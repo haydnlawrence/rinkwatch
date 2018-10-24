@@ -50,9 +50,20 @@ function getData(){
       }else{
         check_rinks = true;
       }
-
-      if(all_rinks[username]){
-        has_rink = true;
+      
+      var enterRinkDataMenu = document.getElementById('enter_rink_data');
+      if(username){
+        if(all_rinks[username]){
+          enterRinkDataMenu.innerHTML = '<i class="fa fa-globe white"></i>&nbsp;&nbsp;Enter Rink Data';
+          $("#enter_rink_data").click(function() {
+            window.open("https://arcg.is/0aruLi");
+          });
+        }else{
+          enterRinkDataMenu.innerHTML = '<i class="fa fa-globe white"></i>&nbsp;&nbsp;Create Rink';
+          $("#enter_rink_data").click(function() {
+            window.open("https://arcg.is/0v84nz");
+          });  
+        }
       }
     }); // END .run
 
@@ -105,13 +116,6 @@ function getData(){
       }
     }); // END query on readings_url
   }); // END promise_rinks
-
-  Object.size = function(obj) {
-    var size = 0, key;
-    for (key in obj) {
-        if (obj.hasOwnProperty(key)) size++;
-    }
-    return size;
 };
 
   promise_rinks.then(function(value) {
