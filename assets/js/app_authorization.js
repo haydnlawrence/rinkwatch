@@ -88,27 +88,13 @@
       set_cookie("firstname",firstname);
       set_cookie("email",email);
 
-console.log("-->" + check_for_rink)
-      L.esri.query({
-        url: rinks_url,
-      }).where('Creator="' + username + '"').run(function(error, feature_rinks){
-        check_for_rink = true;
-      });
-console.log("-->" + check_for_rink)
       authMenu.innerHTML = '<a href="#" id="sign-out"><i class="fa fa-list white"></i>&nbsp;&nbsp;Sign out</a>';
-      if(check_for_rink){
-        enterRinkDataMenu.innerHTML = '<i class="fa fa-globe white"></i>&nbsp;&nbsp;Enter Rink Data';
-        $("#enter_rink_data").click(function() {
-          window.open("https://arcg.is/0aruLi");
-        });
-      }else{
-        enterRinkDataMenu.innerHTML = '<i class="fa fa-globe white"></i>&nbsp;&nbsp;Create Rink';
-        $("#enter_rink_data").click(function() {
-          window.open("https://arcg.is/0v84nz");
-        });  
-      } 
+      enterRinkDataMenu.innerHTML = '<i class="fa fa-globe white"></i>&nbsp;&nbsp;Enter Rink Data';
+      $("#enter_rink_data").click(function() {
+        window.open("https://arcg.is/0aruLi");
+      });
       welcomeMessageMenu.innerHTML = 'Welcome ' + firstname + '.'; 
-console.log("hello2")
+
       $("#sign-out").click(function() {
         window.open('https://www.arcgis.com/sharing/oauth2/signout', '_blank', 'height=400,width=400,menubar=no,location=no,resizable=no,scrollbars=no,status=yes');
         delete_cookie("token");
