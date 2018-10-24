@@ -94,13 +94,13 @@
           window.open("https://arcg.is/0aruLi");
         });
       }else{
-        enterRinkDataMenu.innerHTML = '<i class="fa fa-globe white"></i>&nbsp;&nbsp;Enter Rink Data';
+        enterRinkDataMenu.innerHTML = '<i class="fa fa-globe white"></i>&nbsp;&nbsp;Create Rink';
         $("#enter_rink_data").click(function() {
           window.open("https://arcg.is/0v84nz");
         });        
       }
       welcomeMessageMenu.innerHTML = 'Welcome ' + firstname + '.'; 
-
+console.log("hello2")
       $("#sign-out").click(function() {
         window.open('https://www.arcgis.com/sharing/oauth2/signout', '_blank', 'height=400,width=400,menubar=no,location=no,resizable=no,scrollbars=no,status=yes');
         delete_cookie("token");
