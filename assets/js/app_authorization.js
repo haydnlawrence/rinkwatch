@@ -88,12 +88,13 @@
       set_cookie("firstname",firstname);
       set_cookie("email",email);
 
+console.log("-->" + check_for_rink)
       L.esri.query({
         url: rinks_url,
       }).where('Creator="' + username + '"').run(function(error, feature_rinks){
         check_for_rink = true;
       });
-
+console.log("-->" + check_for_rink)
       authMenu.innerHTML = '<a href="#" id="sign-out"><i class="fa fa-list white"></i>&nbsp;&nbsp;Sign out</a>';
       if(check_for_rink){
         enterRinkDataMenu.innerHTML = '<i class="fa fa-globe white"></i>&nbsp;&nbsp;Enter Rink Data';
