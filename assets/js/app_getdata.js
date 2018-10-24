@@ -63,7 +63,7 @@ function getData(){
             window.open("https://arcg.is/0v84nz");
           });  
         }
-      }
+      } 
     }); // END .run
 
     L.esri.query({
@@ -115,7 +115,6 @@ function getData(){
       }
     }); // END query on readings_url
   }); // END promise_rinks
-};
 
   promise_rinks.then(function(value) {
     console.log(all_rinks);
