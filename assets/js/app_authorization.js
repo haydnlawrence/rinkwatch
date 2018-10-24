@@ -9,6 +9,7 @@
   var authMenu = document.getElementById('auth');
   var enterRinkDataMenu = document.getElementById('enter_rink_data');
   var welcomeMessageMenu = document.getElementById('welcome_message');
+  var check_for_rink = false;
 
   var expire = new Date();
   expire.setTime(new Date() + 3600000*24*14); //two weeks same as ArcGIS Online token expiry
@@ -87,11 +88,24 @@
       set_cookie("firstname",firstname);
       set_cookie("email",email);
 
-      authMenu.innerHTML = '<a href="#" id="sign-out"><i class="fa fa-list white"></i>&nbsp;&nbsp;Sign out</a>';
-      enterRinkDataMenu.innerHTML = '<i class="fa fa-globe white"></i>&nbsp;&nbsp;Enter Rink Data';
-      $("#enter_rink_data").click(function() {
-        window.open("https://arcg.is/0aruLi");
+      L.esri.query({
+        url: rinks_url,
+      }).where('Creator="' + username + '"').run(function(error, feature_rinks){
+        check_for_rink = true;
       });
+
+      authMenu.innerHTML = '<a href="#" id="sign-out"><i class="fa fa-list white"></i>&nbsp;&nbsp;Sign out</a>';
+      if(check_for_rink){
+        enterRinkDataMenu.innerHTML = '<i class="fa fa-globe white"></i>&nbsp;&nbsp;Enter Rink Data';
+        $("#enter_rink_data").click(function() {
+          window.open("https://arcg.is/0aruLi");
+        });
+      }else{
+        enterRinkDataMenu.innerHTML = '<i class="fa fa-globe white"></i>&nbsp;&nbsp;Create Rink';
+        $("#enter_rink_data").click(function() {
+          window.open("https://arcg.is/0v84nz");
+        });  
+      } 
       welcomeMessageMenu.innerHTML = 'Welcome ' + firstname + '.'; 
 console.log("hello2")
       $("#sign-out").click(function() {

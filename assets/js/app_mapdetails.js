@@ -79,11 +79,6 @@ function setMapDetails(){
 
   var currentUser;
   var currentUser_latlng = [];  
-  
-    $("#enter_rink_data").innerHTML = '<i class="fa fa-globe white"></i>&nbsp;&nbsp;Create Rink';
-    $("#enter_rink_data").click(function() {
-      window.open("https://arcg.is/0v84nz");
-    });  
 
   Object.keys(all_rinks).forEach(function(rink){
   //for(var rink=0;rink<all_rinks.length;rink++){
