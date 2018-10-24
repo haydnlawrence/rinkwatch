@@ -117,7 +117,7 @@ function getData(){
     // Call map functions after queries are completed
     setMapDetails();
     setSideBar();    
-    setAuthorization();
+
   }); // END promise_readings.then
 
 } // END function getData()

@@ -14,4 +14,5 @@ var rinks_url = 'https://services1.arcgis.com/OAsihu89uae6w8NX/arcgis/rest/servi
 var readings_url = 'https://services1.arcgis.com/OAsihu89uae6w8NX/arcgis/rest/services/service_f8d1476ec5df4d349f953bd14a880be8/FeatureServer/0';
 var show_skateable_how_many_days_ago = 7;
 
+setAuthorization();
 getData();
