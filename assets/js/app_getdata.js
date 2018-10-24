@@ -51,7 +51,6 @@ function getData(){
         check_rinks = true;
       }
       
-      var enterRinkDataMenu = document.getElementById('enter_rink_data');
       if(username){
         if(all_rinks[username]){
           enterRinkDataMenu.innerHTML = '<i class="fa fa-globe white"></i>&nbsp;&nbsp;Enter Rink Data';

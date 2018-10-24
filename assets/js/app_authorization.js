@@ -8,6 +8,7 @@
 
   var authMenu = document.getElementById('auth');
   var welcomeMessageMenu = document.getElementById('welcome_message');
+  var enterRinkDataMenu = document.getElementById('enter_rink_data');
   var check_for_rink = false;
 
   var expire = new Date();
