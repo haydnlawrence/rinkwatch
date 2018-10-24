@@ -61,6 +61,7 @@ function getData(){
           enterRinkDataMenu.innerHTML = '<i class="fa fa-globe white"></i>&nbsp;&nbsp;Create Rink';
           $("#enter_rink_data").click(function() {
             window.open("https://arcg.is/1i9nWz");
+            enterRinkDataMenu.innerHTML = '<i class="fa fa-globe white"></i>&nbsp;&nbsp;Enter Rink Data';
           });  
         }
       } 
