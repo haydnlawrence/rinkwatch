@@ -55,12 +55,12 @@ function getData(){
         if(all_rinks[username]){
           enterRinkDataMenu.innerHTML = '<i class="fa fa-globe white"></i>&nbsp;&nbsp;Enter Rink Data';
           $("#enter_rink_data").click(function() {
-            window.open("https://arcg.is/0aruLi");
+            window.open("https://arcg.is/qiiXS");
           });
         }else{
           enterRinkDataMenu.innerHTML = '<i class="fa fa-globe white"></i>&nbsp;&nbsp;Create Rink';
           $("#enter_rink_data").click(function() {
-            window.open("https://arcg.is/0v84nz");
+            window.open("https://arcg.is/1i9nWz");
           });  
         }
       } 
