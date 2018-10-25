@@ -139,7 +139,7 @@ function setMapDetails(){
     attributionControl: false
   });
 
-console.log(currentUser_latlng + "**********");    
+  // THIS IS NOT CURRENTLY WORKING ...
   if(username!=''){
     map.setView(currentUser_latlng, 6, {animation: true});
   }
