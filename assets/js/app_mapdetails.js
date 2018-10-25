@@ -19,39 +19,6 @@ function setMapDetails(){
       iconSize: [15,15]
   }); 
 
-  // /* Basemap Layers */
-
-  // var CartoDB_DarkMatter = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png', {
-  //   attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
-  //   subdomains: 'abcd',
-  //   maxZoom: 19
-  // });
-
-  // var cartoLight = L.tileLayer("https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png", {
-  //   maxZoom: 19,
-  //   attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="https://cartodb.com/attributions">CartoDB</a>'
-  // });
-
-  // var usgsImagery = L.layerGroup([L.tileLayer("http://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryOnly/MapServer/tile/{z}/{y}/{x}", {
-  //   maxZoom: 15,
-  // }), L.tileLayer.wms("http://raster.nationalmap.gov/arcgis/services/Orthoimagery/USGS_EROS_Ortho_SCALE/ImageServer/WMSServer?", {
-  //   minZoom: 16,
-  //   maxZoom: 19,
-  //   layers: "0",
-  //   format: 'image/jpeg',
-  //   transparent: true,
-  //   attribution: "Aerial Imagery courtesy USGS"
-  // })]);
-
-  // /* Overlay Layers */
-  // var highlight = L.geoJson(null);
-  // var highlightStyle = {
-  //   stroke: false,
-  //   fillColor: "#00FFFF",
-  //   fillOpacity: 0.7,
-  //   radius: 10
-  // };
-
 //*****************************************************************************
 // all_rinks is the global array that will hold all information about rinks 
 // all_rinks[username][0] is the username of the creator of the rink
@@ -129,6 +96,7 @@ function setMapDetails(){
     // Check to see if the current rink belongs to the currently logged in user
     currentUser = rink_creator==username ? true : false;
     currentUser_latlng = [];
+
     if(currentUser){
       L.marker(rink_latlng, {icon: icon_owner}).bindPopup(popupContent).addTo(rinksLayer);
       currentUser_latlng = rink_latlng;
@@ -287,24 +255,5 @@ function setMapDetails(){
     var isCollapsed = false;
   }
 
-
-
-  // // Leaflet patch to make layer control scrollable on touch browsers
-  // var container = $(".leaflet-control-layers")[0];
-  // if (!L.Browser.touch) {
-  //   L.DomEvent
-  //   .disableClickPropagation(container)
-  //   .disableScrollPropagation(container);
-  // } else {
-  //   L.DomEvent.disableClickPropagation(container);
-  // }
 } // END function setMapProperties()
 
-      /* Single marker cluster layer to hold all clusters 
-var markerClusters = new L.MarkerClusterGroup({
-  spiderfyOnMaxZoom: true,
-  showCoverageOnHover: false,
-  zoomToBoundsOnClick: true,
-  disableClusteringAtZoom: 16
-});
-*/

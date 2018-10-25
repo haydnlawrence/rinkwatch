@@ -16,16 +16,6 @@ console.log("app_getdata.js");
 // all_readings[username][4] is an array of the reading ObjectIDs to create image links
 //*****************************************************************************
 
-function ObjectLength( object ) {
-    var length = 0;
-    for( var key in object ) {
-        if( object.hasOwnProperty(key) ) {
-            ++length;
-        }
-    }
-    return length;
-};
-
 function getData(){
 
   // This is to counter the asynchrosity of the queries when two are needed
