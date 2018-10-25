@@ -140,8 +140,7 @@ function setMapDetails(){
   });
 
 console.log(currentUser_latlng + "**********");    
-  if(currentUser){
-console.log(currentUser_latlng + "###########");    
+  if(username!=''){
     map.setView(currentUser_latlng, 6, {animation: true});
   }
 
