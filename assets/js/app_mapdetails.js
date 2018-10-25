@@ -107,7 +107,7 @@ function setMapDetails(){
 
       // Set up the pop for each rink
       var popupContent = L.Util.template(
-        'Creator: ' + rink_creator + ' <br />' + 
+        //'Creator: ' + rink_creator + ' <br />' + 
         'Rink: ' + rink_name + ' <br />' + 
         'Description: ' + rink_desc + ' <br />' + 
         'Last update: ' + last_reading_skateable + ' on ' + last_reading_date_formatted + ' <br />' + 
@@ -118,7 +118,7 @@ function setMapDetails(){
       // Set up the pop for each rink
       last_reading_date = new Date(now.getFullYear(), now.getMonth(), now.getDate() - (show_skateable_how_many_days_ago + 7));
       var popupContent = L.Util.template(
-        'Creator: ' + rink_creator + ' <br />' + 
+        //'Creator: ' + rink_creator + ' <br />' + 
         'Rink: ' + rink_name + ' <br />' + 
         'Description: ' + rink_desc + ' <br />' + 
         'No Updates Yet <br />' + 
