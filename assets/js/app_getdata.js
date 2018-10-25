@@ -79,7 +79,7 @@ function getData(){
 
     L.esri.query({
       url: readings_url,
-    }).run(function(error, feature_readings){
+    }).orderBy("Creator", "DESC").run(function(error, feature_readings){
 
       var reading_creator_last = '';
       var reading_creator = '';
@@ -101,7 +101,7 @@ function getData(){
           }
           if(reading_creator != reading_creator_last ){
             if(reading_creator_last != ''){
-              all_readings[reading_creator] = ([reading_creator_last, reading_date, reading_skateable, reading_conditions, reading_objectid]);
+              all_readings[reading_creator_last] = ([reading_creator_last, reading_date, reading_skateable, reading_conditions, reading_objectid]);
             }
             reading_creator_last = reading_creator
             reading_date = []; 
