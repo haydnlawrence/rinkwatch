@@ -91,8 +91,6 @@
       authMenu.innerHTML = '<a href="#" id="sign-out"><i class="fa fa-list white"></i>&nbsp;&nbsp;Sign out</a>';
       welcomeMessageMenu.innerHTML = 'Welcome ' + firstname + '.'; 
 
-      map.setView(currentUser_latlng, 7, {animation: true});
-
       $("#sign-out").click(function() {
         window.open('https://www.arcgis.com/sharing/oauth2/signout', '_blank', 'height=400,width=400,menubar=no,location=no,resizable=no,scrollbars=no,status=yes');
         delete_cookie("token");
