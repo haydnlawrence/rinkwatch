@@ -128,8 +128,8 @@ function getData(){
   }); // END promise_rinks
 
   promise_rinks.then(function(value) {
-    console.log("Rinks: " + ObjectLength(obj.all_rinks));
-    console.log("Readings: " + ObjectLength(obj.all_readings));
+    console.log("Rinks: " + ObjectLength(all_rinks));
+    console.log("Readings: " + ObjectLength(all_readings));
     console.log(all_rinks);
     console.log(all_readings);
 
