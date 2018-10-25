@@ -45,7 +45,6 @@ function setMapDetails(){
   var days_ago = new Date(now.getFullYear(), now.getMonth(), now.getDate() - show_skateable_how_many_days_ago);
 
   var currentUser;
-  var currentUser_latlng = [];  
 
   Object.keys(all_rinks).forEach(function(rink){
   //for(var rink=0;rink<all_rinks.length;rink++){
