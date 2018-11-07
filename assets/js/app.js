@@ -4,7 +4,8 @@ var map;
 var all_rinks = {};
 var all_readings = {};
 var heatmap = [];
-var filterDate = new Date();
+var filter_startdate = new Date(2012,1,1);
+var filter_enddate = new Date();
 
 // Create the data layers
 var rinksLayer = new L.featureGroup();
@@ -18,6 +19,8 @@ var show_skateable_how_many_days_ago = 7;
 var currentUser_latlng = [];  
 var currentUser;
 
+var Months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+$("#dateSlider").dateRangeSlider();
 function ObjectLength( object ) {
     var length = 0;
     for( var key in object ) {

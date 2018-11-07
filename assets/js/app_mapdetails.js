@@ -128,7 +128,6 @@ function setMapDetails(){
   var basemap_terrain_labels = L.esri.basemapLayer('TerrainLabels');
   var basemap_imagery = L.esri.basemapLayer('Imagery');
   var basemap_streets = L.esri.basemapLayer('Streets');
-console.log(heatmap);
   var heatLayer = L.heatLayer(heatmap);
 
   // Create and set the map
@@ -136,7 +135,7 @@ console.log(heatmap);
     zoom: 4,
     center: [45.767523,-87.978516],
     //layers: [usgsImagery, rinks_layer, markerClusters, highlight],
-    layers: [basemap_terrain, basemap_terrain_labels, rinksLayer, skateableLayer, notskateableLayer, heatLayer],
+    layers: [basemap_terrain, basemap_terrain_labels, rinksLayer, skateableLayer, notskateableLayer],
     zoomControl: false,
     attributionControl: false
   });

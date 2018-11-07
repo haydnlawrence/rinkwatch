@@ -67,9 +67,15 @@ function getData(){
       } 
     }); // END .run
 
+    var temp_startdate = filter_startdate.getFullYear() + '-' +  filter_startdate.getMonth() + '-' + filter_startdate.getDate();
+    var temp_enddate = filter_enddate.getFullYear() + '-' +  filter_enddate.getMonth() + '-' + filter_enddate.getDate();
+
+    console.log(temp_startdate)
+    console.log(temp_enddate)
+
     L.esri.query({
       url: readings_url,
-    }).orderBy("Creator", "DESC").orderBy("reading_date", "DESC").run(function(error, feature_readings){
+    }).where("reading_date >= '" + temp_startdate + "' and reading_date <= '" + temp_enddate + "'").orderBy("Creator", "DESC").orderBy("reading_date", "DESC").run(function(error, feature_readings){
 
       var reading_creator_last = '';
       var reading_creator = '';
