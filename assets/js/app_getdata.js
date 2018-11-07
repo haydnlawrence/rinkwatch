@@ -69,7 +69,7 @@ function getData(){
 
     L.esri.query({
       url: readings_url,
-    }).orderBy("Creator", "DESC").run(function(error, feature_readings){
+    }).orderBy("Creator", "DESC").orderBy("reading_date", "DESC").run(function(error, feature_readings){
 
       var reading_creator_last = '';
       var reading_creator = '';
@@ -82,13 +82,15 @@ function getData(){
         var reading_objectid = []; 
 
         $.each(feature_readings.features, function(i, reading) { 
-
           // This is purely for legacy data ported over from the old system
           if(reading.properties.Creator != 'colinr23'){
+          //if(reading.properties.username == '' | reading.properties.username != null){
             var reading_creator = reading.properties.Creator; 
           }else{
             var reading_creator = reading.properties.username; 
           }
+
+
           if(reading_creator != reading_creator_last ){
             if(reading_creator_last != ''){
               all_readings[reading_creator_last] = ([reading_creator_last, reading_date, reading_skateable, reading_conditions, reading_objectid]);

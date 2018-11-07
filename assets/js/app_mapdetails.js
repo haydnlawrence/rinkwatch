@@ -44,9 +44,6 @@ function setMapDetails(){
   var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
   var days_ago = new Date(now.getFullYear(), now.getMonth(), now.getDate() - show_skateable_how_many_days_ago);
 
-  var currentUser;
-  var currentUser_latlng = [];  
-
   Object.keys(all_rinks).forEach(function(rink){
   //for(var rink=0;rink<all_rinks.length;rink++){
     var rink_latlng, rink_oid, rink_name, rink_desc, rink_creator, last_reading_date, last_reading_data;
@@ -133,13 +130,10 @@ function setMapDetails(){
     zoom: 4,
     center: [45.767523,-87.978516],
     //layers: [usgsImagery, rinks_layer, markerClusters, highlight],
-    layers: [basemap_terrain, basemap_terrain_labels, rinksLayer, skateableLayer, notskateableLayer],
+    layers: [basemap_terrain, basemap_terrain_labels, skateableLayer, notskateableLayer],
     zoomControl: false,
     attributionControl: false
   });
-
-  // THIS IS NOT CURRENTLY WORKING ...
-console.log('latlng1: ' + currentUser_latlng)
 
   if(username!=''){
     map.setView(currentUser_latlng, 6, {animation: true});

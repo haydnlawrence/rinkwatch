@@ -14,7 +14,7 @@ var rinks_url = 'https://services1.arcgis.com/OAsihu89uae6w8NX/arcgis/rest/servi
 var readings_url = 'https://services1.arcgis.com/OAsihu89uae6w8NX/arcgis/rest/services/survey123_6ad07213ca2a41efb780aa534e44da66_stakeholder/FeatureServer/0';
 var show_skateable_how_many_days_ago = 7;
 var currentUser_latlng = [];  
-
+var currentUser;
 
 function ObjectLength( object ) {
     var length = 0;
