@@ -3,7 +3,7 @@ console.log("app.js");
 var map;
 var all_rinks = {};
 var all_readings = {};
-var heatmap = {};
+var heatmap = [];
 
 // Create the data layers
 var rinksLayer = new L.featureGroup();

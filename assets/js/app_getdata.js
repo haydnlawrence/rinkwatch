@@ -122,14 +122,12 @@ function getData(){
   promise_rinks.then(function(value) {
     // Call map functions after queries are completed
     setMapDetails();
-    setSideBar(); 
-    setHeatMap();   
+    //setSideBar(); 
 
     console.log("Rinks: " + ObjectLength(all_rinks));
     console.log("Readings: " + ObjectLength(all_readings));
     console.log(all_rinks);
     console.log(all_readings);
-    console.log(heatmap);
 
   }); // END promise_readings.then
 

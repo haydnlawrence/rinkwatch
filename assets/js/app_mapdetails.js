@@ -57,7 +57,8 @@ function setMapDetails(){
     // If there are any readings yet otherwise set the last_reading_date to longer so it does not look at it for skateable/not skateable
     if(all_readings[rink]){
 
-      heatmap[rink] = ([rink_latlng[0], rink_latlng[1], all_readings[rink][1].length]);
+      var heatmappoint = {"lat": rink_latlng[0], "lon": rink_latlng[1], "intensity": all_readings[rink][1].length};
+      heatmap.push(heatmappoint);
 
       // Get the most up to date reading
       last_reading_date = all_readings[rink][1][0];
@@ -127,13 +128,15 @@ function setMapDetails(){
   var basemap_terrain_labels = L.esri.basemapLayer('TerrainLabels');
   var basemap_imagery = L.esri.basemapLayer('Imagery');
   var basemap_streets = L.esri.basemapLayer('Streets');
+console.log(heatmap);
+  var heatLayer = L.heatLayer(heatmap);
 
   // Create and set the map
   map = L.map("map", {
     zoom: 4,
     center: [45.767523,-87.978516],
     //layers: [usgsImagery, rinks_layer, markerClusters, highlight],
-    layers: [basemap_terrain, basemap_terrain_labels, rinksLayer, skateableLayer, notskateableLayer],
+    layers: [basemap_terrain, basemap_terrain_labels, rinksLayer, skateableLayer, notskateableLayer, heatLayer],
     zoomControl: false,
     attributionControl: false
   });
@@ -153,7 +156,10 @@ function setMapDetails(){
       "<img src='assets/img/icon_rink_notskateable.png' width='24' height='28'>&nbsp;Not Skateable": notskateableLayer,
       "<img src='assets/img/icon_rink_skateable.png' width='24' height='28'>&nbsp;Skateable": skateableLayer,
       "<img src='assets/img/icon_rink_marker.png' width='24' height='28'>&nbsp;All Rinks": rinksLayer
-    }//,
+    },
+    "Utilities":{
+      "Heatmap": heatLayer
+    }
     //"Reference": {
     //  "Pacific Northwest": boroughs
     //}
