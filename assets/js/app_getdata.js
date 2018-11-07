@@ -55,12 +55,12 @@ function getData(){
         if(all_rinks[username]){
           enterRinkDataMenu.innerHTML = '<i class="fa fa-globe white"></i>&nbsp;&nbsp;Enter Rink Data';
           $("#enter_rink_data").click(function() {
-            window.open("https://arcg.is/qiiXS");
+            window.open("https://arcg.is/qiiXS", "Enter Readings", "height=600,width=400");
           });
         }else{
           enterRinkDataMenu.innerHTML = '<i class="fa fa-globe white"></i>&nbsp;&nbsp;Create Rink';
           $("#enter_rink_data").click(function() {
-            window.open("https://arcg.is/1i9nWz");
+            window.open("https://arcg.is/1i9nWz", "Enter Readings", "height=600,width=400");
             enterRinkDataMenu.innerHTML = '<i class="fa fa-globe white"></i>&nbsp;&nbsp;Enter Rink Data';
           });  
         }
