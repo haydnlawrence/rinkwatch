@@ -25,6 +25,6 @@ function ObjectLength( object ) {
     }
     return length;
 };
-document.getElementById("loader").style.display = "block";
+document.getElementById("page_loading").style.display = "block";
 getData();
-document.getElementById("loader").style.display = "none";
+document.getElementById("page_loading").style.display = "none";
