@@ -139,10 +139,10 @@ function setMapDetails(){
   });
 
   // THIS IS NOT CURRENTLY WORKING ...
-console.log('latlng: ' + currentUser_latlng)
+console.log('latlng1: ' + currentUser_latlng)
 
   if(username!=''){
-    map.setView([currentUser_latlng], 6, {animation: true});
+    map.setView(currentUser_latlng, 6, {animation: true});
   }
 
   var baseLayers = {
