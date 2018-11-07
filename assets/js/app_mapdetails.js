@@ -158,7 +158,7 @@ console.log(heatmap);
       "<img src='assets/img/icon_rink_marker.png' width='24' height='28'>&nbsp;All Rinks": rinksLayer
     },
     "Utilities":{
-      "Heatmap": heatLayer
+      "<img src='assets/img/icon_heatmap.jpg' width='24' height='28'>&nbsp;HeatMap": heatLayer
     }
     //"Reference": {
     //  "Pacific Northwest": boroughs
