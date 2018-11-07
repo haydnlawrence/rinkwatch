@@ -56,6 +56,9 @@ function setMapDetails(){
 
     // If there are any readings yet otherwise set the last_reading_date to longer so it does not look at it for skateable/not skateable
     if(all_readings[rink]){
+
+      heatmap[rink] = ([rink_latlng[0], rink_latlng[1], all_readings[rink][1].length]);
+
       // Get the most up to date reading
       last_reading_date = all_readings[rink][1][0];
       last_reading_data = all_readings[rink][2][0];
@@ -127,7 +130,7 @@ function setMapDetails(){
 
   // Create and set the map
   map = L.map("map", {
-    zoom: 6,
+    zoom: 4,
     center: [45.767523,-87.978516],
     //layers: [usgsImagery, rinks_layer, markerClusters, highlight],
     layers: [basemap_terrain, basemap_terrain_labels, rinksLayer, skateableLayer, notskateableLayer],

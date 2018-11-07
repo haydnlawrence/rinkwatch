@@ -120,14 +120,16 @@ function getData(){
   }); // END promise_rinks
 
   promise_rinks.then(function(value) {
+    // Call map functions after queries are completed
+    setMapDetails();
+    setSideBar(); 
+    setHeatMap();   
+
     console.log("Rinks: " + ObjectLength(all_rinks));
     console.log("Readings: " + ObjectLength(all_readings));
     console.log(all_rinks);
     console.log(all_readings);
-
-    // Call map functions after queries are completed
-    setMapDetails();
-    setSideBar();    
+    console.log(heatmap);
 
   }); // END promise_readings.then
 
