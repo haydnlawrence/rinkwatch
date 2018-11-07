@@ -53,20 +53,15 @@
       -->
           <ul class="nav navbar-nav">
             <li><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" id="about-btn"><i class="fa fa-question-circle white"></i>&nbsp;&nbsp;About</a></li>
+             	           
              <li class="dropdown">
-              <a id="toolsDrop" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-globe white"></i>&nbsp;&nbsp;Explore Data <b class="caret"></b></a>
+
+              <a id="toolsDrop" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-globe white"></i>&nbsp;&nbsp;Filter Data <b class="caret"></b></a>
               <ul class="dropdown-menu">
-                <li><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" id="showFilterRange"><i class="fa fa-tree"></i>&nbsp;&nbsp;Filter by date</a></li>
-
-                 
-
-            <!--
-                <li><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" id="epi-btn-2"><i class="fa fa-tree"></i>&nbsp;&nbsp;Heatmap</a></li>
-                <li><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" id="epi-btn-1"><i class="fa fa-tree"></i>&nbsp;&nbsp;Trends</a></li>
-                <li><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" id="epi-btn-3"><i class="fa fa-tree"></i>&nbsp;&nbsp;Forecast</a></li>
-            -->
+                <li><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" id="epi-btn-1">Start&nbsp;&nbsp;<input type="text" id="text_startdate" name="text_startdate"></a></li>
+				<li><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" id="epi-btn-2">End&nbsp;&nbsp;<input type="text" id="text_enddate" name="text_enddate"></a></li>
               </ul>
-            </li>
+           
 
             <li id="auth"><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" id="sign-in"><i class="fa fa-list white"></i></a></li>
             <li><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" id="enter_rink_data"></a></li>     
@@ -247,11 +242,11 @@
     <script src="assets/leaflet-groupedlayercontrol/leaflet.groupedlayercontrol.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OverlappingMarkerSpiderfier-Leaflet/0.2.6/oms.min.js"></script>
 
-	<link rel="stylesheet" href="assets/css/iThing-min.css" type="text/css" />
-
     <script src="assets/js/leaflet-heat.js"></script>
 	
-	<script src="assets/js/jQRangeSlider-5.7.2/jQDateRangeSlider-withRuler-min.js"></script>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
     <script src="assets/js/Leaflet.ResizableControl.js"></script>
     <script src="assets/js/app_authorization.js"></script>

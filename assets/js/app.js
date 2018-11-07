@@ -44,14 +44,13 @@ function ObjectLength( object ) {
     return length;
 };
 
-// $("#showFilterRange").click(function() {
-//         var x = document.getElementById("dateSlider");
-//     if (x.style.display === "none") {
-//         x.style.display = "block";
-//     } else {
-//         x.style.display = "none";
-//     }
-// });
+  $( function() {
+    $( "#text_startdate" ).datepicker();
+  } );
+
+  $( function() {
+    $( "#text_enddate" ).datepicker();
+  } );
 
 document.getElementById("page_loading").style.display = "block";
 getData();
