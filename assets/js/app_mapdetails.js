@@ -100,7 +100,6 @@ function setMapDetails(){
     if(currentUser){
       L.marker(rink_latlng, {icon: icon_owner}).bindPopup(popupContent).addTo(rinksLayer);
       currentUser_latlng = rink_latlng;
-console.log('latlng: ' + currentUser_latlng)
       if(last_reading_date > days_ago){
         if(last_reading_data==0){
           L.marker(rink_latlng, {icon: icon_notskateable}).bindPopup(popupContent).addTo(notskateableLayer);
@@ -141,8 +140,10 @@ console.log('latlng: ' + currentUser_latlng)
   });
 
   // THIS IS NOT CURRENTLY WORKING ...
+console.log('latlng: ' + currentUser_latlng)
+
   if(username!=''){
-    map.setView(currentUser_latlng, 6, {animation: true});
+    map.setView([currentUser_latlng], 6, {animation: true});
   }
 
   var baseLayers = {
