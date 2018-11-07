@@ -127,7 +127,7 @@ function setMapDetails(){
 
   // Create and set the map
   map = L.map("map", {
-    zoom: 5,
+    zoom: 6,
     center: [45.767523,-87.978516],
     //layers: [usgsImagery, rinks_layer, markerClusters, highlight],
     layers: [basemap_terrain, basemap_terrain_labels, rinksLayer, skateableLayer, notskateableLayer],

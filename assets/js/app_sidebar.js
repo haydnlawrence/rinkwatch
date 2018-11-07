@@ -114,11 +114,11 @@ function sidebarClick(id) {
     
   
   /* Update list.js featureList */
-  featureList = new List("features", {
-    valueNames: ["feature-name"]
-  });
-  featureList.sort("feature-name", {
-    order: "asc"
-  });
+  // featureList = new List("features", {
+  //   valueNames: ["feature-name"]
+  // });
+  // featureList.sort("feature-name", {
+  //   order: "asc"
+  // });
 
 } // END function setNavigationProperties()
