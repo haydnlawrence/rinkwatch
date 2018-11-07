@@ -140,6 +140,7 @@ function setMapDetails(){
   });
 
   // THIS IS NOT CURRENTLY WORKING ...
+  console.log('username: ' + username)
   if(username!=''){
     map.setView(currentUser_latlng, 6, {animation: true});
   }
