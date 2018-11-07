@@ -4,6 +4,7 @@ var map;
 var all_rinks = {};
 var all_readings = {};
 var heatmap = [];
+var filterDate = new Date();
 
 // Create the data layers
 var rinksLayer = new L.featureGroup();
