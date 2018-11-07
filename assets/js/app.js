@@ -25,5 +25,6 @@ function ObjectLength( object ) {
     }
     return length;
 };
-
+document.getElementById("loader").style.display = "block";
 getData();
+document.getElementById("loader").style.display = "none";

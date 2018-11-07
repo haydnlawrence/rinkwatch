@@ -95,7 +95,6 @@ function setMapDetails(){
 
     // Check to see if the current rink belongs to the currently logged in user
     currentUser = rink_creator==username ? true : false;
-    currentUser_latlng = [];
 
     if(currentUser){
       L.marker(rink_latlng, {icon: icon_owner}).bindPopup(popupContent).addTo(rinksLayer);
@@ -140,8 +139,6 @@ function setMapDetails(){
   });
 
   // THIS IS NOT CURRENTLY WORKING ...
-console.log('latlng: ' + currentUser_latlng)
-
   if(username!=''){
     map.setView([currentUser_latlng], 6, {animation: true});
   }
