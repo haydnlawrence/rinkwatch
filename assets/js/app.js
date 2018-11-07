@@ -19,8 +19,21 @@ var show_skateable_how_many_days_ago = 7;
 var currentUser_latlng = [];  
 var currentUser;
 
-var Months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-$("#dateSlider").dateRangeSlider();
+// var Months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+// $("#dateSlider").dateRangeSlider({
+// 	bounds: {min: filter_startdate, max: filter_enddate},
+// 	defaultValues: {min: filter_startdate, max: filter_enddate},
+// 	scales: [{
+// 		next: function(val){
+// 			var next = new Date(val);
+// 			return new Date(next.setMonth(next.getMonth() + 1));
+// 		},
+// 			label: function(val){
+// 			return Months[val.getMonth()];
+// 		}
+// 	}]
+// })
+
 function ObjectLength( object ) {
     var length = 0;
     for( var key in object ) {
@@ -30,6 +43,16 @@ function ObjectLength( object ) {
     }
     return length;
 };
+
+// $("#showFilterRange").click(function() {
+//         var x = document.getElementById("dateSlider");
+//     if (x.style.display === "none") {
+//         x.style.display = "block";
+//     } else {
+//         x.style.display = "none";
+//     }
+// });
+
 document.getElementById("page_loading").style.display = "block";
 getData();
 document.getElementById("page_loading").style.display = "none";
