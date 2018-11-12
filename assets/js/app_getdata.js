@@ -17,12 +17,12 @@ console.log("app_getdata.js");
 //*****************************************************************************
 
 function getData(){
-
   // This is to counter the asynchrosity of the queries when two are needed
   // Get all the rinks and readings with "username", which is a unique identifier and create one array 
   // Get rinks --> then get readings --> then put them together and finish loading code
   var check_rinks = false;
   var check_readings = false;
+  var countreadings=0;
 
   var promise_rinks = new Promise(function(resolve, reject) {
     L.esri.query({
@@ -67,16 +67,12 @@ function getData(){
       } 
     }); // END .run
 
-    var temp_startdate = filter_startdate.getFullYear() + '-' +  filter_startdate.getMonth() + '-' + filter_startdate.getDate();
-    var temp_enddate = filter_enddate.getFullYear() + '-' +  filter_enddate.getMonth() + '-' + filter_enddate.getDate();
-
-    console.log(temp_startdate)
-    console.log(temp_enddate)
+    var temp_startdate = filter_startdate.getFullYear() + '-' +  (filter_startdate.getMonth()+1) + '-' + filter_startdate.getDate();
+    var temp_enddate = filter_enddate.getFullYear() + '-' +  (filter_enddate.getMonth()+1) + '-' + filter_enddate.getDate();
 
     L.esri.query({
       url: readings_url,
     }).where("reading_date >= '" + temp_startdate + "' and reading_date <= '" + temp_enddate + "'").orderBy("Creator", "DESC").orderBy("reading_date", "DESC").run(function(error, feature_readings){
-
       var reading_creator_last = '';
       var reading_creator = '';
 
@@ -88,6 +84,7 @@ function getData(){
         var reading_objectid = []; 
 
         $.each(feature_readings.features, function(i, reading) { 
+          countreadings++;
           // This is purely for legacy data ported over from the old system
           if(reading.properties.Creator != 'colinr23'){
           //if(reading.properties.username == '' | reading.properties.username != null){
@@ -131,7 +128,7 @@ function getData(){
     //setSideBar(); 
 
     console.log("Rinks: " + ObjectLength(all_rinks));
-    console.log("Readings: " + ObjectLength(all_readings));
+    console.log("Readings: " + countreadings);
     console.log(all_rinks);
     console.log(all_readings);
 

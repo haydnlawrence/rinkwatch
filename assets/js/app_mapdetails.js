@@ -57,7 +57,7 @@ function setMapDetails(){
     // If there are any readings yet otherwise set the last_reading_date to longer so it does not look at it for skateable/not skateable
     if(all_readings[rink]){
 
-      var heatmappoint = {"lat": rink_latlng[0], "lon": rink_latlng[1], "intensity": all_readings[rink][1].length};
+      var heatmappoint = {"lat": rink_latlng[0], "lon": rink_latlng[1], "intensity": 1};//"intensity": all_readings[rink][1].length};
       heatmap.push(heatmappoint);
 
       // Get the most up to date reading
@@ -128,7 +128,7 @@ function setMapDetails(){
   var basemap_terrain_labels = L.esri.basemapLayer('TerrainLabels');
   var basemap_imagery = L.esri.basemapLayer('Imagery');
   var basemap_streets = L.esri.basemapLayer('Streets');
-  var heatLayer = L.heatLayer(heatmap);
+  var heatLayer = L.heatLayer(heatmap, {radius: 35});
 
   // Create and set the map
   map = L.map("map", {

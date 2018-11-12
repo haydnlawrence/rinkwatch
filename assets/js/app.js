@@ -4,8 +4,18 @@ var map;
 var all_rinks = {};
 var all_readings = {};
 var heatmap = [];
-var filter_startdate = new Date(2012,1,1);
-var filter_enddate = new Date();
+
+var url = new URL(window.location.href);
+var temp_start = url.searchParams.get("start");
+var temp_end = url.searchParams.get("end");
+
+if(temp_start){
+	var filter_startdate = new Date(temp_start);
+	var filter_enddate = new Date(temp_end);
+}else{
+	var filter_startdate = new Date(2012,1,1);
+	var filter_enddate = new Date();
+}
 
 // Create the data layers
 var rinksLayer = new L.featureGroup();
@@ -20,21 +30,7 @@ var currentUser_latlng = [];
 var currentUser;
 var language = "en";
 
-// var Months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-// $("#dateSlider").dateRangeSlider({
-// 	bounds: {min: filter_startdate, max: filter_enddate},
-// 	defaultValues: {min: filter_startdate, max: filter_enddate},
-// 	scales: [{
-// 		next: function(val){
-// 			var next = new Date(val);
-// 			return new Date(next.setMonth(next.getMonth() + 1));
-// 		},
-// 			label: function(val){
-// 			return Months[val.getMonth()];
-// 		}
-// 	}]
-// })
-
+// This function is purely for bug testing on objects
 function ObjectLength( object ) {
     var length = 0;
     for( var key in object ) {
@@ -45,9 +41,16 @@ function ObjectLength( object ) {
     return length;
 };
 
-$( function() {
-	$( "#text_enddate" ).datepicker();
-	$( "#text_startdate" ).datepicker();
+$(window).load(function(){
+	$("#text_enddate").datepicker({
+		defaultDate: filter_enddate,
+	});
+	$("#text_startdate").datepicker({
+		defaultDate: filter_startdate,
+	});
+	$("#text_enddate").val(filter_enddate);
+	$("#text_startdate").val(filter_startdate);
+
 	var referrer = document.referrer;
 	if(referrer.indexOf("_fr")>=0){
 		language = "fr";
@@ -56,13 +59,14 @@ $( function() {
 		language = "en";
 		$("#top_logo_link").attr("href", "https://www.rinkwatch.org/index.html");
 	}
-
 });
 
-$("#sign-in").click(function() {
-	oauth();
+$("#button_filter").click(function() {
+	var temp_start = new Date($("#text_startdate").val());
+	var temp_end = new Date($("#text_enddate").val());
+	var url_start = temp_start.getFullYear() + '/' +  (temp_start.getMonth()+1) + '/' + temp_start.getDate();
+	var url_end = temp_end.getFullYear() + '/' +  (temp_end.getMonth()+1) + '/' + temp_end.getDate();
+	window.location.href = document.referrer + "?start=" + url_start + "&end=" + url_end;
 });
 
-document.getElementById("page_loading").style.display = "block";
 getData();
-document.getElementById("page_loading").style.display = "none";
