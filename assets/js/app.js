@@ -18,6 +18,7 @@ var readings_url = 'https://services1.arcgis.com/OAsihu89uae6w8NX/arcgis/rest/se
 var show_skateable_how_many_days_ago = 7;
 var currentUser_latlng = [];  
 var currentUser;
+var language = "en";
 
 // var Months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 // $("#dateSlider").dateRangeSlider({
@@ -44,13 +45,23 @@ function ObjectLength( object ) {
     return length;
 };
 
-  $( function() {
-    $( "#text_startdate" ).datepicker();
-  } );
+$( function() {
+	$( "#text_enddate" ).datepicker();
+	$( "#text_startdate" ).datepicker();
+	var referrer = document.referrer;
+	if(referrer.indexOf("_fr")>=0){
+		language = "fr";
+		$("#top_logo_link").attr("href", "https://www.rinkwatch.org/index_fr.html");
+	}else{
+		language = "en";
+		$("#top_logo_link").attr("href", "https://www.rinkwatch.org/index.html");
+	}
 
-  $( function() {
-    $( "#text_enddate" ).datepicker();
-  } );
+});
+
+$("#top_logo_link").click(function() {
+	oauth();
+});
 
 document.getElementById("page_loading").style.display = "block";
 getData();
