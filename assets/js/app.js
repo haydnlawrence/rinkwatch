@@ -59,7 +59,7 @@ $( function() {
 
 });
 
-$("#top_logo_link").click(function() {
+$("#sign-in").click(function() {
 	oauth();
 });
 
