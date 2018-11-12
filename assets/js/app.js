@@ -61,6 +61,15 @@ $(window).load(function(){
 	}
 });
 
+
+$("#about-btn").click(function(){
+	if(language=="fr"){
+    	window.open('https://www.rinkwatch.org/about_fr.html', '_blank', 'height=600,width=800,menubar=no,location=yes,resizable=yes,scrollbars=yes,status=yes');
+	}else{
+		window.open('https://www.rinkwatch.org/about.html', '_blank', 'height=600,width=800,menubar=no,location=yes,resizable=yes,scrollbars=yes,status=yes');
+	}
+});
+
 $("#button_filter").click(function() {
 	var temp_start = new Date($("#text_startdate").val());
 	var temp_end = new Date($("#text_enddate").val());
